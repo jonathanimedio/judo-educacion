@@ -16,7 +16,7 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     
-    <!-- 🟢 SDK DE SUPABASE PARA LA WEB -->
+    <!-- SDK DE SUPABASE -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
@@ -32,16 +32,26 @@
         <div class="flex items-center gap-3">
           <img src="https://i.postimg.cc/0NcKbQ12/Firma.png" alt="Judo Educación Logo" class="h-10 md:h-12 w-auto object-contain" />
         </div>
-        <div class="bg-[#FAF5EE] border border-[#EED7C1] px-4 py-2 rounded-2xl flex items-center gap-3 shadow-2xs">
-          <span class="text-xl">🐼</span>
-          <div>
-            <span class="text-[10px] uppercase tracking-wider font-bold text-amber-800 block">Nivel</span>
-            <span class="text-xs font-bold text-slate-800">⚪ Principiante</span>
+        
+        <div class="flex items-center gap-4">
+          <div class="bg-[#FAF5EE] border border-[#EED7C1] px-4 py-2 rounded-2xl hidden sm:flex items-center gap-3 shadow-2xs">
+            <span class="text-xl">🐼</span>
+            <div>
+              <span class="text-[10px] uppercase tracking-wider font-bold text-amber-800 block">Nivel</span>
+              <span id="user-level" class="text-xs font-bold text-slate-800">⚪ Principiante</span>
+            </div>
+            <div class="h-6 w-[1px] bg-amber-200"></div>
+            <div>
+              <span class="text-[10px] uppercase tracking-wider font-bold text-blue-700 block">XP</span>
+              <span id="user-xp" class="text-xs font-bold text-blue-900">0 XP</span>
+            </div>
           </div>
-          <div class="h-6 w-[1px] bg-amber-200"></div>
-          <div>
-            <span class="text-[10px] uppercase tracking-wider font-bold text-blue-700 block">XP</span>
-            <span id="user-xp" class="text-xs font-bold text-blue-900">0 XP</span>
+
+          <!-- Botón Dinámico de Autenticación -->
+          <div id="auth-container">
+            <button onclick="abrirModalAuth()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition cursor-pointer shadow-sm">
+              Acceder / Registro
+            </button>
           </div>
         </div>
       </div>
@@ -53,7 +63,6 @@
         <button class="flex items-center gap-2 py-4 px-1 border-b-2 border-slate-900 text-slate-900 font-semibold text-sm"><span>🏠</span> Inicio</button>
         <button class="flex items-center gap-2 py-4 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium text-sm"><span>👥</span> Comunidad</button>
         <button class="flex items-center gap-2 py-4 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium text-sm"><span>📚</span> Recursos</button>
-        <button class="flex items-center gap-2 py-4 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium text-sm"><span>➕</span> Crear</button>
         <button class="flex items-center gap-2 py-4 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium text-sm"><span>🏆</span> Retos</button>
       </div>
     </nav>
@@ -70,7 +79,9 @@
             <p class="text-slate-300 text-sm md:text-base max-w-xl">Comparte juegos, clases y técnicas para transformar la enseñanza del judo.</p>
           </div>
           <div class="relative z-10 flex gap-4">
-            <button class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-3 rounded-2xl text-sm transition cursor-pointer">➕ Compartir Recurso</button>
+            <button onclick="verificarYMostrarModalRecurso()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-3 rounded-2xl text-sm transition cursor-pointer shadow-lg">
+              ➕ Compartir un Recurso
+            </button>
           </div>
         </div>
 
@@ -78,12 +89,13 @@
         <div class="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-xs">
           <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
             <h3 class="font-bold text-slate-900 text-lg font-heading flex items-center gap-2"><span>👥</span> Actividad de la Comunidad</h3>
-            <span class="text-xs bg-emerald-50 text-emerald-700 font-semibold px-3 py-1 rounded-full border border-emerald-100">● Conectado a Supabase</span>
+            <span class="text-xs bg-emerald-50 text-emerald-700 font-semibold px-3 py-1 rounded-full border border-emerald-100 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> En vivo (Supabase)
+            </span>
           </div>
 
-          <!-- Aquí el JavaScript inyectará la actividad real -->
           <div id="dynamic-feed-container" class="space-y-4">
-            <p class="text-sm text-slate-400 text-center py-6">Cargando actividad reciente de la comunidad...</p>
+            <p class="text-sm text-slate-400 text-center py-6">Cargando actividad reciente...</p>
           </div>
         </div>
       </div>
@@ -94,7 +106,7 @@
           <h3 class="font-bold text-slate-900 text-base font-heading mb-4 flex items-center gap-2"><span>🎯</span> Reto de la Semana</h3>
           <div class="bg-[#FAF5EE] p-5 rounded-2xl border border-[#EED7C1]">
             <span class="text-xs font-bold text-amber-900 bg-amber-100 px-3 py-1 rounded-full">Semana del Ukemi</span>
-            <h4 class="font-bold text-sm text-slate-900 mt-3 font-heading">Publica 2 recursos relacionados con caídas y seguridad</h4>
+            <h4 class="font-bold text-sm text-slate-900 mt-3 font-heading">Publica un recurso de caídas y seguridad</h4>
             <div class="w-full bg-amber-200/60 rounded-full h-2.5 mt-4 overflow-hidden">
               <div class="bg-amber-600 h-2.5 rounded-full w-1/2"></div>
             </div>
@@ -104,82 +116,228 @@
 
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-white border-t border-slate-200/80 py-8 text-center text-xs text-slate-500 mt-auto">
-      <p>© 2026 Judo Educación — Comunidad de maestros de judo.</p>
-    </footer>
+    <!-- MODAL DE AUTENTICACIÓN (LOGIN / REGISTRO) -->
+    <div id="auth-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+      <div class="bg-white rounded-3xl max-w-md w-full p-6 md:p-8 shadow-2xl space-y-6 relative border border-slate-100">
+        <button onclick="cerrarModalAuth()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-900 font-bold text-lg">✕</button>
+        <div>
+          <h3 class="text-xl font-bold font-heading text-slate-900">Acceso Maestros</h3>
+          <p class="text-xs text-slate-500 mt-1">Identifícate para compartir recursos y sumar XP en la comunidad.</p>
+        </div>
+        <form id="form-login" onsubmit="manejarLogin(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Correo Electrónico</label>
+            <input type="email" id="login-email" required class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500" placeholder="maestro@judoclub.com">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Contraseña</label>
+            <input type="password" id="login-password" required class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500" placeholder="••••••••">
+          </div>
+          <button type="submit" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-xl text-sm transition shadow-md cursor-pointer">
+            Entrar / Registrarse
+          </button>
+        </form>
+      </div>
+    </div>
 
-    <!-- 🟢 SCRIPT DE CONEXIÓN DINÁMICA CON SUPABASE -->
+    <!-- MODAL DE CREAR RECURSO -->
+    <div id="resource-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+      <div class="bg-white rounded-3xl max-w-lg w-full p-6 md:p-8 shadow-2xl space-y-6 relative border border-slate-100">
+        <button onclick="cerrarModalRecurso()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-900 font-bold text-lg">✕</button>
+        <div>
+          <h3 class="text-xl font-bold font-heading text-slate-900">Compartir Recurso en el Tatami</h3>
+          <p class="text-xs text-slate-500 mt-1">Aporta una ficha, juego o ejercicio para los demás maestros.</p>
+        </div>
+        <form id="form-resource" onsubmit="publicarRecurso(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Título del Recurso</label>
+            <input type="text" id="res-title" required class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500" placeholder="Ej: Juegos de suelo para infantiles">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Categoría</label>
+            <select id="res-category" class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500">
+              <option value="Iniciación">Iniciación / Infantil</option>
+              <option value="Técnica Nage-waza">Técnica (Nage-waza)</option>
+              <option value="Técnica Ne-waza">Técnica (Ne-waza)</option>
+              <option value="Preparación Física">Preparación Física</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Descripción corta</label>
+            <textarea id="res-desc" rows="3" required class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500" placeholder="Explica brevemente en qué consiste la actividad..."></textarea>
+          </div>
+          <button type="submit" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-xl text-sm transition shadow-md cursor-pointer">
+            Publicar en la Comunidad (+50 XP)
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- SCRIPT LOGICA SUPABASE Y UI -->
     <script>
-      // 1. Configura aquí tus datos de Supabase (Cámbialos por los tuyos del Paso 2)
       const SUPABASE_URL = 'https://gncpzdpqqnqvlskuxmvh.supabase.co/rest/v1/';
       const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImduY3B6ZHBxcW5xdmxza3V4bXZoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk1NTg4MDAsImV4cCI6MjEwNTEzNDgwMH0.JhVOo-LokeFoxvNKWzu9D_2UR1w_MIdXh-wPbbjmf7Q';
 
       const { createClient } = window.supabase;
       const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-      // 2. Función para cargar los datos reales de la base de datos
-      async function cargarActividad() {
-        const container = document.getElementById('dynamic-feed-container');
+      let usuarioActual = null;
 
-        try {
-          // Consultamos la tabla 'community_activity' unida con 'profiles'
-          const { data, error } = await supabase
-            .from('community_activity')
-            .select(`
-              id,
-              activity_type,
-              payload,
-              created_at,
-              profiles (full_name, club, avatar_url)
-            `)
-            .order('created_at', { ascending: false })
-            .limit(10);
+      // 1. Cargar estado de sesión al iniciar
+      async function verificarSesion() {
+        const { data: { session } } = await supabase.auth.getSession();
+        usuarioActual = session ? session.user : null;
+        actualizarUIUsuario();
+        cargarActividad();
+      }
 
-          if (error) throw error;
-
-          if (!data || data.length === 0) {
-            container.innerHTML = `<p class="text-sm text-slate-500 text-center py-6">Todavía no hay actividad registrada. ¡Sé el primero en compartir un recurso!</p>`;
-            return;
-          }
-
-          // Pintamos los datos reales en el HTML
-          container.innerHTML = data.map(item => {
-            const perfil = item.profiles || { full_name: 'Maestro Anónimo', club: 'Club de Judo', avatar_url: '' };
-            const iniciales = perfil.full_name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-            
-            let textoActividad = 'ha realizado una contribución en la comunidad.';
-            if (item.activity_type === 'publish_resource') {
-              textoActividad = `ha publicado un nuevo recurso: <strong class="text-slate-900 font-semibold">${item.payload?.title || 'Sin título'}</strong>`;
-            } else if (item.activity_type === 'badge_earned') {
-              textoActividad = `ha desbloqueado una nueva insignia en su camino como maestro.`;
-            }
-
-            return `
-              <div class="p-4 rounded-2xl bg-[#F8F9FA] border border-slate-100 flex items-start gap-4">
-                <div class="w-11 h-11 rounded-2xl bg-blue-100 text-blue-800 font-bold flex items-center justify-center shrink-0 shadow-inner">
-                  ${perfil.avatar_url ? `<img src="${perfil.avatar_url}" class="w-full h-full rounded-2xl object-cover" />` : iniciales}
-                </div>
-                <div class="flex-1">
-                  <div class="flex items-center justify-between">
-                    <span class="font-bold text-slate-900 text-sm font-heading">${perfil.full_name}</span>
-                    <span class="text-xs text-slate-400">${new Date(item.created_at).toLocaleDateString()}</span>
-                  </div>
-                  <span class="text-[11px] text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full inline-block mt-1 mb-1.5 font-semibold">${perfil.club || 'Club de Judo'}</span>
-                  <p class="text-sm text-slate-700">${textoActividad}</p>
-                </div>
-              </div>
-            `;
-          }).join('');
-
-        } catch (err) {
-          console.error('Error al conectar con Supabase:', err);
-          container.innerHTML = `<p class="text-sm text-red-500 text-center py-6">Error al cargar los datos dinámicos. Verifica tus credenciales de Supabase.</p>`;
+      function actualizarUIUsuario() {
+        const authContainer = document.getElementById('auth-container');
+        if (usuarioActual) {
+          authContainer.innerHTML = `
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-bold text-slate-700 hidden md:inline">${usuarioActual.email}</span>
+              <button onclick="cerrarSesion()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-3 py-2 rounded-xl transition">Salir</button>
+            </div>
+          `;
+        } else {
+          authContainer.innerHTML = `
+            <button onclick="abrirModalAuth()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition cursor-pointer shadow-sm">
+              Acceder / Registro
+            </button>
+          `;
         }
       }
 
-      // Ejecutar al cargar la página
-      cargarActividad();
+      // 2. Modales controladores
+      function abrirModalAuth() { document.getElementById('auth-modal').classList.remove('hidden'); }
+      function cerrarModalAuth() { document.getElementById('auth-modal').classList.add('hidden'); }
+      function abrirModalRecurso() { document.getElementById('resource-modal').classList.remove('hidden'); }
+      function cerrarModalRecurso() { document.getElementById('resource-modal').classList.add('hidden'); }
+
+      function verificarYMostrarModalRecurso() {
+        if (!usuarioActual) {
+          alert('Debes iniciar sesión para compartir recursos.');
+          abrirModalAuth();
+        } else {
+          abrirModalRecurso();
+        }
+      }
+
+      // 3. Login / Registro con Supabase Auth
+      async function manejarLogin(e) {
+        e.preventDefault();
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+
+        // Intentar iniciar sesión
+        let { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        
+        // Si no existe, lo registramos automáticamente
+        if (error) {
+          let signUpRes = await supabase.auth.signUp({ 
+            email, 
+            password,
+            options: { data: { full_name: email.split('@')[0], club: 'Club de Judo' } }
+          });
+          if (signUpRes.error) {
+            alert('Error: ' + signUpRes.error.message);
+            return;
+          }
+          alert('¡Cuenta creada con éxito! Revisa tu correo si pide confirmación, o ya puedes operar.');
+        }
+
+        cerrarModalAuth();
+        verificarSesion();
+      }
+
+      async function cerrarSesion() {
+        await supabase.auth.signOut();
+        usuarioActual = null;
+        actualizarUIUsuario();
+      }
+
+      // 4. Publicar Recurso y generar Actividad en el Feed
+      async function publicarRecurso(e) {
+        e.preventDefault();
+        if (!usuarioActual) return;
+
+        const title = document.getElementById('res-title').value;
+        const category = document.getElementById('res-category').value;
+        const description = document.getElementById('res-desc').value;
+
+        // Insertar en tabla resources
+        const { data: resData, error: resError } = await supabase
+          .from('resources')
+          .insert([{ title, category, description, user_id: usuarioActual.id }])
+          .select();
+
+        if (resError) {
+          alert('Error al publicar: ' + resError.message);
+          return;
+        }
+
+        // Registrar actividad en el feed en vivo
+        await supabase.from('community_activity').insert([{
+          user_id: usuarioActual.id,
+          activity_type: 'publish_resource',
+          payload: { title, category }
+        }]);
+
+        cerrarModalRecurso();
+        document.getElementById('form-resource').reset();
+        alert('¡Recurso publicado con éxito en la comunidad!');
+        cargarActividad();
+      }
+
+      // 5. Cargar Feed de Actividad desde Supabase
+      async function cargarActividad() {
+        const container = document.getElementById('dynamic-feed-container');
+
+        const { data, error } = await supabase
+          .from('community_activity')
+          .select(`
+            id,
+            activity_type,
+            payload,
+            created_at,
+            profiles (full_name, club, avatar_url)
+          `)
+          .order('created_at', { ascending: false })
+          .limit(10);
+
+        if (error || !data || data.length === 0) {
+          container.innerHTML = `<p class="text-sm text-slate-400 text-center py-6">Todavía no hay actividad registrada. ¡Sé el primero en compartir un recurso!</p>`;
+          return;
+        }
+
+        container.innerHTML = data.map(item => {
+          const perfil = item.profiles || { full_name: 'Maestro', club: 'Club de Judo' };
+          const iniciales = (perfil.full_name || 'M').split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+          const texto = item.activity_type === 'publish_resource' 
+            ? `ha publicado un nuevo recurso: <strong class="text-slate-900 font-semibold">${item.payload?.title || 'Actividad'}</strong>`
+            : `se ha unido a la comunidad de maestros.`;
+
+          return `
+            <div class="p-4 rounded-2xl bg-[#F8F9FA] border border-slate-100 flex items-start gap-4">
+              <div class="w-11 h-11 rounded-2xl bg-amber-100 text-amber-900 font-bold flex items-center justify-center shrink-0 shadow-inner">
+                ${iniciales}
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-slate-900 text-sm font-heading">${perfil.full_name}</span>
+                  <span class="text-xs text-slate-400">${new Date(item.created_at).toLocaleDateString()}</span>
+                </div>
+                <span class="text-[11px] text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full inline-block mt-1 mb-1.5 font-semibold">${perfil.club || 'Club de Judo'}</span>
+                <p class="text-sm text-slate-700">${texto}</p>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Inicializar al cargar la página
+      verificarSesion();
     </script>
   </body>
 </html>
