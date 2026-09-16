@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Juego | Judo Educación</title>
+    <meta
+        name="description"
+        content="Recursos y juegos para la enseñanza del Judo infantil."
+    >
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7f4ee;
+            color: #171717;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1100px, calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e1da;
+        }
+
+        .header-inner {
+            min-height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .back-link {
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+        }
+
+        .back-link:hover {
+            color: #a31217;
+        }
+
+        /* MAIN */
+
+        main {
+            padding: 50px 0 80px;
+        }
+
+        .loading,
+        .error {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 40px;
+            text-align: center;
+            border: 1px solid #e5e1da;
+        }
+
+        .error {
+            color: #a31217;
+        }
+
+        /* HERO */
+
+        .resource-header {
+            margin-bottom: 35px;
+        }
+
+        .resource-type {
+            display: inline-block;
+            background: #a31217;
+            color: #ffffff;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 14px;
+        }
+
+        .resource-header h1 {
+            font-size: clamp(34px, 6vw, 58px);
+            line-height: 1.05;
+            letter-spacing: -1.5px;
+            margin-bottom: 18px;
+        }
+
+        .resource-description {
+            max-width: 760px;
+            font-size: 19px;
+            color: #555;
+        }
+
+        /* QUICK INFO */
+
+        .quick-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 45px;
+        }
+
+        .info-card {
+            background: #ffffff;
+            border: 1px solid #e5e1da;
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .info-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        /* CONTENT */
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 300px;
+            gap: 35px;
+            align-items: start;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .section {
+            background: #ffffff;
+            border: 1px solid #e5e1da;
+            border-radius: 18px;
+            padding: 28px;
+        }
+
+        .section h2 {
+            font-size: 23px;
+            margin-bottom: 20px;
+            letter-spacing: -0.4px;
+        }
+
+        .section h3 {
+            font-size: 16px;
+            margin-bottom: 7px;
+        }
+
+        .text-block {
+            color: #444;
+            white-space: pre-line;
+        }
+
+        .subsection {
+            margin-bottom: 22px;
+        }
+
+        .subsection:last-child {
+            margin-bottom: 0;
+        }
+
+        /* TAGS */
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: #f1eee8;
+            color: #444;
+            padding: 7px 11px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: sticky;
+            top: 20px;
+        }
+
+        .sidebar-card {
+            background: #ffffff;
+            border: 1px solid #e5e1da;
+            border-radius: 18px;
+            padding: 24px;
+        }
+
+        .sidebar-card h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        /* RATING */
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .stars {
+            color: #b68b2d;
+            font-size: 21px;
+            letter-spacing: 1px;
+        }
+
+        .rating-number {
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        /* MEDIA */
+
+        .media-image {
+            width: 100%;
+            border-radius: 14px;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .resource-button {
+            display: block;
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 10px;
+            background: #171717;
+            color: #ffffff;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+            margin-top: 10px;
+            transition: 0.2s ease;
+        }
+
+        .resource-button:hover {
+            background: #a31217;
+        }
+
+        /* SOURCE */
+
+        .source-item {
+            margin-bottom: 15px;
+        }
+
+        .source-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .source-label {
+            font-size: 12px;
+            color: #888;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 3px;
+        }
+
+        .source-value {
+            font-size: 14px;
+            color: #444;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #171717;
+            color: #ffffff;
+            padding: 35px 0;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            font-size: 13px;
+            color: #aaa;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 800px) {
+            .quick-info {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .container {
+                width: min(100% - 24px, 1100px);
+            }
+
+            main {
+                padding: 30px 0 60px;
+            }
+
+            .quick-info {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 22px;
+            }
+
+            .resource-header h1 {
+                font-size: 38px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="container header-inner">
+        <a href="index.html" class="logo">
+            JUDO EDUCACIÓN
+        </a>
+
+        <a href="index.html" class="back-link">
+            ← Volver a recursos
+        </a>
+    </div>
+</header>
+
+
+<main>
+    <div class="container">
+
+        <div id="loading" class="loading">
+            Cargando juego...
+        </div>
+
+        <div id="error" class="error" style="display: none;"></div>
+
+        <div id="gameContent" style="display: none;">
+
+            <!-- CABECERA -->
+
+            <section class="resource-header">
+
+                <div id="resourceType" class="resource-type">
+                    Juego
+                </div>
+
+                <h1 id="title"></h1>
+
+                <p id="description" class="resource-description"></p>
+
+            </section>
+
+
+            <!-- INFORMACIÓN RÁPIDA -->
+
+            <section id="quickInfo" class="quick-info"></section>
+
+
+            <!-- CONTENIDO -->
+
+            <div class="content-grid">
+
+                <div class="main-content">
+
+                    <!-- QUÉ TRABAJAMOS -->
+
+                    <section id="objectivesSection" class="section" style="display: none;">
+
+                        <h2>🎯 Qué trabajamos</h2>
+
+                        <div id="objectivesContent"></div>
+
+                    </section>
+
+
+                    <!-- CÓMO SE JUEGA -->
+
+                    <section id="howSection" class="section" style="display: none;">
+
+                        <h2>🥋 Cómo se juega</h2>
+
+                        <div id="howContent"></div>
+
+                    </section>
+
+
+                    <!-- SEGURIDAD -->
+
+                    <section id="safetySection" class="section" style="display: none;">
+
+                        <h2>🛡️ Seguridad</h2>
+
+                        <div id="safetyContent"></div>
+
+                    </section>
+
+
+                    <!-- RECURSOS MULTIMEDIA -->
+
+                    <section id="mediaSection" class="section" style="display: none;">
+
+                        <h2>📎 Recursos</h2>
+
+                        <div id="mediaContent"></div>
+
+                    </section>
+
+                </div>
+
+
+                <!-- SIDEBAR -->
+
+                <aside class="sidebar">
+
+                    <!-- VALORACIÓN -->
+
+                    <div id="ratingCard" class="sidebar-card" style="display: none;">
+
+                        <h2>Valoración Judo Educación</h2>
+
+                        <div class="rating">
+                            <div id="stars" class="stars"></div>
+                            <div id="ratingNumber" class="rating-number"></div>
+                        </div>
+
+                        <div id="editorialNote" class="text-block"></div>
+
+                    </div>
+
+
+                    <!-- FUENTE -->
+
+                    <div id="sourceCard" class="sidebar-card" style="display: none;">
+
+                        <h2>Fuente</h2>
+
+                        <div id="sourceContent"></div>
+
+                    </div>
+
+                </aside>
+
+            </div>
+
+        </div>
+
+    </div>
+</main>
+
+
+<footer>
+    <div class="container footer-inner">
+
+        <div>
+            Judo Educación
+        </div>
+
+        <div>
+            Recursos para enseñar Judo
+        </div>
+
+    </div>
+</footer>
+
+
+<script>
+
+    /*
+     * CONFIGURACIÓN SUPABASE
+     */
+
+    const SUPABASE_URL = "https://gncpzdpqqnqvlskuxmvh.supabase.co";
+
+    const SUPABASE_KEY =
+        "sb_publishable_u5-svo35nbWAcBlZVNxSeg_m64tS-vW";
+
+
+    /*
+     * UTILIDADES
+     */
+
+    function escapeHtml(value) {
+
+        if (value === null || value === undefined) {
+            return "";
+        }
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+
+    function formatArray(value) {
+
+        if (!value) {
+            return [];
+        }
+
+        if (Array.isArray(value)) {
+            return value.filter(Boolean);
+        }
+
+        return [value];
+    }
+
+
+    function formatList(value) {
+
+        const items = formatArray(value);
+
+        if (!items.length) {
+            return "";
+        }
+
+        return `
+            <div class="tags">
+                ${items.map(item => `
+                    <span class="tag">${escapeHtml(item)}</span>
+                `).join("")}
+            </div>
+        `;
+    }
+
+
+    function formatAge(ageMin, ageMax) {
+
+        if (!ageMin && !ageMax) {
+            return "";
+        }
+
+        if (ageMin && ageMax) {
+            return `${ageMin}–${ageMax} años`;
+        }
+
+        if (ageMin) {
+            return `Desde ${ageMin} años`;
+        }
+
+        return `Hasta ${ageMax} años`;
+    }
+
+
+    function createInfoCard(label, value) {
+
+        if (!value) {
+            return "";
+        }
+
+        return `
+            <div class="info-card">
+                <div class="info-label">
+                    ${escapeHtml(label)}
+                </div>
+
+                <div class="info-value">
+                    ${escapeHtml(value)}
+                </div>
+            </div>
+        `;
+    }
+
+
+    function createTextBlock(title, value) {
+
+        if (!value) {
+            return "";
+        }
+
+        return `
+            <div class="subsection">
+
+                <h3>
+                    ${escapeHtml(title)}
+                </h3>
+
+                <div class="text-block">
+                    ${escapeHtml(value)}
+                </div>
+
+            </div>
+        `;
+    }
+
+
+    function showError(message) {
+
+        document.getElementById("loading").style.display = "none";
+
+        const error = document.getElementById("error");
+
+        error.textContent = message;
+        error.style.display = "block";
+    }
+
+
+    /*
+     * OBTENER ID DE LA URL
+     *
+     * Ejemplo:
+     * recurso-juego.html?id=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+     */
+
+    const params = new URLSearchParams(window.location.search);
+
+    const resourceId = params.get("id");
+
+
+    /*
+     * CARGAR JUEGO
+     */
+
+    async function loadGame() {
+
+        if (!resourceId) {
+
+            showError(
+                "No se ha indicado ningún juego. Vuelve al listado de recursos e inténtalo de nuevo."
+            );
+
+            return;
+        }
+
+
+        try {
+
+            /*
+             * PETICIÓN 1
+             * Datos generales de resources
+             */
+
+            const resourceResponse = await fetch(
+                `${SUPABASE_URL}/rest/v1/resources?id=eq.${encodeURIComponent(resourceId)}&status=eq.publicado&select=*`,
+                {
+                    headers: {
+                        "apikey": SUPABASE_KEY,
+                        "Authorization": `Bearer ${SUPABASE_KEY}`
+                    }
+                }
+            );
+
+
+            if (!resourceResponse.ok) {
+
+                throw new Error(
+                    `Error al consultar resources (${resourceResponse.status})`
+                );
+            }
+
+
+            const resources = await resourceResponse.json();
+
+
+            if (!resources.length) {
+
+                showError(
+                    "No hemos encontrado este recurso o todavía no está publicado."
+                );
+
+                return;
+            }
+
+
+            const resource = resources[0];
+
+
+            /*
+             * PETICIÓN 2
+             * Datos específicos de games
+             */
+
+            const gameResponse = await fetch(
+                `${SUPABASE_URL}/rest/v1/games?id=eq.${encodeURIComponent(resourceId)}&select=*`,
+                {
+                    headers: {
+                        "apikey": SUPABASE_KEY,
+                        "Authorization": `Bearer ${SUPABASE_KEY}`
+                    }
+                }
+            );
+
+
+            if (!gameResponse.ok) {
+
+                throw new Error(
+                    `Error al consultar games (${gameResponse.status})`
+                );
+            }
+
+
+            const games = await gameResponse.json();
+
+
+            if (!games.length) {
+
+                showError(
+                    "El recurso existe, pero todavía no tiene registrada su información específica como juego."
+                );
+
+                return;
+            }
+
+
+            const game = games[0];
+
+
+            /*
+             * MOSTRAR INFORMACIÓN GENERAL
+             */
+
+            document.title =
+                `${resource.title} | Judo Educación`;
+
+
+            document.getElementById("title").textContent =
+                resource.title || "Juego";
+
+
+            document.getElementById("description").textContent =
+                resource.description || "";
+
+
+            /*
+             * TIPO
+             */
+
+            document.getElementById("resourceType").textContent =
+                "Juego";
+
+
+            /*
+             * INFORMACIÓN RÁPIDA
+             */
+
+            const quickInfo = document.getElementById("quickInfo");
+
+            const age = formatAge(
+                resource.age_min,
+                resource.age_max
+            );
+
+
+            let participants = "";
+
+            if (game.participants_min && game.participants_max) {
+
+                participants =
+                    `${game.participants_min}–${game.participants_max} participantes`;
+
+            } else if (game.participants_min) {
+
+                participants =
+                    `Desde ${game.participants_min} participantes`;
+
+            } else if (game.participants_max) {
+
+                participants =
+                    `Hasta ${game.participants_max} participantes`;
+
+            }
+
+
+            let organization = formatArray(game.organization).join(" · ");
+
+
+            quickInfo.innerHTML = [
+
+                createInfoCard("Edad", age),
+
+                createInfoCard(
+                    "Participantes",
+                    participants
+                ),
+
+                createInfoCard(
+                    "Duración",
+                    game.duration
+                ),
+
+                createInfoCard(
+                    "Material",
+                    formatArray(game.materials).join(" · ")
+                ),
+
+                createInfoCard(
+                    "Espacio",
+                    formatArray(game.space).join(" · ")
+                ),
+
+                createInfoCard(
+                    "Organización",
+                    organization
+                ),
+
+                createInfoCard(
+                    "Momento",
+                    formatArray(game.class_moment).join(" · ")
+                )
+
+            ].join("");
+
+
+            /*
+             * QUÉ TRABAJAMOS
+             */
+
+            const objectivesContent =
+                document.getElementById("objectivesContent");
+
+
+            objectivesContent.innerHTML = [
+
+                createTextBlock(
+                    "Objetivo principal",
+                    game.main_objective
+                ),
+
+                createTextBlock(
+                    "Otros objetivos",
+                    game.other_objectives
+                ),
+
+                game.judo_content && game.judo_content.length
+                    ? `
+                        <div class="subsection">
+
+                            <h3>Contenido de Judo</h3>
+
+                            ${formatList(game.judo_content)}
+
+                        </div>
+                    `
+                    : "",
+
+                game.game_type && game.game_type.length
+                    ? `
+                        <div class="subsection">
+
+                            <h3>Tipo de juego</h3>
+
+                            ${formatList(game.game_type)}
+
+                        </div>
+                    `
+                    : ""
+
+            ].join("");
+
+
+            if (objectivesContent.innerHTML.trim()) {
+
+                document.getElementById(
+                    "objectivesSection"
+                ).style.display = "block";
+            }
+
+
+            /*
+             * CÓMO SE JUEGA
+             */
+
+            const howContent =
+                document.getElementById("howContent");
+
+
+            howContent.innerHTML = [
+
+                createTextBlock(
+                    "Organización",
+                    game.organization_description
+                ),
+
+                createTextBlock(
+                    "Desarrollo",
+                    game.development
+                ),
+
+                createTextBlock(
+                    "Reglas",
+                    game.rules
+                ),
+
+                createTextBlock(
+                    "Variaciones",
+                    game.variations
+                )
+
+            ].join("");
+
+
+            if (howContent.innerHTML.trim()) {
+
+                document.getElementById(
+                    "howSection"
+                ).style.display = "block";
+            }
+
+
+            /*
+             * SEGURIDAD
+             */
+
+            const safetyContent =
+                document.getElementById("safetyContent");
+
+
+            safetyContent.innerHTML = [
+
+                createTextBlock(
+                    "Nivel de contacto",
+                    game.contact_level
+                ),
+
+                createTextBlock(
+                    "Consideraciones de seguridad",
+                    game.safety_considerations
+                ),
+
+                createTextBlock(
+                    "Adaptaciones",
+                    game.adaptations
+                )
+
+            ].join("");
+
+
+            if (safetyContent.innerHTML.trim()) {
+
+                document.getElementById(
+                    "safetySection"
+                ).style.display = "block";
+            }
+
+
+            /*
+             * RECURSOS MULTIMEDIA
+             */
+
+            const mediaContent =
+                document.getElementById("mediaContent");
+
+
+            let mediaHtml = "";
+
+
+            if (game.main_image_url) {
+
+                mediaHtml += `
+                    <img
+                        class="media-image"
+                        src="${escapeHtml(game.main_image_url)}"
+                        alt="${escapeHtml(resource.title)}"
+                        loading="lazy"
+                    >
+                `;
+            }
+
+
+            if (game.video_url) {
+
+                mediaHtml += `
+                    <a
+                        class="resource-button"
+                        href="${escapeHtml(game.video_url)}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        ▶ Ver vídeo
+                    </a>
+                `;
+            }
+
+
+            if (game.document_url) {
+
+                mediaHtml += `
+                    <a
+                        class="resource-button"
+                        href="${escapeHtml(game.document_url)}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        📄 Ver documento
+                    </a>
+                `;
+            }
+
+
+            mediaContent.innerHTML = mediaHtml;
+
+
+            if (mediaHtml.trim()) {
+
+                document.getElementById(
+                    "mediaSection"
+                ).style.display = "block";
+            }
+
+
+            /*
+             * VALORACIÓN
+             */
+
+            if (resource.je_rating) {
+
+                const rating =
+                    Number(resource.je_rating);
+
+
+                let stars = "";
+
+                for (let i = 1; i <= 5; i++) {
+
+                    stars +=
+                        i <= rating ? "★" : "☆";
+                }
+
+
+                document.getElementById("stars").textContent =
+                    stars;
+
+
+                document.getElementById("ratingNumber").textContent =
+                    `${rating}/5`;
+
+
+                if (resource.editorial_note) {
+
+                    document.getElementById(
+                        "editorialNote"
+                    ).textContent =
+                        resource.editorial_note;
+
+                } else {
+
+                    document.getElementById(
+                        "editorialNote"
+                    ).style.display = "none";
+                }
+
+
+                document.getElementById(
+                    "ratingCard"
+                ).style.display = "block";
+            }
+
+
+            /*
+             * FUENTE
+             */
+
+            const sourceContent =
+                document.getElementById("sourceContent");
+
+
+            let sourceHtml = "";
+
+
+            if (resource.source) {
+
+                sourceHtml += `
+                    <div class="source-item">
+
+                        <div class="source-label">
+                            Fuente
+                        </div>
+
+                        <div class="source-value">
+                            ${escapeHtml(resource.source)}
+                        </div>
+
+                    </div>
+                `;
+            }
+
+
+            if (resource.author) {
+
+                sourceHtml += `
+                    <div class="source-item">
+
+                        <div class="source-label">
+                            Autor / creador
+                        </div>
+
+                        <div class="source-value">
+                            ${escapeHtml(resource.author)}
+                        </div>
+
+                    </div>
+                `;
+            }
+
+
+            if (resource.language) {
+
+                sourceHtml += `
+                    <div class="source-item">
+
+                        <div class="source-label">
+                            Idioma
+                        </div>
+
+                        <div class="source-value">
+                            ${escapeHtml(resource.language)}
+                        </div>
+
+                    </div>
+                `;
+            }
+
+
+            if (resource.url) {
+
+                sourceHtml += `
+                    <a
+                        class="resource-button"
+                        href="${escapeHtml(resource.url)}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Ver fuente original
+                    </a>
+                `;
+            }
+
+
+            if (sourceHtml.trim()) {
+
+                sourceContent.innerHTML = sourceHtml;
+
+                document.getElementById(
+                    "sourceCard"
+                ).style.display = "block";
+            }
+
+
+            /*
+             * MOSTRAR CONTENIDO
+             */
+
+            document.getElementById(
+                "loading"
+            ).style.display = "none";
+
+
+            document.getElementById(
+                "gameContent"
+            ).style.display = "block";
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            showError(
+                "Ha ocurrido un error al cargar el juego. Revisa la conexión con Supabase."
+            );
+        }
+    }
+
+
+    /*
+     * INICIAR
+     */
+
+    loadGame();
+
+</script>
+
+</body>
+</html>
