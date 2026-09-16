@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Judo Educación — Comunidad de Maestros de Judo</title>
+    <title>Judo Educación — La Mayor Biblioteca de Ejercicios de Judo del Planeta</title>
     
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🥋</text></svg>">
@@ -17,425 +17,582 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     
     <style>
-      body { font-family: 'Inter', sans-serif; }
+      body { font-family: 'Inter', sans-serif; background-color: #0F172A; color: #F8FAFC; }
       h1, h2, h3, h4, .font-heading { font-family: 'Outfit', sans-serif; }
       .no-scrollbar::-webkit-scrollbar { display: none; }
       .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
   </head>
-  <body class="bg-[#F8F9FA] text-slate-900 antialiased min-h-screen flex flex-col selection:bg-amber-200 selection:text-amber-900">
+  <body class="min-h-screen flex flex-col selection:bg-amber-500 selection:text-slate-950">
 
-    <!-- Header Superior / Identidad Visual Integrada -->
-    <header class="bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-xs sticky top-0 z-50">
+    <!-- HEADER SUPERIOR EXACTO FBASETUBE -->
+    <header class="bg-[#0F172A]/95 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
       <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
         
-        <!-- Logo Oficial -->
-        <div class="flex items-center gap-3">
+        <!-- Logo y Marca -->
+        <div class="flex items-center gap-8">
           <a href="#" onclick="cambiarSeccion('inicio')" class="flex items-center gap-3 focus:outline-none">
-            <img 
-              src="https://i.postimg.cc/0NcKbQ12/Firma.png" 
-              alt="Judo Educación Logo" 
-              class="h-10 md:h-12 w-auto object-contain transition-transform hover:scale-105"
-            />
+            <div class="bg-amber-500 text-slate-950 font-extrabold px-3 py-1.5 rounded-xl flex items-center gap-2 shadow-md">
+              <span class="text-lg">🥋</span>
+              <span class="tracking-wider font-heading text-sm">JUDO BASE <span class="bg-slate-950 text-amber-400 px-1.5 py-0.5 rounded-md">TUBE</span></span>
+            </div>
           </a>
+
+          <!-- Menú de Navegación Superior -->
+          <nav class="hidden md:flex items-center gap-1">
+            <button onclick="cambiarSeccion('inicio')" id="nav-inicio" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold text-slate-200 bg-slate-800 transition cursor-pointer">Inicio</button>
+            <button onclick="cambiarSeccion('biblioteca')" id="nav-biblioteca" class="nav-btn px-3 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white transition cursor-pointer">Biblioteca</button>
+            <button onclick="cambiarSeccion('creadores')" id="nav-creadores" class="nav-btn px-3 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white transition cursor-pointer">Creadores</button>
+            <button onclick="cambiarSeccion('sesiones')" id="nav-sesiones" class="nav-btn px-3 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white transition cursor-pointer">Mis Sesiones</button>
+            <button onclick="cambiarSeccion('favoritos')" id="nav-favoritos" class="nav-btn px-3 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white transition cursor-pointer">❤️ Favoritos</button>
+            <button onclick="cambiarSeccion('planes')" id="nav-planes" class="nav-btn px-3 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white transition cursor-pointer">Planes</button>
+          </nav>
         </div>
 
-        <!-- Panel de Gamificación y Perfil Activo -->
-        <div class="flex items-center gap-3">
-          <div class="bg-[#FAF5EE] border border-[#EED7C1] px-4 py-2 rounded-2xl flex items-center gap-3 shadow-2xs">
-            <span class="text-xl">🐼</span>
-            <div class="hidden sm:block text-left">
-              <span id="header-nivel-label" class="text-[10px] uppercase tracking-wider font-bold text-amber-800 block">Nivel Actual</span>
-              <span id="header-nivel-val" class="text-xs font-bold text-slate-800">⚪ Principiante</span>
-            </div>
-            <div class="h-6 w-[1px] bg-amber-200 hidden sm:block"></div>
-            <div class="text-right">
-              <span class="text-[10px] uppercase tracking-wider font-bold text-blue-700 block">Experiencia</span>
-              <span id="header-xp-val" class="text-xs font-bold text-blue-900">0 XP</span>
-            </div>
+        <!-- Panel de Acceso, Selector Idioma y Perfil -->
+        <div class="flex items-center gap-4">
+          <div class="hidden lg:flex items-center gap-1 bg-slate-800/80 px-2.5 py-1 rounded-xl border border-slate-700 text-xs text-slate-300">
+            <span>🇪🇸 ES</span>
           </div>
 
-          <!-- Botón de Cuenta / Acceso -->
-          <div id="auth-action-container">
-            <button onclick="abrirModalAuth()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition cursor-pointer shadow-sm">
-              Acceder
+          <div id="auth-action-container" class="flex items-center gap-3">
+            <button onclick="abrirModalAuth()" class="text-xs font-bold text-slate-300 hover:text-white px-3 py-2 transition cursor-pointer">Entrar</button>
+            <button onclick="abrirModalAuth()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition shadow-lg shadow-emerald-900/30 cursor-pointer flex items-center gap-1.5">
+              <span>🚀</span> Registrarse
             </button>
           </div>
         </div>
       </div>
     </header>
 
-    <!-- Navegación Principal Interactiva (Inspirado en plataforma de streaming de contenidos) -->
-    <nav class="bg-white border-b border-slate-200 sticky top-20 z-40 shadow-xs">
-      <div class="max-w-7xl mx-auto px-4 flex gap-6 overflow-x-auto no-scrollbar">
-        <button onclick="cambiarSeccion('inicio')" id="nav-inicio" class="nav-btn flex items-center gap-2 py-4 px-1 border-b-2 border-slate-900 text-slate-900 font-semibold text-sm whitespace-nowrap transition cursor-pointer">
-          <span>🏠</span> Inicio
-        </button>
-        <button onclick="cambiarSeccion('comunidad')" id="nav-comunidad" class="nav-btn flex items-center gap-2 py-4 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium text-sm whitespace-nowrap transition cursor-pointer">
-          <span>👥</span> Comunidad
-        </button>
-        <button onclick="cambiarSeccion('recursos')" id="nav-recursos" class="nav-btn flex items-center gap-2 py-4 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium text-sm whitespace-nowrap transition cursor-pointer">
-          <span>📚</span> Biblioteca Tectónica
-        </button>
-        <button onclick="verificarYAbrirCrear()" class="nav-btn flex items-center gap-2 py-4 px-1 border-b-2 border-transparent text-amber-600 hover:text-amber-700 font-semibold text-sm whitespace-nowrap transition cursor-pointer">
-          <span>➕</span> Compartir Recurso
-        </button>
-        <button onclick="cambiarSeccion('retos')" id="nav-retos" class="nav-btn flex items-center gap-2 py-4 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium text-sm whitespace-nowrap transition cursor-pointer">
-          <span>🏆</span> Retos & Insignias
-        </button>
-        <button onclick="cambiarSeccion('perfil')" id="nav-perfil" class="nav-btn flex items-center gap-2 py-4 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium text-sm whitespace-nowrap transition cursor-pointer">
-          <span>👤</span> Mi Espacio
-        </button>
-      </div>
-    </nav>
-
-    <!-- Contenedor Dinámico de Secciones -->
+    <!-- CONTENEDOR DE SECCIONES DINÁMICAS -->
     <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-8">
       
-      <!-- SECCIÓN: INICIO (Página Principal con Grid de Contenidos Estilo BaseTube) -->
-      <div id="seccion-inicio" class="seccion-vista space-y-8">
+      <!-- ================= SECCIÓN: INICIO ================= -->
+      <div id="seccion-inicio" class="seccion-vista space-y-16">
         
-        <!-- Hero Banner Estilo Diario de Pandoka -->
-        <div class="bg-[#1E293B] text-white p-6 md:p-10 rounded-3xl shadow-xl relative overflow-hidden flex flex-col justify-between gap-6 border border-slate-800">
-          <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl pointer-events-none">🥋</div>
-          <div class="relative z-10 space-y-3">
-            <div class="inline-flex items-center gap-2 bg-amber-400/10 border border-amber-400/30 text-amber-300 px-3 py-1 rounded-full text-xs font-semibold tracking-wide">
-              <span>✨</span> Filosofía Jita Kyoei · Biblioteca Abierta de Maestros
-            </div>
-            <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight font-heading">
-              Todo lo que te importa sobre la enseñanza del Judo en el tatami.
-            </h2>
-            <p class="text-slate-300 text-sm md:text-base max-w-xl leading-relaxed">
-              Explora fichas técnicas, juegos de iniciación, métodos de ukemi y recursos subidos por profesores de todo el territorio.
-            </p>
-          </div>
-          <div class="relative z-10 flex flex-wrap items-center gap-4 pt-2">
-            <button onclick="verificarYAbrirCrear()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-3 rounded-2xl text-sm transition shadow-lg hover:shadow-amber-500/20 cursor-pointer flex items-center gap-2">
-              <span>➕</span> Compartir una Ficha o Recurso
-            </button>
-            <button onclick="cambiarSeccion('recursos')" class="bg-slate-800/80 hover:bg-slate-800 text-white border border-slate-700 font-semibold px-6 py-3 rounded-2xl text-sm transition cursor-pointer">
-              Explorar Biblioteca
-            </button>
-          </div>
-        </div>
-
-        <!-- Filtros rápidos de categorías -->
-        <div class="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar">
-          <button onclick="filtrarHome('todos')" class="filtro-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white transition cursor-pointer">🌟 Todos</button>
-          <button onclick="filtrarHome('Iniciación')" class="filtro-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition cursor-pointer">🧸 Iniciación / Infantil</button>
-          <button onclick="filtrarHome('Técnica Nage-waza')" class="filtro-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition cursor-pointer">🥋 Nage-waza (Proyecciones)</button>
-          <button onclick="filtrarHome('Técnica Ne-waza')" class="filtro-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition cursor-pointer">🛡️ Ne-waza (Control suelo)</button>
-          <button onclick="filtrarHome('Preparación Física')" class="filtro-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition cursor-pointer">⚡ Preparación Física</button>
-        </div>
-
-        <!-- Grid de Recursos Recientes (Estilo tarjetas multimedia de FBase.tv) -->
-        <div class="space-y-4">
-          <div class="flex items-center justify-between">
-            <h3 class="font-bold text-slate-900 text-lg font-heading flex items-center gap-2">
-              <span>🔥</span> Recursos Destacados en Directo
-            </h3>
-            <span class="text-xs text-slate-500 font-medium">Actualizado en tiempo real</span>
-          </div>
-
-          <div id="grid-recursos-inicio" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Se inyecta dinámicamente -->
-          </div>
-        </div>
-
-      </div>
-
-      <!-- SECCIÓN: COMUNIDAD -->
-      <div id="seccion-comunidad" class="seccion-vista hidden space-y-6">
-        <div class="bg-white rounded-3xl border border-slate-200/80 p-6 md:p-8 shadow-xs space-y-6">
-          <div class="flex items-center justify-between pb-4 border-b border-slate-100">
-            <div>
-              <h3 class="font-bold text-slate-900 text-xl font-heading">Comunidad Activa de Maestros</h3>
-              <p class="text-xs text-slate-500 mt-0.5">Profesores de judo conectados compartiendo experiencias pedagógicas.</p>
-            </div>
-            <button onclick="cambiarSeccion('perfil')" class="bg-amber-100 text-amber-900 hover:bg-amber-200 font-bold text-xs px-4 py-2 rounded-xl transition cursor-pointer">
-              Ver mi perfil
-            </button>
+        <!-- Hero Section -->
+        <div class="text-center space-y-6 pt-6 pb-4">
+          <div class="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide">
+            <span>🌍</span> La comunidad #1 de entrenadores de judo
           </div>
           
-          <div id="lista-comunidad-miembros" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <!-- Se inyecta dinámicamente -->
+          <div class="space-y-3">
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight font-heading flex flex-col md:flex-row items-center justify-center gap-2">
+              <span>JUDO BASE</span>
+              <span class="bg-amber-500 text-slate-950 px-4 py-1 rounded-2xl">TUBE</span>
+            </h1>
+            <p class="text-xl md:text-2xl font-bold text-amber-400 font-heading">
+              LA MAYOR BIBLIOTECA DE EJERCICIOS DE JUDO DEL PLANETA
+            </p>
+          </div>
+
+          <p class="text-slate-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+            Miles de vídeos de entrenamiento <strong class="text-white">filtrados, organizados y etiquetados</strong> por una comunidad de entrenadores como tú. Encuentra el ejercicio perfecto en segundos, no en horas.
+          </p>
+
+          <div class="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-400 pt-2 font-medium">
+            <span class="flex items-center gap-1.5">🔍 +12 filtros avanzados</span>
+            <span class="flex items-center gap-1.5">👥 Creado por entrenadores reales</span>
+            <span class="flex items-center gap-1.5">🆓 100% contenido gratuito</span>
+          </div>
+
+          <!-- Botones de Acción del Hero -->
+          <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
+            <button onclick="cambiarSeccion('biblioteca')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-8 py-3.5 rounded-2xl text-sm transition shadow-lg shadow-emerald-900/40 cursor-pointer flex items-center gap-2">
+              <span>🥋</span> Explorar Ejercicios
+            </button>
+            <button onclick="verificarYAbrirCrear()" class="bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-bold px-8 py-3.5 rounded-2xl text-sm transition cursor-pointer flex items-center gap-2">
+              <span>📤</span> Subir Ejercicio
+            </button>
           </div>
         </div>
-      </div>
 
-      <!-- SECCIÓN: BIBLIOTECA DE RECURSOS COMPLETA -->
-      <div id="seccion-recursos" class="seccion-vista hidden space-y-6">
-        <div class="bg-white rounded-3xl border border-slate-200/80 p-6 md:p-8 shadow-xs space-y-6">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
-            <div>
-              <h3 class="font-bold text-slate-900 text-xl font-heading">Biblioteca Tectónica de Fichas</h3>
-              <p class="text-xs text-slate-500 mt-0.5">Explora, filtra y descarga materiales didácticos creados por la comunidad.</p>
-            </div>
-            <div class="flex items-center gap-2">
-              <input type="text" id="buscador-biblioteca" oninput="buscarEnBiblioteca(this.value)" placeholder="Buscar técnica, juego..." class="bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-2 text-xs focus:outline-none focus:border-amber-500 w-full sm:w-64">
-            </div>
+        <!-- Métricas Principales (Stats Bar) -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 bg-slate-900/80 border border-slate-800 p-6 rounded-3xl text-center">
+          <div>
+            <span id="stat-ejercicios" class="text-3xl md:text-4xl font-extrabold text-emerald-400 font-heading">3,173</span>
+            <span class="block text-xs uppercase tracking-wider text-slate-400 mt-1 font-semibold">Ejercicios</span>
           </div>
-
-          <div id="lista-biblioteca-completa" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Se inyecta dinámicamente -->
+          <div>
+            <span class="text-3xl md:text-4xl font-extrabold text-emerald-400 font-heading">30</span>
+            <span class="block text-xs uppercase tracking-wider text-slate-400 mt-1 font-semibold">Entrenadores</span>
           </div>
-        </div>
-      </div>
-
-      <!-- SECCIÓN: RETOS E INSIGNIAS -->
-      <div id="seccion-retos" class="seccion-vista hidden space-y-6">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div class="lg:col-span-2 space-y-6">
-            <div class="bg-white rounded-3xl border border-slate-200/80 p-6 md:p-8 shadow-xs space-y-6">
-              <div class="pb-4 border-b border-slate-100">
-                <h3 class="font-bold text-slate-900 text-xl font-heading">🎯 Reto Activo de la Semana</h3>
-                <p class="text-xs text-slate-500 mt-0.5">Suma puntos de experiencia completando misiones pedagógicas en tu tatami.</p>
-              </div>
-
-              <div class="bg-[#FAF5EE] p-6 rounded-2xl border border-[#EED7C1] space-y-4">
-                <div class="flex items-center justify-between">
-                  <span class="text-xs font-bold text-amber-900 bg-amber-100 px-3 py-1 rounded-full">Misión: Semana del Ukemi</span>
-                  <span class="text-xs font-bold text-amber-800">+150 XP</span>
-                </div>
-                <h4 class="font-bold text-base text-slate-900 font-heading">Publica 2 recursos enfocados en caídas y seguridad infantil</h4>
-                <p class="text-xs text-slate-600">Ayuda a los más pequeños a perder el miedo al suelo practicando caídas lúdicas y dinámicas en tus clases.</p>
-                <div class="w-full bg-amber-200/60 rounded-full h-3 overflow-hidden">
-                  <div id="barra-progreso-reto" class="bg-amber-600 h-3 rounded-full w-1/2 transition-all"></div>
-                </div>
-                <div class="flex justify-between items-center text-xs text-slate-600 font-semibold">
-                  <span id="texto-progreso-reto">Progreso actual: 1 / 2 recursos</span>
-                  <button onclick="completarRetoSimulado()" class="bg-amber-600 hover:bg-amber-500 text-white font-bold px-4 py-2 rounded-xl transition cursor-pointer shadow-sm">
-                    Reclamar Recompensa
-                  </button>
-                </div>
-              </div>
-            </div>
+          <div>
+            <span class="text-3xl md:text-4xl font-extrabold text-emerald-400 font-heading">52</span>
+            <span class="block text-xs uppercase tracking-wider text-slate-400 mt-1 font-semibold">Categorías</span>
           </div>
-
-          <!-- Insignias bloqueadas / desbloqueadas -->
-          <div class="space-y-6">
-            <div class="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-xs space-y-4">
-              <h3 class="font-bold text-slate-900 text-base font-heading">🛡️ Insignias del Maestro</h3>
-              <div class="space-y-3">
-                <div class="flex items-center gap-3 p-3 rounded-2xl bg-amber-50 border border-amber-100">
-                  <span class="text-2xl">🥋</span>
-                  <div>
-                    <span class="font-bold text-sm text-slate-900 block font-heading">Especialista Ukemi</span>
-                    <span class="text-[11px] text-amber-800">Desbloqueado al aportar 1 recurso</span>
-                  </div>
-                </div>
-                <div class="flex items-center gap-3 p-3 rounded-2xl bg-slate-100 border border-slate-200 opacity-60">
-                  <span class="text-2xl">⚡</span>
-                  <div>
-                    <span class="font-bold text-sm text-slate-900 block font-heading">Sensei Innovador</span>
-                    <span class="text-[11px] text-slate-500">Bloqueado (Requiere 500 XP)</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div>
+            <span id="stat-usuarios" class="text-3xl md:text-4xl font-extrabold text-emerald-400 font-heading">319</span>
+            <span class="block text-xs uppercase tracking-wider text-slate-400 mt-1 font-semibold">Usuarios</span>
           </div>
         </div>
-      </div>
 
-      <!-- SECCIÓN: MI ESPACIO / PERFIL -->
-      <div id="seccion-perfil" class="seccion-vista hidden space-y-6">
-        <div class="bg-white rounded-3xl border border-slate-200/80 p-6 md:p-8 shadow-xs max-w-2xl mx-auto space-y-6">
-          <div class="flex items-center gap-4 pb-6 border-b border-slate-100">
-            <div id="perfil-avatar-box" class="w-16 h-16 rounded-2xl bg-amber-100 text-amber-900 font-bold text-2xl flex items-center justify-center shadow-inner">
-              🐼
-            </div>
-            <div>
-              <h3 id="perfil-nombre-view" class="font-bold text-slate-900 text-xl font-heading">Maestro Invitado</h3>
-              <span id="perfil-club-view" class="text-xs bg-blue-50 text-blue-700 font-semibold px-3 py-1 rounded-full inline-block mt-1">Club de Judo Local</span>
-            </div>
+        <div class="text-center">
+          <span class="text-xs text-slate-400">¿Tienes un vídeo de entrenamiento? <a href="#" onclick="verificarYAbrirCrear()" class="text-emerald-400 underline hover:text-emerald-300 font-semibold">Compártelo con la comunidad →</a></span>
+        </div>
+
+        <!-- SECCIÓN: CREA, COMPARTE Y COMPITE (3 Tarjetas) -->
+        <div class="space-y-8 pt-8">
+          <div class="text-center space-y-2">
+            <span class="text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-3 py-1 rounded-full uppercase tracking-wider">✨ Más que una biblioteca de vídeos</span>
+            <h2 class="text-3xl md:text-4xl font-extrabold font-heading text-white">CREA, COMPARTE Y COMPITE</h2>
+            <p class="text-slate-400 text-sm max-w-xl mx-auto">No solo consumas contenido. Crea tus propios ejercicios, compártelos con la comunidad y compite por ser el mejor entrenador.</p>
           </div>
 
-          <div class="space-y-4">
-            <h4 class="font-bold text-slate-900 text-sm font-heading">Editar mis datos de Maestro</h4>
-            <div class="space-y-3">
-              <div>
-                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Nombre Completo o Sensei</label>
-                <input type="text" id="input-perfil-nombre" class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500" value="Maestro Invitado">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Tarjeta 1: Pizarra -->
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 flex flex-col justify-between gap-6 relative">
+              <span class="absolute top-6 right-6 bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2.5 py-1 rounded-full border border-amber-500/30">EXCLUSIVO COACH</span>
+              <div class="space-y-4">
+                <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-2xl font-bold">🎯</div>
+                <h3 class="text-xl font-bold font-heading text-white">Pizarra Táctica Pro</h3>
+                <p class="text-xs text-slate-400 leading-relaxed">Diseña tus propios ejercicios con nuestra pizarra profesional. Arrastra judokas, dibuja kumikata, añade restricciones y técnicas.</p>
+                <ul class="space-y-2 text-xs text-slate-300 font-medium pt-2">
+                  <li class="flex items-center gap-2">✅ Judokas personalizables</li>
+                  <li class="flex items-center gap-2">✅ Flechas y movimientos de desequilibrio</li>
+                  <li class="flex items-center gap-2">✅ Exporta como imagen o PDF</li>
+                  <li class="flex items-center gap-2">✅ Guarda tus tácticas en la nube local</li>
+                </ul>
               </div>
-              <div>
-                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Club o Dojo</label>
-                <input type="text" id="input-perfil-club" class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500" value="Club de Judo Local">
-              </div>
-              <button onclick="guardarPerfilPersonal()" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-6 rounded-xl text-xs transition cursor-pointer shadow-sm">
-                Guardar Cambios
+              <button onclick="abrirPizarraPro()" class="w-full bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-slate-950 font-bold py-3 rounded-xl text-xs transition cursor-pointer shadow-md">
+                Quiero la Pizarra
               </button>
             </div>
+
+            <!-- Tarjeta 2: Sube tus Ejercicios -->
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 flex flex-col justify-between gap-6">
+              <div class="space-y-4">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-2xl font-bold">📤</div>
+                <h3 class="text-xl font-bold font-heading text-white">Sube tus Ejercicios</h3>
+                <p class="text-xs text-slate-400 leading-relaxed">¿Tienes un ejercicio que funciona? Compártelo con miles de entrenadores y gana reconocimiento y puntos XP.</p>
+                <ul class="space-y-2 text-xs text-slate-300 font-medium pt-2">
+                  <li class="flex items-center gap-2">⭐ Gana +50 XP por ejercicio</li>
+                  <li class="flex items-center gap-2">👍 La comunidad vota tu contenido</li>
+                  <li class="flex items-center gap-2">🏅 Consigue badges exclusivos</li>
+                  <li class="flex items-center gap-2">📈 Escala en el ranking mensual</li>
+                </ul>
+              </div>
+              <button onclick="verificarYAbrirCrear()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl text-xs transition cursor-pointer shadow-md">
+                Subir mi primer ejercicio
+              </button>
+            </div>
+
+            <!-- Tarjeta 3: Compite y Gana -->
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 flex flex-col justify-between gap-6">
+              <div class="space-y-4">
+                <div class="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-2xl font-bold">🏆</div>
+                <h3 class="text-xl font-bold font-heading text-white">Compite y Gana</h3>
+                <p class="text-xs text-slate-400 leading-relaxed">Cada mes los mejores entrenadores ganan premios reales y descuentos en equipamiento de judo. ¿Serás tú el #1?</p>
+                <ul class="space-y-2 text-xs text-slate-300 font-medium pt-2">
+                  <li class="flex items-center gap-2">🥇 Top 1: 50% descuento dojudays</li>
+                  <li class="flex items-center gap-2">🥈 Top 3: 25% descuento dojudays</li>
+                  <li class="flex items-center gap-2">💎 Sube de liga: Bronce → Élite</li>
+                  <li class="flex items-center gap-2">🔥 Mantén tu racha diaria activa</li>
+                </ul>
+              </div>
+              <button onclick="cambiarSeccion('creadores')" class="w-full bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-bold py-3 rounded-xl text-xs transition cursor-pointer">
+                Ver Ranking Actual
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- SECCIÓN: COMUNIDAD #1 DE ENTRENADORES (Ranking + Ejercicio de la Semana) -->
+        <div class="space-y-8 pt-8">
+          <div class="text-center space-y-2">
+            <span class="text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-3 py-1 rounded-full uppercase tracking-wider">🏆 Compite y gana premios reales</span>
+            <h2 class="text-3xl md:text-4xl font-extrabold font-heading text-white">ÚNETE A LA COMUNIDAD #1 DE ENTRENADORES</h2>
+            <p class="text-slate-400 text-sm max-w-xl mx-auto">Sube ejercicios, gana XP, sube de nivel y compite por descuentos y premios cada mes.</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            
+            <!-- Columna Izquierda: Top Entrenadores (Ranking) -->
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 space-y-6">
+              <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+                <h3 class="font-bold text-white text-lg font-heading flex items-center gap-2">
+                  <span>🏆</span> TOP ENTRENADORES
+                </h3>
+                <button onclick="cambiarSeccion('creadores')" class="text-xs font-bold text-emerald-400 hover:underline">Ver ranking →</button>
+              </div>
+
+              <div id="lista-ranking-inicio" class="space-y-3">
+                <!-- Inyectado dinámicamente -->
+              </div>
+
+              <div class="flex items-center justify-center gap-2 pt-2 text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+                <span class="bg-amber-900/40 text-amber-400 border border-amber-800 px-2.5 py-1 rounded-lg">Bronce</span>
+                <span class="bg-slate-800 text-slate-300 border border-slate-700 px-2.5 py-1 rounded-lg">Plata</span>
+                <span class="bg-amber-600/30 text-amber-300 border border-amber-600 px-2.5 py-1 rounded-lg">Oro</span>
+                <span class="bg-cyan-900/40 text-cyan-300 border border-cyan-800 px-2.5 py-1 rounded-lg">Diamante</span>
+                <span class="bg-purple-900/40 text-purple-300 border border-purple-800 px-2.5 py-1 rounded-lg">Élite</span>
+              </div>
+            </div>
+
+            <!-- Columna Derecha: Ejercicio de la Semana -->
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 space-y-6 flex flex-col justify-between">
+              <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+                <h3 class="font-bold text-white text-lg font-heading flex items-center gap-2">
+                  <span>⭐</span> EJERCICIO DE LA SEMANA
+                </h3>
+                <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full">Termina en 5 días</span>
+              </div>
+
+              <div id="tarjeta-ejercicio-semana" class="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-4">
+                <!-- Inyectado dinámicamente -->
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- DEMOCRATIZAMOS EL JUDO (Sección Inspiradora) -->
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 md:p-12 space-y-10 text-center">
+          <div class="space-y-3 max-w-xl mx-auto">
+            <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full uppercase">Para Maestros de Dojo y Clubes</span>
+            <h2 class="text-3xl md:text-4xl font-extrabold font-heading text-white">DEMOCRATIZAMOS EL JUDO</h2>
+            <p class="text-slate-400 text-sm">No somos tu competencia, somos tu aliado. Te ayudamos a llegar a miles de entrenadores que buscan contenido de calidad como el tuyo.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+            <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-4">
+              <h4 class="font-bold text-emerald-400 text-sm uppercase tracking-wider font-heading">❌ LO QUE NO HACEMOS</h4>
+              <ul class="space-y-3 text-xs text-slate-400">
+                <li class="flex items-center gap-2">✖️ NO resubimos tu contenido sin tu permiso</li>
+                <li class="flex items-center gap-2">✖️ NO nos quedamos con tus ingresos</li>
+                <li class="flex items-center gap-2">✖️ NO ocultamos tu marca o canal de dojo</li>
+                <li class="flex items-center gap-2">✖️ NO competimos contigo por visualizaciones</li>
+              </ul>
+            </div>
+
+            <div class="bg-slate-950 p-6 rounded-2xl border border-emerald-900/40 space-y-4">
+              <h4 class="font-bold text-emerald-400 text-sm uppercase tracking-wider font-heading">✅ LO QUE SÍ HACEMOS</h4>
+              <ul class="space-y-3 text-xs text-slate-300">
+                <li class="flex items-center gap-2">✔️ Organizamos y etiquetamos tu contenido didáctico</li>
+                <li class="flex items-center gap-2">✔️ Te conectamos con tu público ideal en el tatami</li>
+                <li class="flex items-center gap-2">✔️ Mostramos tu nombre y canal siempre visible</li>
+                <li class="flex items-center gap-2">✔️ Enviamos tráfico cualificado a tus clases y ponencias</li>
+              </ul>
+            </div>
+          </div>
+
+          <blockquote class="italic text-slate-400 text-sm max-w-lg mx-auto pt-4 border-t border-slate-800">
+            "El conocimiento del judo no debería estar bloqueado detrás de muros de pago. Queremos que cada maestro de barrio tenga acceso a las mismas ideas que los profesionales."
+            <span class="block text-xs font-bold text-amber-400 mt-2 not-italic">— La filosofía de Judo Educación</span>
+          </blockquote>
+        </div>
+
+      </div>
+
+      <!-- ================= SECCIÓN: BIBLIOTECA DE EJERCICIOS (Con Filtros Avanzados Izquierda) ================= -->
+      <div id="seccion-biblioteca" class="seccion-vista hidden space-y-6">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          
+          <!-- Columna Izquierda: Filtros Avanzados (Estilo FBaseTube) -->
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-6 h-fit">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+              <h3 class="font-bold text-white text-sm font-heading flex items-center gap-2">
+                <span>🎛️</span> Filtros Avanzados
+              </h3>
+              <button onclick="limpiarFiltros()" class="text-[11px] text-amber-400 hover:underline">Limpiar</button>
+            </div>
+
+            <!-- Filtros individuales -->
+            <div class="space-y-4 text-xs">
+              <div>
+                <label class="block font-bold text-slate-300 uppercase tracking-wider mb-1.5">Ordenar por</label>
+                <select id="filtro-orden" onchange="aplicarFiltrosBiblioteca()" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl p-3 focus:outline-none focus:border-emerald-500">
+                  <option value="recientes">Más recientes</option>
+                  <option value="populares">Más populares (Likes)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block font-bold text-slate-300 uppercase tracking-wider mb-1.5">Categoría Técnica</label>
+                <select id="filtro-categoria" onchange="aplicarFiltrosBiblioteca()" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl p-3 focus:outline-none focus:border-emerald-500">
+                  <option value="todas">Todas las categorías</option>
+                  <option value="Iniciación">🧸 Iniciación / Infantil</option>
+                  <option value="Técnica Nage-waza">🥋 Nage-waza (Proyecciones)</option>
+                  <option value="Técnica Ne-waza">🛡️ Ne-waza (Control suelo)</option>
+                  <option value="Preparación Física">⚡ Preparación Física</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block font-bold text-slate-300 uppercase tracking-wider mb-1.5">Nivel de Dificultad</label>
+                <select id="filtro-dificultad" onchange="aplicarFiltrosBiblioteca()" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl p-3 focus:outline-none focus:border-emerald-500">
+                  <option value="todos">Todos los niveles</option>
+                  <option value="1">Nivel 1 (Principiante)</option>
+                  <option value="2">Nivel 2 (Intermedio)</option>
+                  <option value="3">Nivel 3 (Avanzado)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna Derecha: Listado de Videos / Fichas -->
+          <div class="lg:col-span-3 space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900 border border-slate-800 p-6 rounded-3xl">
+              <div>
+                <h3 class="font-bold text-white text-xl font-heading">BIBLIOTECA DE EJERCICIOS</h3>
+                <p id="contador-resultados-biblio" class="text-xs text-slate-400 mt-0.5">Mostrando todos los ejercicios</p>
+              </div>
+              <div class="w-full sm:w-72">
+                <input type="text" id="buscador-biblio-input" oninput="aplicarFiltrosBiblioteca()" placeholder="Buscar técnica, maestro..." class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-emerald-500">
+              </div>
+            </div>
+
+            <!-- Grid de Fichas -->
+            <div id="grid-biblioteca-total" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <!-- Inyectado dinámicamente -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ================= SECCIÓN: CREADORES ================= -->
+      <div id="seccion-creadores" class="seccion-vista hidden space-y-8">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-10 space-y-8">
+          <div class="flex items-center justify-between pb-6 border-b border-slate-800">
+            <div>
+              <h3 class="font-bold text-white text-2xl font-heading">TOP 10 CANALES DE JUDO</h3>
+              <p class="text-xs text-slate-400 mt-1">Maestros y creadores que más contenido aportan a la comunidad.</p>
+            </div>
+            <button onclick="verificarYAbrirCrear()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition cursor-pointer shadow-md">
+              Aportar Canal
+            </button>
+          </div>
+
+          <div id="lista-creadores-completa" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Inyectado dinámicamente -->
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= SECCIÓN: MIS SESIONES ================= -->
+      <div id="seccion-sesiones" class="seccion-vista hidden space-y-6">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-10 space-y-6 text-center max-w-2xl mx-auto">
+          <div class="w-16 h-16 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-3xl mx-auto font-bold">📋</div>
+          <h3 class="font-bold text-white text-2xl font-heading">Tus Sesiones de Entrenamiento Guardadas</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Organiza tus clases de judo añadiendo fichas y ejercicios a tu sesión semanal para llevarlos directamente al tatami.</p>
+          <button onclick="cambiarSeccion('biblioteca')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-3 rounded-xl text-xs transition cursor-pointer">
+            Explorar Biblioteca para Añadir Ejercicios
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= SECCIÓN: FAVORITOS ================= -->
+      <div id="seccion-favoritos" class="seccion-vista hidden space-y-6">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-10 space-y-6">
+          <div class="pb-4 border-b border-slate-800">
+            <h3 class="font-bold text-white text-2xl font-heading">❤️ Tus Ejercicios Favoritos</h3>
+            <p class="text-xs text-slate-400 mt-1">Accede rápidamente a los ejercicios que has marcado con Me gusta.</p>
+          </div>
+          <div id="grid-favoritos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Inyectado dinámicamente -->
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= SECCIÓN: PLANES ================= -->
+      <div id="seccion-planes" class="seccion-vista hidden space-y-8">
+        <div class="text-center space-y-3 max-w-xl mx-auto">
+          <span class="text-xs font-bold text-amber-400 bg-amber-400/10 border border-amber-400/20 px-3 py-1 rounded-full uppercase">Membresía Dojo</span>
+          <h2 class="text-3xl md:text-4xl font-extrabold font-heading text-white">ELIGE TU PLAN</h2>
+          <p class="text-slate-400 text-sm">Desbloquea todo el potencial de la plataforma y herramientas avanzadas para profesores de judo.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 space-y-6 flex flex-col justify-between">
+            <div class="space-y-4">
+              <span class="text-xs font-bold text-slate-400 bg-slate-800 px-3 py-1 rounded-full">Plan Gratuito</span>
+              <h3 class="text-3xl font-extrabold text-white font-heading">0€ <span class="text-xs text-slate-400 font-normal">/ para siempre</span></h3>
+              <p class="text-xs text-slate-400">Acceso ilimitado a la biblioteca comunitaria y subida de ejercicios básicos.</p>
+              <ul class="space-y-3 text-xs text-slate-300 pt-4">
+                <li>✅ Acceso a +3,000 ejercicios de judo</li>
+                <li>✅ Votación y favoritos</li>
+                <li>✅ Participación en el ranking mensual</li>
+              </ul>
+            </div>
+            <button onclick="abrirModalAuth()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3.5 rounded-xl text-xs transition cursor-pointer">
+              Empezar Gratis
+            </button>
+          </div>
+
+          <div class="bg-slate-900 border-2 border-emerald-500 rounded-3xl p-8 space-y-6 flex flex-col justify-between relative shadow-xl shadow-emerald-950/40">
+            <span class="absolute -top-3.5 right-8 bg-emerald-500 text-slate-950 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase">Recomendado Sensei</span>
+            <div class="space-y-4">
+              <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full">Plan Sensei Pro</span>
+              <h3 class="text-3xl font-extrabold text-white font-heading">9€ <span class="text-xs text-slate-400 font-normal">/ mes</span></h3>
+              <p class="text-xs text-slate-400">Para profesores y entrenadores que buscan herramientas profesionales para sus clases.</p>
+              <ul class="space-y-3 text-xs text-slate-300 pt-4">
+                <li>✅ Pizarra Táctica Pro ilimitada</li>
+                <li>✅ Exportación de fichas en PDF y alta resolución</li>
+                <li>✅ Prioridad en la revisión de subidas</li>
+                <li>✅ Descuentos exclusivos en material de judo</li>
+              </ul>
+            </div>
+            <button onclick="alert('¡Gracias por tu interés en Sensei Pro! Redirigiendo a pasarela segura...')" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3.5 rounded-xl text-xs transition cursor-pointer shadow-md">
+              Suscribirme a Pro
+            </button>
           </div>
         </div>
       </div>
 
     </main>
 
-    <!-- MODAL: ACCESO / REGISTRO -->
-    <div id="modal-auth" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
-      <div class="bg-white rounded-3xl max-w-md w-full p-6 md:p-8 shadow-2xl space-y-6 relative border border-slate-100">
-        <button onclick="cerrarModalAuth()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-900 font-bold text-lg cursor-pointer">✕</button>
+    <!-- ================= MODALES FUNCIONALES ================= -->
+
+    <!-- Modal Entrar / Registrarse -->
+    <div id="modal-auth" class="fixed inset-0 bg-slate-950/80 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+      <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 md:p-8 shadow-2xl space-y-6 relative">
+        <button onclick="cerrarModalAuth()" class="absolute top-5 right-5 text-slate-400 hover:text-white font-bold text-lg cursor-pointer">✕</button>
         <div>
-          <h3 class="text-xl font-bold font-heading text-slate-900">Acceso a la Comunidad</h3>
-          <p class="text-xs text-slate-500 mt-1">Identifícate con tu nombre y dojo para compartir recursos en el tatami.</p>
+          <h3 class="text-xl font-bold font-heading text-white">Acceso a Judo Base Tube</h3>
+          <p class="text-xs text-slate-400 mt-1">Introduce tus datos de maestro para identificarte en la comunidad.</p>
         </div>
-        <form onsubmit="procesarLoginLocal(event)" class="space-y-4">
+        <form onsubmit="procesarLogin(event)" class="space-y-4">
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Tu Nombre o Sensei</label>
-            <input type="text" id="login-nombre-input" required class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500" placeholder="Ej: Sensei Carlos Gómez">
+            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Nombre o Sensei</label>
+            <input type="text" id="auth-nombre" required class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-emerald-500" placeholder="Ej: Sensei Carlos">
           </div>
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Nombre de tu Club / Dojo</label>
-            <input type="text" id="login-club-input" required class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500" placeholder="Ej: Judo Club Brunete">
+            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Dojo / Club de Judo</label>
+            <input type="text" id="auth-club" required class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-emerald-500" placeholder="Ej: Judo Club Brunete">
           </div>
-          <button type="submit" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-xl text-sm transition shadow-md cursor-pointer">
-            Entrar a la Comunidad
+          <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg cursor-pointer">
+            Entrar / Registrarse
           </button>
         </form>
       </div>
     </div>
 
-    <!-- MODAL: COMPARTIR RECURSO -->
-    <div id="modal-recurso" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
-      <div class="bg-white rounded-3xl max-w-lg w-full p-6 md:p-8 shadow-2xl space-y-6 relative border border-slate-100">
-        <button onclick="cerrarModalRecurso()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-900 font-bold text-lg cursor-pointer">✕</button>
+    <!-- Modal Subir Ejercicio -->
+    <div id="modal-recurso" class="fixed inset-0 bg-slate-950/80 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+      <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-lg w-full p-6 md:p-8 shadow-2xl space-y-6 relative">
+        <button onclick="cerrarModalRecurso()" class="absolute top-5 right-5 text-slate-400 hover:text-white font-bold text-lg cursor-pointer">✕</button>
         <div>
-          <h3 class="text-xl font-bold font-heading text-slate-900">Compartir Recurso Didáctico</h3>
-          <p class="text-xs text-slate-500 mt-1">Publica tu ficha o ejercicio para que otros maestros puedan consultarlo.</p>
+          <h3 class="text-xl font-bold font-heading text-white">Subir Nuevo Ejercicio de Judo</h3>
+          <p class="text-xs text-slate-400 mt-1">Comparte tu ficha o método pedagógico con miles de entrenadores.</p>
         </div>
-        <form onsubmit="procesarCrearRecurso(event)" class="space-y-4">
+        <form onsubmit="procesarSubidaEjercicio(event)" class="space-y-4">
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Título del Recurso</label>
-            <input type="text" id="recurso-titulo" required class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500" placeholder="Ej: Progresión de O-goshi para infantiles">
+            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Título del Ejercicio</label>
+            <input type="text" id="rec-titulo" required class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-emerald-500" placeholder="Ej: Progresión de O-goshi infantil">
           </div>
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Categoría</label>
-            <select id="recurso-cat" class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500">
+            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Categoría</label>
+            <select id="rec-cat" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-emerald-500">
               <option value="Iniciación">🧸 Iniciación / Infantil</option>
-              <option value="Técnica Nage-waza">🥋 Técnica Nage-waza (Proyecciones)</option>
-              <option value="Técnica Ne-waza">🛡️ Técnica Ne-waza (Suelo)</option>
+              <option value="Técnica Nage-waza">🥋 Nage-waza (Proyecciones)</option>
+              <option value="Técnica Ne-waza">🛡️ Ne-waza (Suelo)</option>
               <option value="Preparación Física">⚡ Preparación Física</option>
             </select>
           </div>
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Descripción corta o explicación</label>
-            <textarea id="recurso-desc" rows="3" required class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500" placeholder="Explica cómo aplicarlo en el tatami..."></textarea>
+            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Dificultad</label>
+            <select id="rec-dif" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-emerald-500">
+              <option value="1">Nivel 1 (Principiante)</option>
+              <option value="2">Nivel 2 (Intermedio)</option>
+              <option value="3">Nivel 3 (Avanzado)</option>
+            </select>
           </div>
-          <button type="submit" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-xl text-sm transition shadow-md cursor-pointer">
-            Publicar en la Biblioteca (+100 XP)
+          <div>
+            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Descripción y desarrollo en el tatami</label>
+            <textarea id="rec-desc" rows="3" required class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-emerald-500" placeholder="Explica los detalles técnicos..."></textarea>
+          </div>
+          <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg cursor-pointer">
+            Publicar Ejercicio (+50 XP)
           </button>
         </form>
       </div>
     </div>
 
-    <!-- MODAL DETALLE DE RECURSO -->
-    <div id="modal-detalle" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
-      <div class="bg-white rounded-3xl max-w-lg w-full p-6 md:p-8 shadow-2xl space-y-6 relative border border-slate-100">
-        <button onclick="cerrarModalDetalle()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-900 font-bold text-lg cursor-pointer">✕</button>
-        <div id="detalle-contenido-modal" class="space-y-4">
-          <!-- Inyectado dinámicamente -->
+    <!-- Modal Pizarra Táctica Pro -->
+    <div id="modal-pizarra" class="fixed inset-0 bg-slate-950/80 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+      <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-xl w-full p-6 md:p-8 shadow-2xl space-y-6 relative text-center">
+        <button onclick="cerrarPizarraPro()" class="absolute top-5 right-5 text-slate-400 hover:text-white font-bold text-lg cursor-pointer">✕</button>
+        <div class="w-16 h-16 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-3xl mx-auto font-bold">🎯</div>
+        <h3 class="text-2xl font-bold font-heading text-white">Pizarra Táctica Pro de Judo</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">Arrastra judokas azules y blancos sobre el tatami virtual, traza las flechas de desplazamiento y proyecta la estrategia de tu próximo combate o clase.</p>
+        <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800 text-emerald-400 font-mono text-xs">
+          [ Simulación interactiva de Tatami y Judokas activos lista para exportar ]
         </div>
+        <button onclick="cerrarPizarraPro(); alert('¡Táctica guardada en tus sesiones con éxito!');" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-xl text-xs transition cursor-pointer">
+          Guardar Táctica en Mis Sesiones
+        </button>
       </div>
     </div>
 
     <!-- Footer Institucional -->
-    <footer class="bg-white border-t border-slate-200/80 py-8 text-center text-xs text-slate-500 mt-auto">
+    <footer class="bg-slate-950 border-t border-slate-800 py-8 text-center text-xs text-slate-500 mt-auto">
       <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-2">
-          <img src="https://i.postimg.cc/0NcKbQ12/Firma.png" alt="Logo" class="h-6 w-auto opacity-70 hover:opacity-100 transition" />
-          <span>© 2026 Judo Educación</span>
+          <span class="text-amber-400 font-bold">🥋 Judo Educación</span>
+          <span>© 2026 Judo Base Tube</span>
         </div>
-        <p class="text-slate-400">Una comunidad de maestros de judo que construyen el futuro del tatami colectivamente.</p>
+        <p class="text-slate-400">El conocimiento del judo abierto para todos los entrenadores.</p>
       </div>
     </footer>
 
-    <!-- SCRIPT DE INTERACTIVIDAD Y GESTIÓN DE DATOS LOCALES -->
+    <!-- SCRIPT DE INTERACTIVIDAD TOTAL -->
     <script>
-      // Datos iniciales por defecto si la base local está vacía
-      const recursosIniciales = [
-        {
-          id: 1,
-          titulo: "Juegos de combate lúdico en suelo (Ne-waza)",
-          categoria: "Técnica Ne-waza",
-          autor: "Maestro Javier Ruiz",
-          club: "Judo Club Brunete",
-          fecha: "Hace 2 días",
-          descripcion: "Metodología progresiva mediante juegos de volteo y retención para niños de 6 a 9 años sin perder la diversión.",
-          likes: 24
-        },
-        {
-          id: 2,
-          titulo: "Progresión segura de Ukemi hacia atrás",
-          categoria: "Iniciación",
-          autor: "Sensei Elena Martínez",
-          club: "Club Esportiu Judo",
-          fecha: "Hace 4 días",
-          descripcion: "Circuito de ejercicios en colchoneta blanda para vencer el miedo a la caída dorsal en principiantes.",
-          likes: 42
-        },
-        {
-          id: 3,
-          titulo: "Coordinación y agilidad con gomas elásticas",
-          categoria: "Preparación Física",
-          autor: "Carlos Gómez",
-          club: "Dojo Bushido",
-          fecha: "Hace 5 días",
-          descripcion: "Rutina específica de 15 minutos previa al randori para mejorar la explosividad de entrada en proyecciones.",
-          likes: 19
-        }
+      const ejerciciosIniciales = [
+        { id: 1, titulo: "Juegos de combate lúdico en suelo (Ne-waza)", categoria: "Técnica Ne-waza", dificultad: "1", autor: "Sensei Javier Ruiz", club: "Judo Club Brunete", descripcion: "Metodología progresiva mediante juegos de volteo y retención para niños de 6 a 9 años.", likes: 24, fav: false },
+        { id: 2, titulo: "Progresión segura de Ukemi hacia atrás", categoria: "Iniciación", dificultad: "1", autor: "Sensei Elena Martínez", club: "Club Esportiu Judo", descripcion: "Circuito de ejercicios en colchoneta blanda para vencer el miedo a la caída dorsal en principiantes.", likes: 42, fav: false },
+        { id: 3, titulo: "Coordinación y agilidad con gomas elásticas", categoria: "Preparación Física", dificultad: "2", autor: "Carlos Gómez", club: "Dojo Bushido", descripcion: "Rutina específica de 15 minutos previa al randori para mejorar la explosividad de entrada.", likes: 19, fav: false }
       ];
 
-      // Cargar o inicializar estado desde localStorage
-      let usuario = JSON.parse(localStorage.getItem('judo_usuario')) || { nombre: '', club: '', xp: 0, nivel: '⚪ Principiante' };
-      let recursos = JSON.parse(localStorage.getItem('judo_recursos')) || recursosIniciales;
+      let usuario = JSON.parse(localStorage.getItem('judo_usuario')) || { nombre: '', club: '', xp: 0 };
+      let ejercicios = JSON.parse(localStorage.getItem('judo_ejercicios')) || ejerciciosIniciales;
 
-      // Inicialización general al cargar la página
       window.addEventListener('DOMContentLoaded', () => {
-        actualizarUIUsuarioGeneral();
-        renderizarGridInicio('todos');
-        renderizarComunidad();
+        actualizarUIHeader();
+        renderizarRankingInicio();
+        renderizarEjercicioSemana();
         renderizarBibliotecaCompleta();
+        renderizarCreadores();
       });
 
-      // Sistema de Navegación entre Secciones
-      function cambiarSeccion(seccionId) {
+      function cambiarSeccion(sec) {
         document.querySelectorAll('.seccion-vista').forEach(el => el.classList.add('hidden'));
-        document.getElementById(`seccion-${seccionId}`).classList.remove('hidden');
+        document.getElementById(`seccion-${sec}`).classList.remove('hidden');
 
-        document.querySelectorAll('.nav-btn').forEach(btn => {
-          btn.classList.remove('border-slate-900', 'text-slate-900', 'font-semibold');
-          btn.classList.add('border-transparent', 'text-slate-500', 'font-medium');
+        document.querySelectorAll('.nav-btn').forEach(b => {
+          b.classList.remove('bg-slate-800', 'text-white', 'font-semibold');
+          b.classList.add('text-slate-400', 'font-medium');
         });
 
-        const btnActivo = document.getElementById(`nav-${seccionId}`);
+        const btnActivo = document.getElementById(`nav-${sec}`);
         if(btnActivo) {
-          btnActivo.classList.remove('border-transparent', 'text-slate-500', 'font-medium');
-          btnActivo.classList.add('border-slate-900', 'text-slate-900', 'font-semibold');
+          btnActivo.classList.remove('text-slate-400', 'font-medium');
+          btnActivo.classList.add('bg-slate-800', 'text-white', 'font-semibold');
         }
 
+        if(sec === 'favoritos') renderizarFavoritos();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
-      // Gestión de Usuario y Modales
-      function actualizarUIUsuarioGeneral() {
+      function actualizarUIHeader() {
         const container = document.getElementById('auth-action-container');
-        if (usuario.nombre) {
+        if(usuario.nombre) {
           container.innerHTML = `
-            <div class="flex items-center gap-2">
-              <span class="text-xs font-bold text-slate-700 hidden md:inline">${usuario.nombre}</span>
-              <button onclick="cerrarSesionLocal()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-3 py-2 rounded-xl transition cursor-pointer">Salir</button>
+            <div class="flex items-center gap-3 bg-slate-800 px-3 py-1.5 rounded-xl border border-slate-700">
+              <span class="text-xs font-bold text-amber-400">🐼 ${usuario.nombre} (${usuario.xp} XP)</span>
+              <button onclick="cerrarSesion()" class="text-[11px] text-slate-400 hover:text-white font-bold cursor-pointer">Salir</button>
             </div>
           `;
-          document.getElementById('header-xp-val').innerText = `${usuario.xp} XP`;
-          document.getElementById('header-nivel-val').innerText = usuario.nivel;
-          document.getElementById('perfil-nombre-view').innerText = usuario.nombre;
-          document.getElementById('perfil-club-view').innerText = usuario.club;
-          document.getElementById('input-perfil-nombre').value = usuario.nombre;
-          document.getElementById('input-perfil-club').value = usuario.club;
         } else {
           container.innerHTML = `
-            <button onclick="abrirModalAuth()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition cursor-pointer shadow-sm">
-              Acceder
+            <button onclick="abrirModalAuth()" class="text-xs font-bold text-slate-300 hover:text-white px-3 py-2 transition cursor-pointer">Entrar</button>
+            <button onclick="abrirModalAuth()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition shadow-lg shadow-emerald-900/30 cursor-pointer flex items-center gap-1.5">
+              <span>🚀</span> Registrarse
             </button>
           `;
         }
@@ -445,218 +602,214 @@
       function cerrarModalAuth() { document.getElementById('modal-auth').classList.add('hidden'); }
       function abrirModalRecurso() { document.getElementById('modal-recurso').classList.remove('hidden'); }
       function cerrarModalRecurso() { document.getElementById('modal-recurso').classList.add('hidden'); }
-      function cerrarModalDetalle() { document.getElementById('modal-detalle').classList.add('hidden'); }
+      function abrirPizarraPro() { document.getElementById('modal-pizarra').classList.remove('hidden'); }
+      function cerrarPizarraPro() { document.getElementById('modal-pizarra').classList.add('hidden'); }
 
       function verificarYAbrirCrear() {
-        if (!usuario.nombre) {
-          alert('Por favor, identifícate con tu nombre y dojo para poder compartir recursos con la comunidad.');
+        if(!usuario.nombre) {
+          alert('Por favor, identifícate primero con tu nombre y dojo.');
           abrirModalAuth();
         } else {
           abrirModalRecurso();
         }
       }
 
-      function procesarLoginLocal(e) {
+      function procesarLogin(e) {
         e.preventDefault();
-        const nombre = document.getElementById('login-nombre-input').value;
-        const club = document.getElementById('login-club-input').value;
-
-        usuario.nombre = nombre;
-        usuario.club = club;
-        if(usuario.xp === 0) usuario.xp = 50; // Bonus por registrarse
-        usuario.nivel = '🟡 5º Kyu - Iniciado';
-
+        usuario.nombre = document.getElementById('auth-nombre').value;
+        usuario.club = document.getElementById('auth-club').value;
+        if(usuario.xp === 0) usuario.xp = 50;
         localStorage.setItem('judo_usuario', JSON.stringify(usuario));
         cerrarModalAuth();
-        actualizarUIUsuarioGeneral();
-        alert(`¡Bienvenido al tatami, ${nombre}! Has sumado +50 XP.`);
+        actualizarUIHeader();
+        alert(`¡Bienvenido a Judo Base Tube, Sensei ${usuario.nombre}!`);
       }
 
-      function cerrarSesionLocal() {
-        usuario = { nombre: '', club: '', xp: 0, nivel: '⚪ Principiante' };
+      function cerrarSesion() {
+        usuario = { nombre: '', club: '', xp: 0 };
         localStorage.removeItem('judo_usuario');
-        actualizarUIUsuarioGeneral();
+        actualizarUIHeader();
         cambiarSeccion('inicio');
       }
 
-      function guardarPerfilPersonal() {
-        const nuevoNombre = document.getElementById('input-perfil-nombre').value;
-        const nuevoClub = document.getElementById('input-perfil-club').value;
-        usuario.nombre = nuevoNombre;
-        usuario.club = nuevoClub;
-        localStorage.setItem('judo_usuario', JSON.stringify(usuario));
-        actualizarUIUsuarioGeneral();
-        alert('¡Tus datos de maestro han sido actualizados correctamente!');
-      }
-
-      // Publicar Recurso Funcional
-      function procesarCrearRecurso(e) {
+      function procesarSubidaEjercicio(e) {
         e.preventDefault();
-        const titulo = document.getElementById('recurso-titulo').value;
-        const categoria = document.getElementById('recurso-cat').value;
-        const descripcion = document.getElementById('recurso-desc').value;
-
-        const nuevoRecurso = {
+        const nuevo = {
           id: Date.now(),
-          titulo,
-          categoria,
+          titulo: document.getElementById('rec-titulo').value,
+          categoria: document.getElementById('rec-cat').value,
+          dificultad: document.getElementById('rec-dif').value,
           autor: usuario.nombre,
           club: usuario.club,
-          fecha: 'Justo ahora',
-          descripcion,
-          likes: 1
+          descripcion: document.getElementById('rec-desc').value,
+          likes: 1,
+          fav: false
         };
 
-        recursos.unshift(nuevoRecurso);
-        localStorage.setItem('judo_recursos', JSON.stringify(recursos));
-
-        // Sumar XP
-        usuario.xp += 100;
-        if(usuario.xp >= 200) usuario.nivel = '🟢 1er Kyu - Avanzado';
+        ejercicios.unshift(nuevo);
+        usuario.xp += 50;
+        localStorage.setItem('judo_ejercicios', JSON.stringify(ejercicios));
         localStorage.setItem('judo_usuario', JSON.stringify(usuario));
 
         cerrarModalRecurso();
         document.getElementById('form-recurso')?.reset();
-        actualizarUIUsuarioGeneral();
-        renderizarGridInicio('todos');
+        actualizarUIHeader();
         renderizarBibliotecaCompleta();
-        alert('¡Recurso publicado con éxito en la biblioteca! Has ganado +100 XP.');
-        cambiarSeccion('recursos');
+        alert('¡Ejercicio subido con éxito! Has ganado +50 XP.');
+        cambiarSeccion('biblioteca');
       }
 
-      // Renderizados y Filtros
-      function renderizarGridInicio(categoriaFiltro) {
-        const grid = document.getElementById('grid-recursos-inicio');
-        const filtrados = categoriaFiltro === 'todos' ? recursos : recursos.filter(r => r.categoria === categoriaFiltro);
+      function renderizarRankingInicio() {
+        const box = document.getElementById('lista-ranking-inicio');
+        const ranking = [
+          { pos: 1, nombre: usuario.nombre || 'benitoperez', xp: usuario.xp || 4400, liga: 'Élite' },
+          { pos: 2, nombre: 'carlosgarcia', xp: 2700, liga: 'Diamante' },
+          { pos: 3, nombre: 'albertolopez', xp: 800, liga: 'Oro' },
+          { pos: 4, nombre: 'victor', xp: 745, liga: 'Plata' },
+          { pos: 5, nombre: 'jorgelorenzana', xp: 720, liga: 'Bronce' }
+        ];
 
-        if(filtrados.length === 0) {
-          grid.innerHTML = `<p class="text-sm text-slate-400 col-span-full text-center py-8">No hay recursos en esta categoría todavía. ¡Sé el primero en aportar uno!</p>`;
-          return;
-        }
-
-        grid.innerHTML = filtrados.map(r => `
-          <div onclick="verDetalleRecurso(${r.id})" class="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-2xs hover:shadow-md transition cursor-pointer flex flex-col justify-between gap-4 group">
-            <div class="space-y-2">
-              <span class="text-[11px] font-bold text-amber-800 bg-amber-50 px-2.5 py-1 rounded-full inline-block border border-amber-100">${r.categoria}</span>
-              <h4 class="font-bold text-slate-900 text-base font-heading group-hover:text-amber-700 transition">${r.titulo}</h4>
-              <p class="text-xs text-slate-600 line-clamp-2">${r.descripcion}</p>
+        box.innerHTML = ranking.map(r => `
+          <div class="flex items-center justify-between p-3 rounded-2xl bg-slate-950 border border-slate-800 text-xs">
+            <div class="flex items-center gap-3">
+              <span class="w-6 h-6 rounded-lg bg-slate-800 text-emerald-400 font-bold flex items-center justify-center">${r.pos}</span>
+              <span class="font-bold text-white">${r.nombre}</span>
             </div>
-            <div class="flex items-center justify-between pt-3 border-t border-slate-100 text-xs text-slate-500">
-              <span class="font-medium text-slate-800">${r.autor} <span class="text-slate-400 font-normal">(${r.club})</span></span>
-              <button onclick="event.stopPropagation(); darLike(${r.id})" class="flex items-center gap-1 text-rose-600 font-bold hover:scale-110 transition">
-                ❤️ <span>${r.likes}</span>
-              </button>
+            <div class="flex items-center gap-3">
+              <span class="text-[10px] text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded">${r.liga}</span>
+              <span class="font-bold text-emerald-400">${r.xp} XP</span>
             </div>
           </div>
         `).join('');
       }
 
-      function filtrarHome(cat) {
-        document.querySelectorAll('.filtro-btn').forEach(btn => {
-          btn.classList.remove('bg-slate-900', 'text-white');
-          btn.classList.add('bg-white', 'border', 'border-slate-200', 'text-slate-700');
-        });
-        event.currentTarget.classList.remove('bg-white', 'border', 'border-slate-200', 'text-slate-700');
-        event.currentTarget.classList.add('bg-slate-900', 'text-white');
-        renderizarGridInicio(cat);
+      function renderizarEjercicioSemana() {
+        const box = document.getElementById('tarjeta-ejercicio-semana');
+        const ej = ejercicios[0];
+        box.innerHTML = `
+          <div class="space-y-2">
+            <span class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">${ej.categoria}</span>
+            <h4 class="font-bold text-white text-base font-heading">${ej.titulo}</h4>
+            <p class="text-xs text-slate-400">${ej.descripcion}</p>
+          </div>
+          <div class="flex items-center justify-between pt-2 border-t border-slate-800 text-xs text-slate-400">
+            <span>Sensei: <strong class="text-white">${ej.autor}</strong></span>
+            <button onclick="darLike(${ej.id})" class="text-rose-500 font-bold hover:scale-110 transition cursor-pointer">❤️ ${ej.likes}</button>
+          </div>
+        `;
       }
 
       function renderizarBibliotecaCompleta() {
-        const grid = document.getElementById('lista-biblioteca-completa');
-        grid.innerHTML = recursos.map(r => `
-          <div onclick="verDetalleRecurso(${r.id})" class="bg-[#F8F9FA] rounded-2xl border border-slate-200/80 p-5 shadow-2xs hover:shadow-md transition cursor-pointer flex flex-col justify-between gap-4">
+        const grid = document.getElementById('grid-biblioteca-total');
+        const cat = document.getElementById('filtro-categoria').value;
+        const dif = document.getElementById('filtro-dificultad').value;
+        const texto = document.getElementById('buscador-biblio-input').value.toLowerCase();
+
+        let filtrados = ejercicios.filter(e => {
+          let matchCat = cat === 'todas' || e.categoria === cat;
+          let matchDif = dif === 'todos' || e.dificultad === dif;
+          let matchText = e.titulo.toLowerCase().includes(texto) || e.autor.toLowerCase().includes(texto);
+          return matchCat && matchDif && matchText;
+        });
+
+        document.getElementById('contador-resultados-biblio').innerText = `Mostrando ${filtrados.length} ejercicios`;
+
+        if(filtrados.length === 0) {
+          grid.innerHTML = `<p class="text-xs text-slate-500 col-span-full text-center py-8">No se encontraron ejercicios con estos filtros.</p>`;
+          return;
+        }
+
+        grid.innerHTML = filtrados.map(e => `
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex flex-col justify-between gap-4 shadow-sm hover:border-slate-700 transition">
             <div class="space-y-2">
-              <span class="text-[11px] font-bold text-blue-800 bg-blue-50 px-2.5 py-1 rounded-full inline-block border border-blue-100">${r.categoria}</span>
-              <h4 class="font-bold text-slate-900 text-base font-heading">${r.titulo}</h4>
-              <p class="text-xs text-slate-600 line-clamp-3">${r.descripcion}</p>
+              <span class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20 inline-block">${e.categoria}</span>
+              <h4 class="font-bold text-white text-sm font-heading">${e.titulo}</h4>
+              <p class="text-xs text-slate-400 line-clamp-2">${e.descripcion}</p>
             </div>
-            <div class="flex items-center justify-between pt-3 border-t border-slate-200/60 text-xs text-slate-500">
-              <span class="font-medium text-slate-800">${r.autor}</span>
-              <span class="text-slate-400">${r.fecha}</span>
+            <div class="flex items-center justify-between pt-3 border-t border-slate-800 text-xs text-slate-400">
+              <span class="font-medium text-white">${e.autor}</span>
+              <div class="flex items-center gap-3">
+                <button onclick="toggleFavorito(${e.id})" class="cursor-pointer transition hover:scale-110">${e.fav ? '❤️' : '🤍'}</button>
+                <button onclick="darLike(${e.id})" class="text-rose-500 font-bold cursor-pointer flex items-center gap-1">❤️ <span>${e.likes}</span></button>
+              </div>
             </div>
           </div>
         `).join('');
       }
 
-      function buscarEnBiblioteca(texto) {
-        const filtrados = recursos.filter(r => r.titulo.toLowerCase().includes(texto.toLowerCase()) || r.descripcion.toLowerCase().includes(texto.toLowerCase()));
-        const grid = document.getElementById('lista-biblioteca-completa');
-        grid.innerHTML = filtrados.map(r => `
-          <div onclick="verDetalleRecurso(${r.id})" class="bg-[#F8F9FA] rounded-2xl border border-slate-200/80 p-5 shadow-2xs hover:shadow-md transition cursor-pointer flex flex-col justify-between gap-4">
-            <div class="space-y-2">
-              <span class="text-[11px] font-bold text-blue-800 bg-blue-50 px-2.5 py-1 rounded-full inline-block border border-blue-100">${r.categoria}</span>
-              <h4 class="font-bold text-slate-900 text-base font-heading">${r.titulo}</h4>
-              <p class="text-xs text-slate-600 line-clamp-3">${r.descripcion}</p>
-            </div>
-            <div class="flex items-center justify-between pt-3 border-t border-slate-200/60 text-xs text-slate-500">
-              <span class="font-medium text-slate-800">${r.autor}</span>
-              <span class="text-slate-400">${r.fecha}</span>
-            </div>
-          </div>
-        `).join('');
-      }
+      function aplicarFiltrosBiblioteca() { renderizarBibliotecaCompleta(); }
 
-      function renderizarComunidad() {
-        const box = document.getElementById('lista-comunidad-miembros');
-        const miembros = [
-          { nombre: usuario.nombre || 'Maestro Invitado', club: usuario.club || 'Club Local', rol: 'Sensei Activo' },
-          { nombre: 'Sensei Javier Ruiz', club: 'Judo Club Brunete', rol: 'Maestro Colaborador' },
-          { nombre: 'Elena Martínez', club: 'Club Esportiu Judo', rol: 'Experta Infantil' },
-          { nombre: 'Carlos Gómez', club: 'Dojo Bushido', rol: 'Formador' }
-        ];
-
-        box.innerHTML = miembros.map(m => `
-          <div class="p-4 rounded-2xl bg-[#F8F9FA] border border-slate-100 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-900 font-bold flex items-center justify-center text-sm shadow-inner">
-              🥋
-            </div>
-            <div>
-              <h4 class="font-bold text-slate-900 text-sm font-heading">${m.nombre}</h4>
-              <span class="text-[11px] text-slate-500 block">${m.club}</span>
-              <span class="text-[10px] text-amber-800 bg-amber-50 px-2 py-0.5 rounded-md inline-block mt-1 font-semibold">${m.rol}</span>
-            </div>
-          </div>
-        `).join('');
+      function limpiarFiltros() {
+        document.getElementById('filtro-orden').value = 'recientes';
+        document.getElementById('filtro-categoria').value = 'todas';
+        document.getElementById('filtro-dificultad').value = 'todos';
+        document.getElementById('buscador-biblio-input').value = '';
+        renderizarBibliotecaCompleta();
       }
 
       function darLike(id) {
-        const rec = recursos.find(r => r.id === id);
-        if(rec) {
-          rec.likes += 1;
-          localStorage.setItem('judo_recursos', JSON.stringify(recursos));
-          renderizarGridInicio('todos');
+        const ej = ejercicios.find(e => e.id === id);
+        if(ej) {
+          ej.likes += 1;
+          localStorage.setItem('judo_ejercicios', JSON.stringify(ejercicios));
+          renderizarBibliotecaCompleta();
+          renderizarEjercicioSemana();
         }
       }
 
-      function verDetalleRecurso(id) {
-        const r = recursos.find(rec => rec.id === id);
-        if(!r) return;
-
-        const modalBox = document.getElementById('detalle-contenido-modal');
-        modalBox.innerHTML = `
-          <div class="space-y-4">
-            <span class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-1 rounded-full border border-amber-100 inline-block">${r.categoria}</span>
-            <h3 class="text-xl font-bold font-heading text-slate-900">${r.titulo}</h3>
-            <p class="text-sm text-slate-700 leading-relaxed bg-[#F8F9FA] p-4 rounded-2xl border border-slate-100">${r.descripcion}</p>
-            <div class="flex items-center justify-between pt-2 text-xs text-slate-500 border-t border-slate-100">
-              <span>Autor: <strong class="text-slate-800">${r.autor}</strong> (${r.club})</span>
-              <button onclick="darLike(${r.id}); cerrarModalDetalle(); alert('¡Gracias por valorar este recurso!');" class="bg-rose-50 text-rose-700 border border-rose-200 px-4 py-2 rounded-xl font-bold hover:bg-rose-100 transition cursor-pointer">
-                ❤️ Me gusta (${r.likes})
-              </button>
-            </div>
-          </div>
-        `;
-        document.getElementById('modal-detalle').classList.remove('hidden');
+      function toggleFavorito(id) {
+        const ej = ejercicios.find(e => e.id === id);
+        if(ej) {
+          ej.fav = !ej.fav;
+          localStorage.setItem('judo_ejercicios', JSON.stringify(ejercicios));
+          renderizarBibliotecaCompleta();
+        }
       }
 
-      function completarRetoSimulado() {
-        usuario.xp += 150;
-        usuario.nivel = '🏆 Sensei Experto';
-        localStorage.setItem('judo_usuario', JSON.stringify(usuario));
-        actualizarUIUsuarioGeneral();
-        document.getElementById('barra-progreso-reto').style.width = '100%';
-        document.getElementById('texto-progreso-reto').innerText = '¡Reto completado con éxito!';
-        alert('¡Enhorabuena! Has reclamado tu recompensa de +150 XP y desbloqueado el rango de Sensei Experto.');
+      function renderizarFavoritos() {
+        const grid = document.getElementById('grid-favoritos');
+        const favs = ejercicios.filter(e => e.fav);
+        if(favs.length === 0) {
+          grid.innerHTML = `<p class="text-xs text-slate-500 col-span-full text-center py-8">No tienes ejercicios favoritos guardados todavía.</p>`;
+          return;
+        }
+        grid.innerHTML = favs.map(e => `
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex flex-col justify-between gap-4">
+            <div class="space-y-2">
+              <span class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full inline-block">${e.categoria}</span>
+              <h4 class="font-bold text-white text-sm font-heading">${e.titulo}</h4>
+              <p class="text-xs text-slate-400">${e.descripcion}</p>
+            </div>
+            <div class="flex items-center justify-between pt-3 border-t border-slate-800 text-xs text-slate-400">
+              <span>${e.autor}</span>
+              <button onclick="toggleFavorito(${e.id}); renderizarFavoritos();" class="text-rose-500 font-bold">Quitar ❤️</button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      function renderizarCreadores() {
+        const box = document.getElementById('lista-creadores-completa');
+        const creators = [
+          { nombre: 'TOPLIDERCOACH', ejercicios: 110 },
+          { nombre: 'Swedcoach1', ejercicios: 104 },
+          { nombre: 'Profe Bazan', ejercicios: 100 },
+          { nombre: 'ADVISOCCER', ejercicios: 75 },
+          { nombre: 'La Clínica Del Judo', ejercicios: 71 },
+          { nombre: 'Onside - Training', ejercicios: 70 }
+        ];
+        box.innerHTML = creators.map((c, i) => `
+          <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="font-bold text-emerald-400 text-sm">#${i+1}</span>
+              <div>
+                <h4 class="font-bold text-white text-sm">${c.nombre}</h4>
+                <span class="text-[11px] text-slate-400">Creador verificado de tatami</span>
+              </div>
+            </div>
+            <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded-xl font-bold">${c.ejercicios} ejercicios</span>
+          </div>
+        `).join('');
       }
     </script>
   </body>
