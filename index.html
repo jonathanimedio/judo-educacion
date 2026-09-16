@@ -44,7 +44,7 @@
           </nav>
         </div>
 
-        <!-- Panel Gamificado & Contenedor Dinámico de Usuario / Botón Acceder -->
+        <!-- Panel Gamificado & Contenedor Dinámico de Usuario -->
         <div class="flex items-center gap-4">
           <div onclick="cambiarSeccion('perfil')" class="bg-[#FAF5EE] border border-[#EED7C1] px-4 py-2 rounded-2xl flex items-center gap-3 shadow-2xs cursor-pointer hover:bg-[#F3E8DC] transition">
             <span class="text-xl">🐼</span>
@@ -54,9 +54,7 @@
             </div>
           </div>
 
-          <div id="auth-action-container">
-            <!-- Se reemplaza por el nombre de usuario o botón de acceso dinámicamente -->
-          </div>
+          <div id="auth-action-container"></div>
         </div>
       </div>
     </header>
@@ -81,7 +79,7 @@
           </div>
           <div class="relative z-10 flex flex-wrap items-center gap-4 pt-2">
             <button onclick="verificarYAbrirCrear()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-3.5 rounded-2xl text-sm transition shadow-lg shadow-amber-500/20 cursor-pointer flex items-center gap-2">
-              <span>➕</span> Compartir un Recurso (+150 XP)
+              <span>➕</span> Compartir Recurso (+150 XP)
             </button>
             <button onclick="cambiarSeccion('biblioteca')" class="bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-semibold px-6 py-3.5 rounded-2xl text-sm transition cursor-pointer">
               Explorar Biblioteca
@@ -149,25 +147,6 @@
           </div>
           <div class="w-full bg-slate-950 rounded-full h-3 overflow-hidden border border-slate-800">
             <div id="perfil-barra-xp" class="bg-amber-500 h-3 rounded-full w-0 transition-all"></div>
-          </div>
-        </div>
-
-        <!-- Guía de XP -->
-        <div class="bg-white border border-slate-200/80 rounded-3xl p-6 md:p-8 shadow-xs space-y-4">
-          <h3 class="font-bold text-slate-900 text-base font-heading">💡 ¿Cómo conseguir XP y subir de cinturón?</h3>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
-            <div class="p-4 rounded-2xl bg-[#F8F9FA] border border-slate-100 space-y-1">
-              <span class="font-bold text-amber-800 block">➕ Publicar un Recurso</span>
-              <span class="text-slate-600">+150 XP y desbloqueo de insignia.</span>
-            </div>
-            <div class="p-4 rounded-2xl bg-[#F8F9FA] border border-slate-100 space-y-1">
-              <span class="font-bold text-blue-800 block">❤️ Dar o recibir Likes</span>
-              <span class="text-slate-600">+10 XP por apoyo comunitario.</span>
-            </div>
-            <div class="p-4 rounded-2xl bg-[#F8F9FA] border border-slate-100 space-y-1">
-              <span class="font-bold text-emerald-800 block">🎯 Completar Retos</span>
-              <span class="text-slate-600">+200 XP al superar misiones semanales.</span>
-            </div>
           </div>
         </div>
       </div>
@@ -242,7 +221,7 @@
 
     </main>
 
-    <!-- MODAL REGISTRO (NOMBRE, EMAIL, CONTRASEÑA) -->
+    <!-- MODAL REGISTRO -->
     <div id="modal-auth" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
       <div class="bg-white border border-slate-100 rounded-3xl max-w-md w-full p-6 md:p-8 shadow-2xl space-y-6 relative">
         <button onclick="cerrarModalAuth()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-900 font-bold text-lg cursor-pointer">✕</button>
@@ -268,7 +247,7 @@
       </div>
     </div>
 
-    <!-- MODAL SIMULACIÓN EMAIL DE ACTIVACIÓN (Basado en la captura aportada) -->
+    <!-- MODAL EMAIL ACTIVACIÓN -->
     <div id="modal-email-activacion" class="fixed inset-0 bg-slate-950/80 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
       <div class="bg-white border border-slate-200 rounded-3xl max-w-lg w-full p-8 shadow-2xl space-y-6 relative text-center">
         <button onclick="cerrarModalEmail()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-900 font-bold text-lg cursor-pointer">✕</button>
@@ -284,37 +263,122 @@
               ✓ Confirmar mi cuenta
             </button>
           </div>
-          <p class="text-[10px] text-slate-400 pt-2 border-t border-slate-200">Si el botón no funciona, tu cuenta se activará automáticamente al hacer clic aquí. Si no te has registrado, ignora este email.</p>
+          <p class="text-[10px] text-slate-400 pt-2 border-t border-slate-200">Si el botón no funciona, tu cuenta se activará automáticamente al hacer clic aquí.</p>
         </div>
       </div>
     </div>
 
-    <!-- MODAL SUBIR RECURSO -->
-    <div id="modal-recurso" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
-      <div class="bg-white border border-slate-100 rounded-3xl max-w-lg w-full p-6 md:p-8 shadow-2xl space-y-6 relative">
-        <button onclick="cerrarModalRecurso()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-900 font-bold text-lg cursor-pointer">✕</button>
-        <div>
-          <h3 class="text-xl font-bold font-heading text-slate-900">Compartir Recurso en el Tatami</h3>
+    <!-- ================= MODAL SUBIR RECURSO (ESTILO AVANZADO ADAPTADO) ================= -->
+    <div id="modal-recurso" class="fixed inset-0 bg-[#0F172A]/90 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+      <div class="bg-[#1E293B] border border-slate-800 rounded-3xl max-w-2xl w-full p-6 md:p-8 shadow-2xl space-y-6 relative text-white my-8 max-h-[90vh] overflow-y-auto">
+        
+        <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+          <div>
+            <h3 class="text-xl font-bold font-heading text-white flex items-center gap-2">
+              <span>📤</span> SUBIR RECURSO / EJERCICIO
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">Comparte contenido de entrenamiento con la comunidad de maestros</p>
+          </div>
+          <button onclick="cerrarModalRecurso()" class="text-slate-400 hover:text-white font-bold text-lg cursor-pointer">✕</button>
         </div>
-        <form onsubmit="procesarSubidaRecurso(event)" class="space-y-4">
-          <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Título</label>
-            <input type="text" id="rec-titulo" required class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500" placeholder="Ej: O-goshi infantil">
+
+        <form onsubmit="procesarSubidaRecurso(event)" class="space-y-6 text-xs">
+          
+          <!-- BLOQUE 1: Fuente del Contenido -->
+          <div class="space-y-2">
+            <label class="block font-bold text-emerald-400 uppercase tracking-wider">1. Fuente del Contenido *</label>
+            <div class="grid grid-cols-2 gap-3">
+              <button type="button" class="bg-emerald-600/20 border-2 border-emerald-500 text-white p-3 rounded-2xl font-bold flex items-center justify-center gap-2 cursor-pointer">
+                <span>📹</span> URL de Vídeo
+              </button>
+              <button type="button" class="bg-slate-900 border border-slate-800 text-slate-400 p-3 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-slate-800 cursor-pointer">
+                <span>🎯</span> Subir Pizarra Pro
+              </button>
+            </div>
+            <input type="url" id="rec-url" placeholder="https://youtube.com/watch?v=..." class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-4 py-3 mt-2 focus:outline-none focus:border-emerald-500">
           </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Categoría</label>
-            <select id="rec-cat" class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500">
-              <option value="Iniciación">🧸 Iniciación / Infantil</option>
-              <option value="Técnica Nage-waza">🥋 Técnica Nage-waza</option>
-              <option value="Técnica Ne-waza">🛡️ Técnica Ne-waza</option>
-              <option value="Preparación Física">⚡ Preparación Física</option>
-            </select>
+
+          <!-- BLOQUE 2: Familia del Contenido -->
+          <div class="space-y-2">
+            <label class="block font-bold text-emerald-400 uppercase tracking-wider">2. Familia del Contenido *</label>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <label class="bg-slate-950 border border-slate-800 hover:border-emerald-500 p-3 rounded-2xl text-center cursor-pointer transition block">
+                <input type="radio" name="familia" value="Iniciación" checked class="hidden">
+                <span class="block text-lg mb-1">🧸</span>
+                <span class="font-bold text-white">Escuela Base</span>
+              </label>
+              <label class="bg-slate-950 border border-slate-800 hover:border-emerald-500 p-3 rounded-2xl text-center cursor-pointer transition block">
+                <input type="radio" name="familia" value="Técnica Nage-waza" class="hidden">
+                <span class="block text-lg mb-1">🥋</span>
+                <span class="font-bold text-white">Técnica Superior</span>
+              </label>
+              <label class="bg-slate-950 border border-slate-800 hover:border-emerald-500 p-3 rounded-2xl text-center cursor-pointer transition block">
+                <input type="radio" name="familia" value="Técnica Ne-waza" class="hidden">
+                <span class="block text-lg mb-1">🛡️</span>
+                <span class="font-bold text-white">Randori / Suelo</span>
+              </label>
+              <label class="bg-slate-950 border border-slate-800 hover:border-emerald-500 p-3 rounded-2xl text-center cursor-pointer transition block">
+                <input type="radio" name="familia" value="Preparación Física" class="hidden">
+                <span class="block text-lg mb-1">⚡</span>
+                <span class="font-bold text-white">Prep. Física</span>
+              </label>
+            </div>
           </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Descripción</label>
-            <textarea id="rec-desc" rows="3" required class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500" placeholder="Explicación..."></textarea>
+
+          <!-- BLOQUE 3: Tu Aportación -->
+          <div class="space-y-2">
+            <label class="block font-bold text-emerald-400 uppercase tracking-wider">3. Tu Aportación *</label>
+            <p class="text-[11px] text-slate-400">Describe el ejercicio con tus palabras (<strong class="text-amber-400">+50 XP si escribes mínimo 30 palabras</strong>)</p>
+            <textarea id="rec-desc" rows="3" required oninput="actualizarConteoPalabras(this)" placeholder="Ej: Ejercicio de kumi-kata donde se trabaja el agarre dominante con presión alta del rival..." class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-4 py-3 focus:outline-none focus:border-emerald-500"></textarea>
+            <span id="contador-palabras" class="text-[11px] text-rose-400 block">0 / 30 palabras</span>
           </div>
-          <button type="submit" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-xl text-sm transition shadow-md cursor-pointer">Publicar (+150 XP)</button>
+
+          <!-- BLOQUE 4: Temas Trabajados -->
+          <div class="space-y-2">
+            <label class="block font-bold text-emerald-400 uppercase tracking-wider">4. Temas Trabajados * <span class="text-[10px] text-slate-400">(selecciona 1-5)</span></label>
+            <div class="flex flex-wrap gap-2 pt-1">
+              <button type="button" onclick="toggleTag(this)" class="tag-btn bg-slate-950 border border-slate-800 text-slate-300 px-3 py-1.5 rounded-full hover:border-emerald-500 transition cursor-pointer">Ukemi</button>
+              <button type="button" onclick="toggleTag(this)" class="tag-btn bg-slate-950 border border-slate-800 text-slate-300 px-3 py-1.5 rounded-full hover:border-emerald-500 transition cursor-pointer">Kumi-kata</button>
+              <button type="button" onclick="toggleTag(this)" class="tag-btn bg-slate-950 border border-slate-800 text-slate-300 px-3 py-1.5 rounded-full hover:border-emerald-500 transition cursor-pointer">Nage-waza</button>
+              <button type="button" onclick="toggleTag(this)" class="tag-btn bg-slate-950 border border-slate-800 text-slate-300 px-3 py-1.5 rounded-full hover:border-emerald-500 transition cursor-pointer">Ne-waza</button>
+              <button type="button" onclick="toggleTag(this)" class="tag-btn bg-slate-950 border border-slate-800 text-slate-300 px-3 py-1.5 rounded-full hover:border-emerald-500 transition cursor-pointer">Tokui-waza</button>
+              <button type="button" onclick="toggleTag(this)" class="tag-btn bg-slate-950 border border-slate-800 text-slate-300 px-3 py-1.5 rounded-full hover:border-emerald-500 transition cursor-pointer">Desequilibrio (Kuzushi)</button>
+              <button type="button" onclick="toggleTag(this)" class="tag-btn bg-slate-950 border border-slate-800 text-slate-300 px-3 py-1.5 rounded-full hover:border-emerald-500 transition cursor-pointer">Transiciones</button>
+              <button type="button" onclick="toggleTag(this)" class="tag-btn bg-slate-950 border border-slate-800 text-slate-300 px-3 py-1.5 rounded-full hover:border-emerald-500 transition cursor-pointer">Randori</button>
+            </div>
+            <input type="text" id="rec-titulo" required placeholder="Título corto del ejercicio (Ej: Entrada explosiva de Seoi-nage)" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl px-4 py-3 mt-2 focus:outline-none focus:border-emerald-500">
+          </div>
+
+          <!-- BLOQUE 5: Detalles Adicionales -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block font-bold text-slate-300 mb-1">Dificultad *</label>
+              <select id="rec-dif" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl p-3 focus:outline-none focus:border-emerald-500">
+                <option value="1">Nivel 1 (Iniciación)</option>
+                <option value="2">Nivel 2 (Intermedio)</option>
+                <option value="3">Nivel 3 (Avanzado)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-bold text-slate-300 mb-1">Nº Judokas en práctica</label>
+              <select id="rec-judokas" class="w-full bg-slate-950 border border-slate-800 text-white rounded-xl p-3 focus:outline-none focus:border-emerald-500">
+                <option value="Parejas (Uke/Tori)">Parejas (Uke / Tori)</option>
+                <option value="Grupos de 3">Grupos de 3</option>
+                <option value="Randori Abierto">Randori Abierto (Grupo)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Botones Finales Modal -->
+          <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+            <button type="button" onclick="cerrarModalRecurso()" class="bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold px-6 py-3 rounded-xl transition cursor-pointer">
+              Cancelar
+            </button>
+            <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-8 py-3 rounded-xl transition shadow-lg cursor-pointer flex items-center gap-2">
+              <span>📤</span> Enviar Ejercicio (+150 XP)
+            </button>
+          </div>
+
         </form>
       </div>
     </div>
@@ -339,8 +403,8 @@
       let usuario = JSON.parse(localStorage.getItem('judo_educacion_usuario')) || { nombre: '', email: '', xp: 0, ejerciciosCount: 0, likesCount: 0, badgesCount: 0 };
       let recursos = JSON.parse(localStorage.getItem('judo_educacion_recursos')) || recursosIniciales;
       let registroPendiente = null;
+      let tagsSeleccionados = [];
 
-      // Sistema de Cinturones de Judo según XP
       function obtenerCinturonJudo(xp) {
         if (xp < 200) return { nivel: 'Cinturón Blanco (Nivel 1)', proximo: 'Cinturón Amarillo', falta: 200 - xp, pct: (xp / 200) * 100 };
         if (xp < 500) return { nivel: 'Cinturón Amarillo (Nivel 2)', proximo: 'Cinturón Naranja', falta: 500 - xp, pct: (xp / 500) * 100 };
@@ -376,7 +440,6 @@
         }
 
         if(sec === 'perfil') actualizarVistaPerfil();
-        if(sec === 'favoritos') renderizarFavoritos();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
@@ -390,7 +453,7 @@
           container.innerHTML = `
             <div class="flex items-center gap-2 bg-[#FAF5EE] border border-[#EED7C1] px-3.5 py-2 rounded-2xl shadow-2xs">
               <span class="text-xs font-bold text-amber-900">🐼 ${usuario.nombre}</span>
-              <button onclick="cerrarSesion()" class="text-[11px] text-slate-500 hover:text-slate-900 font-bold ml-1 cursor-pointer" title="Cerrar sesión">✕</button>
+              <button onclick="cerrarSesion()" class="text-[11px] text-slate-500 hover:text-slate-900 font-bold ml-1 cursor-pointer">✕</button>
             </div>
           `;
         } else {
@@ -407,14 +470,12 @@
         document.getElementById('perfil-nombre-view').innerText = usuario.nombre || 'MAESTRO';
         document.getElementById('perfil-nivel-view').innerText = infoCinto.nivel;
         document.getElementById('perfil-proximo-nivel').innerText = `${infoCinto.nivel} ➔ ${infoCinto.proximo}`;
-        document.getElementById('perfil-xp-faltante').innerText = infoCinto.falta > 0 ? `${infoCinto.falta} XP para ${infoCinto.proximo}` : '¡Rango Máximo Alcanzado!';
+        document.getElementById('perfil-xp-faltante').innerText = infoCinto.falta > 0 ? `${infoCinto.falta} XP para ${infoCinto.proximo}` : '¡Rango Máximo!';
         document.getElementById('perfil-barra-xp').style.width = `${infoCinto.pct}%`;
 
         document.getElementById('perfil-stat-ejercicios').innerText = usuario.ejerciciosCount || 0;
         document.getElementById('perfil-stat-likes').innerText = usuario.likesCount || 0;
         document.getElementById('perfil-stat-badges').innerText = usuario.badgesCount || 0;
-        document.getElementById('contador-badges-desbloqueados').innerText = usuario.badgesCount || 0;
-
         document.getElementById('perfil-avatar-box').innerText = (usuario.nombre || 'M')[0].toUpperCase();
       }
 
@@ -440,13 +501,13 @@
           nombre: document.getElementById('reg-nombre').value,
           email: document.getElementById('reg-email').value,
           pass: document.getElementById('reg-pass').value,
-          xp: 50, // Bonus de bienvenida
+          xp: 50,
           ejerciciosCount: 0,
           likesCount: 0,
           badgesCount: 1
         };
         cerrarModalAuth();
-        abrirModalEmail(); // Muestra la simulación del correo de activación
+        abrirModalEmail();
       }
 
       function activarCuentaConfirmada() {
@@ -456,7 +517,7 @@
           cerrarModalEmail();
           actualizarUIHeader();
           actualizarVistaPerfil();
-          alert(`¡Cuenta activada con éxito! Bienvenido a Judo Educación, Sensei ${usuario.nombre}. Has ganado +50 XP.`);
+          alert(`¡Cuenta activada con éxito! Bienvenido, Sensei ${usuario.nombre}. Has ganado +50 XP.`);
           cambiarSeccion('perfil');
         }
       }
@@ -468,21 +529,47 @@
         cambiarSeccion('inicio');
       }
 
+      function actualizarConteoPalabras(textarea) {
+        const palabras = textarea.value.trim().split(/\s+/).filter(Boolean).length;
+        const contador = document.getElementById('contador-palabras');
+        contador.innerText = `${palabras} / 30 palabras`;
+        if(palabras >= 30) {
+          contador.className = "text-[11px] text-emerald-400 block font-bold";
+        } else {
+          contador.className = "text-[11px] text-rose-400 block";
+        }
+      }
+
+      function toggleTag(btn) {
+        btn.classList.toggle('bg-emerald-600/30');
+        btn.classList.toggle('border-emerald-500');
+        const tag = btn.innerText;
+        if(tagsSeleccionados.includes(tag)) {
+          tagsSeleccionados = tagsSeleccionados.filter(t => t !== tag);
+        } else {
+          if(tagsSeleccionados.length < 5) tagsSeleccionados.push(tag);
+        }
+      }
+
       function procesarSubidaRecurso(e) {
         e.preventDefault();
+        const titulo = document.getElementById('rec-titulo').value;
+        const descripcion = document.getElementById('rec-desc').value;
+        const familia = document.querySelector('input[name="familia"]:checked').value;
+
         const nuevo = {
           id: Date.now(),
-          titulo: document.getElementById('rec-titulo').value,
-          categoria: document.getElementById('rec-cat').value,
+          titulo,
+          categoria: familia,
           autor: usuario.nombre || 'Maestro',
           club: 'Dojo Club',
-          descripcion: document.getElementById('rec-desc').value,
+          descripcion,
           likes: 1,
           fav: false
         };
 
         recursos.unshift(nuevo);
-        usuario.xp += 150; // +150 XP por publicar
+        usuario.xp += 150;
         usuario.ejerciciosCount = (usuario.ejerciciosCount || 0) + 1;
         usuario.badgesCount = (usuario.badgesCount || 0) + 1;
 
@@ -490,11 +577,10 @@
         localStorage.setItem('judo_educacion_usuario', JSON.stringify(usuario));
 
         cerrarModalRecurso();
-        document.getElementById('form-recurso')?.reset();
         actualizarUIHeader();
         actualizarVistaPerfil();
         renderizarBibliotecaCompleta();
-        alert('¡Recurso publicado con éxito! Has ganado +150 XP y desbloqueado una nueva insignia.');
+        alert('¡Ejercicio publicado con éxito! Has ganado +150 XP.');
         cambiarSeccion('biblioteca');
       }
 
@@ -502,11 +588,8 @@
         const box = document.getElementById('lista-ranking-inicio');
         const ranking = [
           { pos: 1, nombre: usuario.nombre || 'JONATHANIMEDIO', xp: usuario.xp || 50, belt: '⚪ Cinturón Blanco' },
-          { pos: 2, nombre: 'Ana Martínez', xp: 920, belt: '🟢 Cinturón Verde' },
-          { pos: 3, nombre: 'Javier Ruiz', xp: 640, belt: '🟠 Cinturón Naranja' },
-          { pos: 4, nombre: 'Elena Moral', xp: 410, belt: '🟡 Cinturón Amarillo' }
+          { pos: 2, nombre: 'Ana Martínez', xp: 920, belt: '🟢 Cinturón Verde' }
         ];
-
         box.innerHTML = ranking.map(r => `
           <div class="flex items-center justify-between p-3.5 rounded-2xl bg-[#F8F9FA] border border-slate-100 text-xs">
             <div class="flex items-center gap-3">
@@ -552,10 +635,7 @@
             </div>
             <div class="flex items-center justify-between pt-3 border-t border-slate-200/60 text-xs text-slate-500">
               <span class="font-medium text-slate-900">${r.autor}</span>
-              <div class="flex items-center gap-3">
-                <button onclick="toggleFavorito(${r.id})" class="cursor-pointer transition hover:scale-110">${r.fav ? '❤️' : '🤍'}</button>
-                <button onclick="darLike(${r.id})" class="text-rose-600 font-bold cursor-pointer">❤️ <span>${r.likes}</span></button>
-              </div>
+              <button onclick="darLike(${r.id})" class="text-rose-600 font-bold cursor-pointer">❤️ <span>${r.likes}</span></button>
             </div>
           </div>
         `).join('');
@@ -571,7 +651,7 @@
         const r = recursos.find(rec => rec.id === id);
         if(r) {
           r.likes += 1;
-          usuario.xp += 10; // +10 XP por dar like
+          usuario.xp += 10;
           usuario.likesCount = (usuario.likesCount || 0) + 1;
           localStorage.setItem('judo_educacion_recursos', JSON.stringify(recursos));
           localStorage.setItem('judo_educacion_usuario', JSON.stringify(usuario));
@@ -582,32 +662,10 @@
         }
       }
 
-      function toggleFavorito(id) {
-        const r = recursos.find(rec => rec.id === id);
-        if(r) {
-          r.fav = !r.fav;
-          localStorage.setItem('judo_educacion_recursos', JSON.stringify(recursos));
-          renderizarBibliotecaCompleta();
-        }
-      }
-
-      function renderizarFavoritos() {
-        const grid = document.getElementById('grid-favoritos');
-        const favs = recursos.filter(r => r.fav);
-        grid.innerHTML = favs.length === 0 ? `<p class="text-xs text-slate-400 col-span-full text-center py-8">No tienes favoritos guardados.</p>` :
-          favs.map(r => `
-            <div class="bg-[#F8F9FA] border border-slate-200/80 rounded-2xl p-5 flex flex-col justify-between gap-4">
-              <h4 class="font-bold text-slate-900 text-sm font-heading">${r.titulo}</h4>
-              <button onclick="toggleFavorito(${r.id}); renderizarFavoritos();" class="text-rose-600 font-bold text-xs">Quitar ❤️</button>
-            </div>
-          `).join('');
-      }
-
       function renderizarCreadores() {
         const box = document.getElementById('lista-creadores-completa');
         const maestros = [
-          { nombre: usuario.nombre || 'JONATHANIMEDIO', aportes: usuario.ejerciciosCount || 1, belt: obtenerCinturonJudo(usuario.xp).nivel },
-          { nombre: 'Ana Martínez', aportes: 19, belt: 'Cinturón Verde (Nivel 4)' }
+          { nombre: usuario.nombre || 'JONATHANIMEDIO', aportes: usuario.ejerciciosCount || 1, belt: obtenerCinturonJudo(usuario.xp).nivel }
         ];
         box.innerHTML = maestros.map((m, i) => `
           <div class="p-4 rounded-2xl bg-[#F8F9FA] border border-slate-100 flex items-center justify-between text-xs">
