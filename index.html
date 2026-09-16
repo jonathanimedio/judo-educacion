@@ -1,181 +1,1066 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Judo Educación</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f7f4ee;
+            color: #171717;
+        }
+
+
+        header {
+            padding: 25px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e5e2dc;
+        }
+
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+
+        nav a {
+            margin-left: 25px;
+            text-decoration: none;
+            color: #171717;
+            font-size: 15px;
+        }
+
+
+        .hero {
+            min-height: 72vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 70px 20px;
+        }
+
+
+        .hero-content {
+            width: 100%;
+            max-width: 900px;
+        }
+
+
+        .pandoka {
+            font-size: 72px;
+            margin-bottom: 20px;
+        }
+
+
+        h1 {
+            font-size: clamp(42px, 7vw, 80px);
+            line-height: 1;
+            letter-spacing: -3px;
+            margin: 0 0 25px;
+        }
+
+
+        .hero p {
+            max-width: 650px;
+            margin: 0 auto;
+            font-size: 20px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+
+        .search-box {
+            margin: 40px auto 0;
+            display: flex;
+            max-width: 800px;
+            background: white;
+            border-radius: 18px;
+            padding: 8px;
+            box-shadow: 0 10px 35px rgba(0,0,0,.08);
+        }
+
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 18px;
+            font-size: 17px;
+            border-radius: 12px;
+            min-width: 0;
+        }
+
+
+        .search-box button {
+            border: none;
+            background: #a31217;
+            color: white;
+            padding: 0 28px;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+
+        .search-box button:hover {
+            background: #7e0d11;
+        }
+
+
+        #results {
+            margin-top: 35px;
+            text-align: left;
+        }
+
+
+        .results-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+
+        .resource-card {
+            background: white;
+            border-radius: 16px;
+            padding: 22px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.05);
+        }
+
+
+        .resource-type {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #a31217;
+            background: #f7e8e8;
+            padding: 6px 9px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+
+        .resource-card h3 {
+            margin: 0 0 8px;
+            font-size: 21px;
+        }
+
+
+        .resource-card p {
+            margin: 0 0 12px;
+            line-height: 1.5;
+            color: #555;
+        }
+
+
+        .resource-meta {
+            font-size: 13px;
+            color: #777;
+            margin-top: 8px;
+        }
+
+
+        .resource-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #a31217;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+
+        .resource-link:hover {
+            text-decoration: underline;
+        }
+
+
+        .resource-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 12px;
+        }
+
+
+        .resource-tags span {
+            font-size: 12px;
+            background: #f2f2f2;
+            padding: 5px 8px;
+            border-radius: 6px;
+            color: #555;
+        }
+
+
+        .no-results {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            color: #555;
+        }
+
+
+        .no-results h3 {
+            margin-top: 0;
+            color: #171717;
+        }
+
+
+        .loading {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+        }
+
+
+        .categories {
+            padding: 70px 6%;
+            background: white;
+        }
+
+
+        .categories h2 {
+            text-align: center;
+            font-size: 38px;
+            margin-top: 0;
+        }
+
+
+        .category-grid {
+            max-width: 1000px;
+            margin: 40px auto 0;
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(180px, 1fr)
+            );
+            gap: 15px;
+        }
+
+
+        .category {
+            padding: 25px;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: bold;
+            background: #fafafa;
+        }
+
+
+        footer {
+            padding: 30px;
+            text-align: center;
+            background: #171717;
+            color: white;
+        }
+
+
+        @media (max-width: 600px) {
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+
+            nav a {
+                margin: 0 8px;
+            }
+
+
+            h1 {
+                letter-spacing: -2px;
+            }
+
+
+            .search-box {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+
+            .search-box button {
+                padding: 16px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        JUDO EDUCACIÓN
+    </div>
+
+
+    <nav>
+
+        <a href="#">
+            Recursos
+        </a>
+
+        <a href="#">
+            Juegos
+        </a>
+
+        <a href="#">
+            Blog
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<section class="hero">
+
+    <div class="hero-content">
+
+
+        <div class="pandoka">
+            🐼
+        </div>
+
+
+        <h1>
+            ¿Qué necesitas para tu clase?
+        </h1>
+
+
+        <p>
+            Encuentra juegos, vídeos, libros, herramientas y recursos
+            para enseñar Judo a niños.
+        </p>
+
+
+
+        <div class="search-box">
+
+
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="Ej.: juegos para trabajar cooperación con niños de 6 años..."
+                onkeydown="handleEnter(event)"
+            >
+
+
+            <button
+                type="button"
+                onclick="searchResources()"
+            >
+                BUSCAR
+            </button>
+
+
+        </div>
+
+
+
+        <div id="results"></div>
+
+
+    </div>
+
+</section>
+
+
+
+<section class="categories">
+
+
+    <h2>
+        Explora Judo Educación
+    </h2>
+
+
+    <div class="category-grid">
+
+
+        <div class="category">
+            🥋 Juegos
+        </div>
+
+
+        <div class="category">
+            🎥 Vídeos
+        </div>
+
+
+        <div class="category">
+            📚 Libros
+        </div>
+
+
+        <div class="category">
+            📱 Cuentas
+        </div>
+
+
+        <div class="category">
+            📰 Artículos
+        </div>
+
+
+        <div class="category">
+            🛠️ Herramientas
+        </div>
+
+
+        <div class="category">
+            🎓 Formación
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<footer>
+
+    Judo Educación · Enseñar Judo, compartir conocimiento.
+
+</footer>
+
+
+
 <script>
-const SUPABASE_URL = "https://gncpzdpqqnqvlskuxmvh.supabase.co";
-const SUPABASE_KEY = "sb_publishable_u5-svo35nbWAcBlZVNxSeg_m64tS-vW";
 
-const searchInput = document.getElementById("searchInput");
-const results = document.getElementById("results");
 
-async function searchResources() {
-    const query = searchInput.value.trim();
+    // ============================================================
+    // SUPABASE
+    // ============================================================
 
-    if (!query) {
+
+    const SUPABASE_URL =
+        "https://gncpzdpqqnqvlskuxmvh.supabase.co";
+
+
+    const SUPABASE_KEY =
+        "sb_publishable_u5-svo35nbWAcBlZVNxSeg_m64tS-vW";
+
+
+
+    // ============================================================
+    // ELEMENTOS
+    // ============================================================
+
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+
+    const results =
+        document.getElementById("results");
+
+
+
+    // ============================================================
+    // BUSCADOR
+    // ============================================================
+
+
+    async function searchResources() {
+
+
+        const query =
+            searchInput.value.trim();
+
+
+
+        // Si no hay búsqueda
+
+
+        if (!query) {
+
+
+            results.innerHTML = `
+
+                <div class="no-results">
+
+                    Escribe qué necesitas para tu clase.
+
+                </div>
+
+            `;
+
+
+            return;
+
+        }
+
+
+
+        // Estado de carga
+
+
         results.innerHTML = `
-            <div class="no-results">
-                Escribe qué necesitas para tu clase.
+
+            <div class="loading">
+
+                🔎 Buscando recursos para tu clase...
+
             </div>
+
         `;
-        return;
+
+
+
+        try {
+
+
+            const response =
+                await fetch(
+                    `${SUPABASE_URL}/rest/v1/rpc/search_resources`,
+                    {
+
+                        method: "POST",
+
+
+                        headers: {
+
+                            "apikey":
+                                SUPABASE_KEY,
+
+                            "Authorization":
+                                `Bearer ${SUPABASE_KEY}`,
+
+                            "Content-Type":
+                                "application/json",
+
+                            "Accept":
+                                "application/json"
+
+                        },
+
+
+                        body:
+                            JSON.stringify({
+
+                                search_query:
+                                    query
+
+                            })
+
+                    }
+                );
+
+
+
+            const responseText =
+                await response.text();
+
+
+
+            // Error de Supabase
+
+
+            if (!response.ok) {
+
+
+                console.error(
+                    "Error de Supabase:",
+                    responseText
+                );
+
+
+                throw new Error(
+                    responseText
+                );
+
+            }
+
+
+
+            const data =
+                JSON.parse(responseText);
+
+
+
+            console.log(
+                "Resultados:",
+                data
+            );
+
+
+
+            displayResults(data);
+
+
+
+        }
+
+
+        catch (error) {
+
+
+            console.error(
+                "Error en el buscador:",
+                error
+            );
+
+
+            results.innerHTML = `
+
+                <div class="no-results">
+
+                    <h3>
+                        Ha ocurrido un error.
+                    </h3>
+
+                    <p>
+                        No hemos podido realizar la búsqueda.
+                    </p>
+
+                    <p>
+                        Revisa la consola del navegador
+                        para ver los detalles.
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
     }
 
-    results.innerHTML = `
-        <div class="loading">
-            🔎 Buscando recursos para tu clase...
-        </div>
-    `;
 
-    try {
-        const response = await fetch(
-            `${SUPABASE_URL}/rest/v1/rpc/search_resources`,
-            {
-                method: "POST",
-                headers: {
-                    "apikey": SUPABASE_KEY,
-                    "Authorization": `Bearer ${SUPABASE_KEY}`,
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                },
-                body: JSON.stringify({
-                    search_query: query
-                })
+
+    // ============================================================
+    // MOSTRAR RESULTADOS
+    // ============================================================
+
+
+    function displayResults(data) {
+
+
+        // Sin resultados
+
+
+        if (
+            !data ||
+            data.length === 0
+        ) {
+
+
+            results.innerHTML = `
+
+                <div class="no-results">
+
+                    <h3>
+                        No hemos encontrado resultados exactos.
+                    </h3>
+
+
+                    <p>
+                        Prueba con términos más sencillos,
+                        por ejemplo:
+                    </p>
+
+
+                    <ul>
+
+                        <li>
+                            cooperación
+                        </li>
+
+                        <li>
+                            juegos 6 años
+                        </li>
+
+                        <li>
+                            ukemi
+                        </li>
+
+                        <li>
+                            desplazamientos
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            `;
+
+
+            return;
+
+        }
+
+
+
+        // Número de resultados
+
+
+        let html = `
+
+            <div class="results-title">
+
+                ${data.length}
+                recurso${data.length !== 1 ? "s" : ""}
+                encontrado${data.length !== 1 ? "s" : ""}
+
+            </div>
+
+        `;
+
+
+
+        // Crear cada tarjeta
+
+
+        data.forEach(
+            resource => {
+
+
+                const type =
+                    getResourceTypeName(
+                        resource.resource_type
+                    );
+
+
+
+                const age =
+                    getAgeText(
+                        resource.age_min,
+                        resource.age_max
+                    );
+
+
+
+                const topics =
+                    resource.topics &&
+                    resource.topics.length
+                        ? resource.topics
+                        : [];
+
+
+
+                html += `
+
+                    <article class="resource-card">
+
+
+                        <div class="resource-type">
+
+                            ${type}
+
+                        </div>
+
+
+
+                        <h3>
+
+                            ${escapeHtml(
+                                resource.title
+                            )}
+
+                        </h3>
+
+
+
+                        <p>
+
+                            ${escapeHtml(
+                                resource.description || ""
+                            )}
+
+                        </p>
+
+
+
+                        ${
+                            age
+                                ? `
+
+                                    <div class="resource-meta">
+
+                                        👦 ${age}
+
+                                    </div>
+
+                                `
+                                : ""
+                        }
+
+
+
+                        ${
+                            topics.length
+                                ? `
+
+                                    <div class="resource-tags">
+
+                                        ${topics
+                                            .map(
+                                                topic =>
+                                                    `
+                                                    <span>
+                                                        ${escapeHtml(topic)}
+                                                    </span>
+                                                    `
+                                            )
+                                            .join("")
+                                        }
+
+                                    </div>
+
+                                `
+                                : ""
+                        }
+
+
+
+                        <a
+                            class="resource-link"
+                            href="recurso.html?id=${encodeURIComponent(resource.id)}"
+                        >
+
+                            Ver ficha →
+
+                        </a>
+
+
+                    </article>
+
+                `;
+
             }
         );
 
-        const responseText = await response.text();
-
-        if (!response.ok) {
-            console.error("Error de Supabase:", responseText);
-            throw new Error(responseText);
-        }
-
-        const data = JSON.parse(responseText);
-
-        console.log("Resultados:", data);
-
-        displayResults(data);
-
-    } catch (error) {
-        console.error("Error en el buscador:", error);
-
-        results.innerHTML = `
-            <div class="no-results">
-                <h3>Ha ocurrido un error.</h3>
-                <p>No hemos podido realizar la búsqueda.</p>
-                <p>Abre la consola del navegador para ver el error.</p>
-            </div>
-        `;
-    }
-}
 
 
-function displayResults(data) {
+        results.innerHTML =
+            html;
 
-    if (!data || data.length === 0) {
-        results.innerHTML = `
-            <div class="no-results">
-                <h3>No hemos encontrado recursos.</h3>
-                <p>Prueba con otra búsqueda.</p>
-            </div>
-        `;
-        return;
     }
 
-    results.innerHTML = data.map(resource => {
 
-        const ageText = getAgeText(
-            resource.age_min,
-            resource.age_max
+
+    // ============================================================
+    // TIPO DE RECURSO
+    // ============================================================
+
+
+    function getResourceTypeName(type) {
+
+
+        const types = {
+
+
+            juego:
+                "🥋 Juego",
+
+
+            libro:
+                "📚 Libro",
+
+
+            video:
+                "🎥 Vídeo",
+
+
+            cuenta:
+                "📱 Cuenta",
+
+
+            articulo:
+                "📰 Artículo",
+
+
+            herramienta:
+                "🛠️ Herramienta",
+
+
+            formacion:
+                "🎓 Formación"
+
+
+        };
+
+
+        return (
+            types[type] ||
+            "📁 Recurso"
         );
 
-        return `
-            <article class="resource-card">
-
-                <div class="resource-type">
-                    ${getResourceTypeName(resource.resource_type)}
-                </div>
-
-                <h3>${escapeHtml(resource.title)}</h3>
-
-                <p>
-                    ${escapeHtml(resource.description || "")}
-                </p>
-
-                <div class="resource-meta">
-
-                    ${ageText ? `
-                        <span>👦 ${ageText}</span>
-                    ` : ""}
-
-                    ${resource.je_rating ? `
-                        <span>⭐ ${resource.je_rating}/5</span>
-                    ` : ""}
-
-                </div>
-
-                <a href="recurso.html?id=${resource.id}">
-                    Ver recurso →
-                </a>
-
-            </article>
-        `;
-
-    }).join("");
-}
-
-
-function getResourceTypeName(type) {
-
-    const types = {
-        juego: "🎮 Juego",
-        libro: "📚 Libro",
-        video: "🎥 Vídeo",
-        cuenta: "👤 Cuenta",
-        articulo: "📄 Artículo",
-        herramienta: "🛠️ Herramienta",
-        formacion: "🎓 Formación"
-    };
-
-    return types[type] || "Recurso";
-}
-
-
-function getAgeText(min, max) {
-
-    if (!min && !max) {
-        return "";
     }
 
-    if (min && max) {
-        return `${min}–${max} años`;
-    }
-
-    if (min) {
-        return `Desde ${min} años`;
-    }
-
-    return `Hasta ${max} años`;
-}
 
 
-function handleEnter(event) {
-
-    if (event.key === "Enter") {
-        searchResources();
-    }
-}
+    // ============================================================
+    // EDADES
+    // ============================================================
 
 
-function escapeHtml(value) {
+    function getAgeText(min, max) {
 
-    if (!value) {
+
+        if (
+            min === null &&
+            max === null
+        ) {
+
+            return "";
+
+        }
+
+
+
+        if (
+            min !== null &&
+            max !== null
+        ) {
+
+
+            if (
+                min === max
+            ) {
+
+                return `${min} años`;
+
+            }
+
+
+            return `${min}–${max} años`;
+
+        }
+
+
+
+        if (
+            min !== null
+        ) {
+
+            return `Desde ${min} años`;
+
+        }
+
+
+
+        if (
+            max !== null
+        ) {
+
+            return `Hasta ${max} años`;
+
+        }
+
+
+
         return "";
 
     }
 
-    return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
+
+
+    // ============================================================
+    // ENTER
+    // ============================================================
+
+
+    function handleEnter(event) {
+
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            searchResources();
+
+        }
+
+    }
+
+
+
+    // ============================================================
+    // SEGURIDAD
+    // ============================================================
+
+
+    function escapeHtml(value) {
+
+
+        if (!value) {
+
+            return "";
+
+        }
+
+
+
+        return String(value)
+
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+
+            .replace(
+                /</g,
+                "&lt;"
+            )
+
+            .replace(
+                />/g,
+                "&gt;"
+            )
+
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
 </script>
+
+
+</body>
+
+</html>
+```
