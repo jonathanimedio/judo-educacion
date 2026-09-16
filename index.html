@@ -1,382 +1,181 @@
 <script>
+const SUPABASE_URL = "https://gncpzdpqqnqvlskuxmvh.supabase.co";
+const SUPABASE_KEY = "sb_publishable_u5-svo35nbWAcBlZVNxSeg_m64tS-vW";
 
-    // ============================================================
-    // CONFIGURACIÓN SUPABASE
-    // ============================================================
+const searchInput = document.getElementById("searchInput");
+const results = document.getElementById("results");
 
-    const SUPABASE_URL =
-        "https://gncpzdpqqnqvlskuxmvh.supabase.co";
+async function searchResources() {
+    const query = searchInput.value.trim();
 
-    const SUPABASE_KEY =
-        "sb_publishable_u5-svo35nbWAcBlZVNxSeg_m64tS-vW";
-
-
-    // ============================================================
-    // ELEMENTOS
-    // ============================================================
-
-    const searchInput =
-        document.getElementById("searchInput");
-
-    const results =
-        document.getElementById("results");
-
-
-    // ============================================================
-    // BUSCADOR
-    // ============================================================
-
-    async function searchResources() {
-
-        const query = searchInput.value.trim();
-
-        // Si no hay búsqueda
-        if (!query) {
-
-            results.innerHTML = `
-                <div class="no-results">
-                    Escribe qué necesitas para tu clase.
-                </div>
-            `;
-
-            return;
-        }
-
-
-        // Mostrar carga
+    if (!query) {
         results.innerHTML = `
-            <div class="loading">
-                🔎 Buscando recursos para tu clase...
+            <div class="no-results">
+                Escribe qué necesitas para tu clase.
             </div>
         `;
-
-
-        try {
-
-            const response = await fetch(
-                `${SUPABASE_URL}/rest/v1/rpc/search_resources`,
-                {
-                    method: "POST",
-
-                    headers: {
-                        "apikey": SUPABASE_KEY,
-                        "Authorization": `Bearer ${SUPABASE_KEY}`,
-                        "Content-Type": "application/json",
-                        "Accept": "application/json"
-                    },
-
-                    body: JSON.stringify({
-                        search_query: query
-                    })
-                }
-            );
-
-
-            // Obtener respuesta
-            const responseText =
-                await response.text();
-
-
-            // Comprobar errores
-            if (!response.ok) {
-
-                console.error(
-                    "Error de Supabase:",
-                    responseText
-                );
-
-                throw new Error(responseText);
-            }
-
-
-            // Convertir respuesta
-            const data =
-                JSON.parse(responseText);
-
-
-            console.log(
-                "Resultados:",
-                data
-            );
-
-
-            // Mostrar resultados
-            displayResults(data);
-
-
-        } catch (error) {
-
-            console.error(
-                "Error en el buscador:",
-                error
-            );
-
-
-            results.innerHTML = `
-                <div class="no-results">
-
-                    <h3>
-                        Ha ocurrido un error.
-                    </h3>
-
-                    <p>
-                        No hemos podido realizar la búsqueda.
-                    </p>
-
-                    <p>
-                        Abre la consola del navegador
-                        para ver el error.
-                    </p>
-
-                </div>
-            `;
-
-        }
-
+        return;
     }
 
+    results.innerHTML = `
+        <div class="loading">
+            🔎 Buscando recursos para tu clase...
+        </div>
+    `;
 
-    // ============================================================
-    // MOSTRAR RESULTADOS
-    // ============================================================
+    try {
+        const response = await fetch(
+            `${SUPABASE_URL}/rest/v1/rpc/search_resources`,
+            {
+                method: "POST",
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": `Bearer ${SUPABASE_KEY}`,
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({
+                    search_query: query
+                })
+            }
+        );
 
-    function displayResults(data) {
+        const responseText = await response.text();
 
-        // Sin resultados
-        if (!data || data.length === 0) {
-
-            results.innerHTML = `
-                <div class="no-results">
-
-                    <h3>
-                        No hemos encontrado resultados exactos.
-                    </h3>
-
-                    <p>
-                        Prueba con términos más sencillos,
-                        por ejemplo:
-                    </p>
-
-                    <ul>
-                        <li>cooperación</li>
-                        <li>juegos 6 años</li>
-                        <li>ukemi</li>
-                        <li>desplazamientos</li>
-                    </ul>
-
-                </div>
-            `;
-
-            return;
+        if (!response.ok) {
+            console.error("Error de Supabase:", responseText);
+            throw new Error(responseText);
         }
 
+        const data = JSON.parse(responseText);
 
-        // Número de resultados
-        let html = `
+        console.log("Resultados:", data);
 
-            <div class="results-title">
+        displayResults(data);
 
-                ${data.length}
-                recurso${data.length !== 1 ? "s" : ""}
-                encontrado${data.length !== 1 ? "s" : ""}
+    } catch (error) {
+        console.error("Error en el buscador:", error);
 
+        results.innerHTML = `
+            <div class="no-results">
+                <h3>Ha ocurrido un error.</h3>
+                <p>No hemos podido realizar la búsqueda.</p>
+                <p>Abre la consola del navegador para ver el error.</p>
             </div>
+        `;
+    }
+}
 
+
+function displayResults(data) {
+
+    if (!data || data.length === 0) {
+        results.innerHTML = `
+            <div class="no-results">
+                <h3>No hemos encontrado recursos.</h3>
+                <p>Prueba con otra búsqueda.</p>
+            </div>
+        `;
+        return;
+    }
+
+    results.innerHTML = data.map(resource => {
+
+        const ageText = getAgeText(
+            resource.age_min,
+            resource.age_max
+        );
+
+        return `
+            <article class="resource-card">
+
+                <div class="resource-type">
+                    ${getResourceTypeName(resource.resource_type)}
+                </div>
+
+                <h3>${escapeHtml(resource.title)}</h3>
+
+                <p>
+                    ${escapeHtml(resource.description || "")}
+                </p>
+
+                <div class="resource-meta">
+
+                    ${ageText ? `
+                        <span>👦 ${ageText}</span>
+                    ` : ""}
+
+                    ${resource.je_rating ? `
+                        <span>⭐ ${resource.je_rating}/5</span>
+                    ` : ""}
+
+                </div>
+
+                <a href="recurso.html?id=${resource.id}">
+                    Ver recurso →
+                </a>
+
+            </article>
         `;
 
-
-        // Crear tarjetas
-        data.forEach(resource => {
-
-            const type =
-                getResourceTypeName(
-                    resource.resource_type
-                );
+    }).join("");
+}
 
 
-            const age =
-                getAgeText(
-                    resource.age_min,
-                    resource.age_max
-                );
+function getResourceTypeName(type) {
+
+    const types = {
+        juego: "🎮 Juego",
+        libro: "📚 Libro",
+        video: "🎥 Vídeo",
+        cuenta: "👤 Cuenta",
+        articulo: "📄 Artículo",
+        herramienta: "🛠️ Herramienta",
+        formacion: "🎓 Formación"
+    };
+
+    return types[type] || "Recurso";
+}
 
 
-            const topics =
-                resource.topics &&
-                resource.topics.length
-                    ? resource.topics.join(" · ")
-                    : "";
+function getAgeText(min, max) {
 
-
-            html += `
-
-                <article class="resource-card">
-
-                    <div class="resource-type">
-                        ${type}
-                    </div>
-
-
-                    <h3>
-                        ${escapeHtml(resource.title)}
-                    </h3>
-
-
-                    <p>
-                        ${escapeHtml(
-                            resource.description || ""
-                        )}
-                    </p>
-
-
-                    ${
-                        age
-                        ?
-                        `
-                        <div class="resource-meta">
-                            👧 ${escapeHtml(age)}
-                        </div>
-                        `
-                        :
-                        ""
-                    }
-
-
-                    ${
-                        topics
-                        ?
-                        `
-                        <div class="resource-meta">
-                            🏷️ ${escapeHtml(topics)}
-                        </div>
-                        `
-                        :
-                        ""
-                    }
-
-
-                    <a
-                        class="resource-link"
-                        href="recurso.html?id=${encodeURIComponent(resource.id)}"
-                    >
-                        Ver ficha →
-                    </a>
-
-                </article>
-
-            `;
-
-        });
-
-
-        results.innerHTML = html;
-
+    if (!min && !max) {
+        return "";
     }
 
-
-    // ============================================================
-    // NOMBRE DEL TIPO DE RECURSO
-    // ============================================================
-
-    function getResourceTypeName(type) {
-
-        const types = {
-
-            juego: "🥋 Juego",
-
-            libro: "📚 Libro",
-
-            video: "🎥 Vídeo",
-
-            cuenta: "📱 Cuenta",
-
-            articulo: "📰 Artículo",
-
-            herramienta: "🛠️ Herramienta",
-
-            formacion: "🎓 Formación"
-
-        };
-
-
-        return types[type] || "📁 Recurso";
-
+    if (min && max) {
+        return `${min}–${max} años`;
     }
 
+    if (min) {
+        return `Desde ${min} años`;
+    }
 
-    // ============================================================
-    // EDADES
-    // ============================================================
-
-    function getAgeText(min, max) {
-
-        if (min == null && max == null) {
-            return "";
-        }
+    return `Hasta ${max} años`;
+}
 
 
-        if (
-            min != null &&
-            max != null
-        ) {
+function handleEnter(event) {
 
-            if (min === max) {
-                return `${min} años`;
-            }
-
-            return `${min}–${max} años`;
-
-        }
+    if (event.key === "Enter") {
+        searchResources();
+    }
+}
 
 
-        if (min != null) {
-            return `Desde ${min} años`;
-        }
+function escapeHtml(value) {
 
-
-        if (max != null) {
-            return `Hasta ${max} años`;
-        }
-
-
+    if (!value) {
         return "";
 
     }
 
-
-    // ============================================================
-    // ENTER PARA BUSCAR
-    // ============================================================
-
-    function handleEnter(event) {
-
-        if (event.key === "Enter") {
-
-            searchResources();
-
-        }
-
-    }
-
-
-    // ============================================================
-    // SEGURIDAD HTML
-    // ============================================================
-
-    function escapeHtml(value) {
-
-        if (value == null) {
-            return "";
-        }
-
-
-        return String(value)
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-
-    }
-
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
 </script>
