@@ -5,229 +5,181 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Judo Educación — Comunidad de Maestros de Judo</title>
     
-    <!-- Favicon corporativo con emoji de judo -->
+    <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🥋</text></svg>">
     
-    <!-- Fuentes de Google (Inter & Outfit para un toque editorial moderno estilo Pandoka) -->
+    <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS (CDN para despliegue instantáneo en la nube) -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     
+    <!-- 🟢 SDK DE SUPABASE PARA LA WEB -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <style>
-      body {
-        font-family: 'Inter', sans-serif;
-      }
-      h1, h2, h3, h4, .font-heading {
-        font-family: 'Outfit', sans-serif;
-      }
+      body { font-family: 'Inter', sans-serif; }
+      h1, h2, h3, h4, .font-heading { font-family: 'Outfit', sans-serif; }
     </style>
   </head>
-  <body class="bg-[#F8F9FA] text-slate-900 antialiased min-h-screen flex flex-col selection:bg-amber-200 selection:text-amber-900">
+  <body class="bg-[#F8F9FA] text-slate-900 antialiased min-h-screen flex flex-col">
 
-    <!-- Header Superior / Identidad Visual Integrada (Logo Oficial + Estética Pandoka) -->
+    <!-- Header -->
     <header class="bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-xs sticky top-0 z-50">
       <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-        
-        <!-- Logo Oficial de Judo Educación -->
         <div class="flex items-center gap-3">
-          <a href="#" class="flex items-center gap-3 focus:outline-none">
-            <img 
-              src="https://i.postimg.cc/0NcKbQ12/Firma.png" 
-              alt="Judo Educación Logo" 
-              class="h-10 md:h-12 w-auto object-contain transition-transform hover:scale-105"
-            />
-          </a>
+          <img src="https://i.postimg.cc/0NcKbQ12/Firma.png" alt="Judo Educación Logo" class="h-10 md:h-12 w-auto object-contain" />
         </div>
-
-        <!-- Gamification Status Bar (Perfil & XP) -->
-        <div class="flex items-center gap-3">
-          <div class="bg-[#FAF5EE] border border-[#EED7C1] px-4 py-2 rounded-2xl flex items-center gap-3 shadow-2xs">
-            <span class="text-xl">🐼</span>
-            <div class="hidden sm:block text-left">
-              <span class="text-[10px] uppercase tracking-wider font-bold text-amber-800 block">Nivel Actual</span>
-              <span class="text-xs font-bold text-slate-800">⚪ Principiante</span>
-            </div>
-            <div class="h-6 w-[1px] bg-amber-200 hidden sm:block"></div>
-            <div class="text-right">
-              <span class="text-[10px] uppercase tracking-wider font-bold text-blue-700 block">Experiencia</span>
-              <span class="text-xs font-bold text-blue-900">0 XP</span>
-            </div>
+        <div class="bg-[#FAF5EE] border border-[#EED7C1] px-4 py-2 rounded-2xl flex items-center gap-3 shadow-2xs">
+          <span class="text-xl">🐼</span>
+          <div>
+            <span class="text-[10px] uppercase tracking-wider font-bold text-amber-800 block">Nivel</span>
+            <span class="text-xs font-bold text-slate-800">⚪ Principiante</span>
+          </div>
+          <div class="h-6 w-[1px] bg-amber-200"></div>
+          <div>
+            <span class="text-[10px] uppercase tracking-wider font-bold text-blue-700 block">XP</span>
+            <span id="user-xp" class="text-xs font-bold text-blue-900">0 XP</span>
           </div>
         </div>
       </div>
     </header>
 
-    <!-- Navegación Principal (Estilo Editorial Orgánico) -->
+    <!-- Navegación -->
     <nav class="bg-white border-b border-slate-200 sticky top-20 z-40 shadow-xs">
       <div class="max-w-7xl mx-auto px-4 flex gap-8 overflow-x-auto no-scrollbar">
-        <button class="flex items-center gap-2 py-4 px-1 border-b-2 border-slate-900 text-slate-900 font-semibold text-sm whitespace-nowrap transition">
-          <span>🏠</span> Inicio
-        </button>
-        <button class="flex items-center gap-2 py-4 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium text-sm whitespace-nowrap transition">
-          <span>👥</span> Comunidad
-        </button>
-        <button class="flex items-center gap-2 py-4 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium text-sm whitespace-nowrap transition">
-          <span>📚</span> Recursos
-        </button>
-        <button class="flex items-center gap-2 py-4 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium text-sm whitespace-nowrap transition">
-          <span>➕</span> Crear
-        </button>
-        <button class="flex items-center gap-2 py-4 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium text-sm whitespace-nowrap transition">
-          <span>🏆</span> Retos
-        </button>
-        <button class="flex items-center gap-2 py-4 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium text-sm whitespace-nowrap transition">
-          <span>👤</span> Mi espacio
-        </button>
+        <button class="flex items-center gap-2 py-4 px-1 border-b-2 border-slate-900 text-slate-900 font-semibold text-sm"><span>🏠</span> Inicio</button>
+        <button class="flex items-center gap-2 py-4 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium text-sm"><span>👥</span> Comunidad</button>
+        <button class="flex items-center gap-2 py-4 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium text-sm"><span>📚</span> Recursos</button>
+        <button class="flex items-center gap-2 py-4 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium text-sm"><span>➕</span> Crear</button>
+        <button class="flex items-center gap-2 py-4 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-900 font-medium text-sm"><span>🏆</span> Retos</button>
       </div>
     </nav>
 
     <!-- Contenido Principal -->
     <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
       
-      <!-- Columna Principal: Actividad y Bienvenida -->
       <div class="lg:col-span-2 space-y-8">
-        
-        <!-- Hero Banner Estilo Diario de Pandoka (Cálido, Orgánico e Inspirador) -->
-        <div class="bg-[#1E293B] text-white p-6 md:p-10 rounded-3xl shadow-xl relative overflow-hidden flex flex-col justify-between gap-6 border border-slate-800">
-          <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl pointer-events-none">
-            🥋
-          </div>
+        <!-- Hero -->
+        <div class="bg-[#1E293B] text-white p-6 md:p-10 rounded-3xl shadow-xl relative overflow-hidden flex flex-col justify-between gap-6">
           <div class="relative z-10 space-y-3">
-            <div class="inline-flex items-center gap-2 bg-amber-400/10 border border-amber-400/30 text-amber-300 px-3 py-1 rounded-full text-xs font-semibold tracking-wide">
-              <span>✨</span> Filosofía Jita Kyoei · Comunidad Activa
-            </div>
-            <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight font-heading">
-              Una comunidad de maestros que comparten, aprenden y crecen juntos.
-            </h2>
-            <p class="text-slate-300 text-sm md:text-base max-w-xl leading-relaxed">
-              No es solo una biblioteca de recursos. Es el espacio donde tus ideas, juegos y experiencias transforman la enseñanza del judo en cada tatami.
-            </p>
+            <span class="inline-flex items-center gap-2 bg-amber-400/10 border border-amber-400/30 text-amber-300 px-3 py-1 rounded-full text-xs font-semibold">✨ Jita Kyoei · Comunidad Activa</span>
+            <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight font-heading">Una comunidad de maestros que comparten, aprenden y crecen juntos.</h2>
+            <p class="text-slate-300 text-sm md:text-base max-w-xl">Comparte juegos, clases y técnicas para transformar la enseñanza del judo.</p>
           </div>
-          <div class="relative z-10 flex flex-wrap items-center gap-4 pt-2">
-            <button class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-3 rounded-2xl text-sm transition shadow-lg hover:shadow-amber-500/20 cursor-pointer flex items-center gap-2">
-              <span>➕</span> Compartir un Recurso
-            </button>
-            <button class="bg-slate-800/80 hover:bg-slate-800 text-white border border-slate-700 font-semibold px-6 py-3 rounded-2xl text-sm transition cursor-pointer">
-              Explorar la Comunidad
-            </button>
+          <div class="relative z-10 flex gap-4">
+            <button class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-3 rounded-2xl text-sm transition cursor-pointer">➕ Compartir Recurso</button>
           </div>
         </div>
 
-        <!-- Sección de Actividad de la Comunidad -->
+        <!-- Feed Dinámico -->
         <div class="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-xs">
           <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
-            <div>
-              <h3 class="font-bold text-slate-900 text-lg font-heading flex items-center gap-2">
-                <span>👥</span> Actividad de la Comunidad
-              </h3>
-              <p class="text-xs text-slate-500">Lo que está ocurriendo ahora mismo entre los maestros</p>
-            </div>
-            <span class="text-xs bg-emerald-50 text-emerald-700 font-semibold px-3 py-1 rounded-full border border-emerald-100 animate-pulse">● En vivo</span>
+            <h3 class="font-bold text-slate-900 text-lg font-heading flex items-center gap-2"><span>👥</span> Actividad de la Comunidad</h3>
+            <span class="text-xs bg-emerald-50 text-emerald-700 font-semibold px-3 py-1 rounded-full border border-emerald-100">● Conectado a Supabase</span>
           </div>
 
-          <!-- Feed dinámico simulado con estilo orgánico -->
-          <div class="space-y-4">
-            <div class="p-4 rounded-2xl bg-[#F8F9FA] border border-slate-100 flex items-start gap-4 transition hover:border-slate-200">
-              <div class="w-11 h-11 rounded-2xl bg-blue-100 text-blue-800 font-bold flex items-center justify-center shrink-0 shadow-inner">
-                CG
-              </div>
-              <div class="flex-1">
-                <div class="flex items-center justify-between">
-                  <span class="font-bold text-slate-900 text-sm font-heading">Carlos Gómez</span>
-                  <span class="text-xs text-slate-400">Hace 15 min</span>
-                </div>
-                <span class="text-[11px] text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full inline-block mt-1 mb-1.5 font-semibold">Judo Club Brunete</span>
-                <p class="text-sm text-slate-700">ha publicado un nuevo recurso: <strong class="text-slate-900 font-semibold">Juegos de cooperación para calentamiento en infantil</strong></p>
-              </div>
-            </div>
-
-            <div class="p-4 rounded-2xl bg-[#F8F9FA] border border-slate-100 flex items-start gap-4 transition hover:border-slate-200">
-              <div class="w-11 h-11 rounded-2xl bg-amber-100 text-amber-800 font-bold flex items-center justify-center shrink-0 shadow-inner">
-                AM
-              </div>
-              <div class="flex-1">
-                <div class="flex items-center justify-between">
-                  <span class="font-bold text-slate-900 text-sm font-heading">Ana Martínez</span>
-                  <span class="text-xs text-slate-400">Hace 2 horas</span>
-                </div>
-                <span class="text-[11px] text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full inline-block mt-1 mb-1.5 font-semibold">Club Esportiu Judo</span>
-                <p class="text-sm text-slate-700">ha desbloqueado la insignia <strong class="text-amber-800 font-semibold">🥋 Especialista Ukemi</strong> tras aportar 5 recursos validados.</p>
-              </div>
-            </div>
+          <!-- Aquí el JavaScript inyectará la actividad real -->
+          <div id="dynamic-feed-container" class="space-y-4">
+            <p class="text-sm text-slate-400 text-center py-6">Cargando actividad reciente de la comunidad...</p>
           </div>
         </div>
-
       </div>
 
-      <!-- Columna Lateral: Gamificación, Retos y Destacados -->
+      <!-- Columna Lateral -->
       <div class="space-y-8">
-        
-        <!-- Reto Activo (Pandoka Style) -->
-        <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs relative overflow-hidden">
-          <div class="absolute top-0 right-0 w-24 h-24 bg-amber-50 rounded-bl-full pointer-events-none -z-0"></div>
-          <h3 class="font-bold text-slate-900 text-base font-heading mb-4 flex items-center gap-2 relative z-10">
-            <span>🎯</span> Reto de la Semana
-          </h3>
-          <div class="bg-[#FAF5EE] p-5 rounded-2xl border border-[#EED7C1] relative z-10">
-            <span class="text-xs font-bold text-amber-900 bg-amber-100 px-3 py-1 rounded-full inline-block">Semana del Ukemi</span>
+        <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs">
+          <h3 class="font-bold text-slate-900 text-base font-heading mb-4 flex items-center gap-2"><span>🎯</span> Reto de la Semana</h3>
+          <div class="bg-[#FAF5EE] p-5 rounded-2xl border border-[#EED7C1]">
+            <span class="text-xs font-bold text-amber-900 bg-amber-100 px-3 py-1 rounded-full">Semana del Ukemi</span>
             <h4 class="font-bold text-sm text-slate-900 mt-3 font-heading">Publica 2 recursos relacionados con caídas y seguridad</h4>
             <div class="w-full bg-amber-200/60 rounded-full h-2.5 mt-4 overflow-hidden">
               <div class="bg-amber-600 h-2.5 rounded-full w-1/2"></div>
             </div>
-            <div class="flex justify-between items-center mt-3 text-xs text-slate-600 font-medium">
-              <span>Progreso: 1 / 2</span>
-              <span class="text-amber-800 font-bold bg-amber-100 px-2 py-0.5 rounded-md">+100 XP</span>
-            </div>
           </div>
         </div>
-
-        <!-- Maestros Destacados -->
-        <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs">
-          <h3 class="font-bold text-slate-900 text-base font-heading mb-1 flex items-center gap-2">
-            <span>🌟</span> Maestros Destacados
-          </h3>
-          <p class="text-xs text-slate-500 mb-5">Reconocidos por su aportación a la comunidad.</p>
-          <div class="space-y-3">
-            <div class="flex items-center justify-between p-3 rounded-2xl bg-[#F8F9FA] border border-slate-100 transition hover:bg-slate-100/60">
-              <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-xl bg-slate-200 flex items-center justify-center font-bold text-xs text-slate-700 shadow-inner">CG</div>
-                <div>
-                  <span class="font-bold text-slate-900 text-sm block leading-tight font-heading">Carlos Gómez</span>
-                  <span class="text-[11px] text-slate-500">Brunete</span>
-                </div>
-              </div>
-              <span class="text-xs bg-amber-100 text-amber-900 font-bold px-2.5 py-1 rounded-lg">Sensei</span>
-            </div>
-            <div class="flex items-center justify-between p-3 rounded-2xl bg-[#F8F9FA] border border-slate-100 transition hover:bg-slate-100/60">
-              <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-xl bg-slate-200 flex items-center justify-center font-bold text-xs text-slate-700 shadow-inner">AM</div>
-                <div>
-                  <span class="font-bold text-slate-900 text-sm block leading-tight font-heading">Ana Martínez</span>
-                  <span class="text-[11px] text-slate-500">Esportiu</span>
-                </div>
-              </div>
-              <span class="text-xs bg-blue-100 text-blue-900 font-bold px-2.5 py-1 rounded-lg">Maestro</span>
-            </div>
-          </div>
-        </div>
-
       </div>
 
     </main>
 
-    <!-- Footer Institucional -->
+    <!-- Footer -->
     <footer class="bg-white border-t border-slate-200/80 py-8 text-center text-xs text-slate-500 mt-auto">
-      <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div class="flex items-center gap-2">
-          <img src="https://i.postimg.cc/0NcKbQ12/Firma.png" alt="Logo" class="h-6 w-auto opacity-70 grayscale hover:grayscale-0 transition" />
-          <span>© 2026 Judo Educación</span>
-        </div>
-        <p class="text-slate-400">Una comunidad de maestros de judo que construyen el futuro del tatami colectivamente.</p>
-      </div>
+      <p>© 2026 Judo Educación — Comunidad de maestros de judo.</p>
     </footer>
 
+    <!-- 🟢 SCRIPT DE CONEXIÓN DINÁMICA CON SUPABASE -->
+    <script>
+      // 1. Configura aquí tus datos de Supabase (Cámbialos por los tuyos del Paso 2)
+      const SUPABASE_URL = 'TU_SUPABASE_URL';
+      const SUPABASE_ANON_KEY = 'TU_SUPABASE_ANON_KEY';
+
+      const { createClient } = window.supabase;
+      const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+      // 2. Función para cargar los datos reales de la base de datos
+      async function cargarActividad() {
+        const container = document.getElementById('dynamic-feed-container');
+
+        try {
+          // Consultamos la tabla 'community_activity' unida con 'profiles'
+          const { data, error } = await supabase
+            .from('community_activity')
+            .select(`
+              id,
+              activity_type,
+              payload,
+              created_at,
+              profiles (full_name, club, avatar_url)
+            `)
+            .order('created_at', { ascending: false })
+            .limit(10);
+
+          if (error) throw error;
+
+          if (!data || data.length === 0) {
+            container.innerHTML = `<p class="text-sm text-slate-500 text-center py-6">Todavía no hay actividad registrada. ¡Sé el primero en compartir un recurso!</p>`;
+            return;
+          }
+
+          // Pintamos los datos reales en el HTML
+          container.innerHTML = data.map(item => {
+            const perfil = item.profiles || { full_name: 'Maestro Anónimo', club: 'Club de Judo', avatar_url: '' };
+            const iniciales = perfil.full_name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+            
+            let textoActividad = 'ha realizado una contribución en la comunidad.';
+            if (item.activity_type === 'publish_resource') {
+              textoActividad = `ha publicado un nuevo recurso: <strong class="text-slate-900 font-semibold">${item.payload?.title || 'Sin título'}</strong>`;
+            } else if (item.activity_type === 'badge_earned') {
+              textoActividad = `ha desbloqueado una nueva insignia en su camino como maestro.`;
+            }
+
+            return `
+              <div class="p-4 rounded-2xl bg-[#F8F9FA] border border-slate-100 flex items-start gap-4">
+                <div class="w-11 h-11 rounded-2xl bg-blue-100 text-blue-800 font-bold flex items-center justify-center shrink-0 shadow-inner">
+                  ${perfil.avatar_url ? `<img src="${perfil.avatar_url}" class="w-full h-full rounded-2xl object-cover" />` : iniciales}
+                </div>
+                <div class="flex-1">
+                  <div class="flex items-center justify-between">
+                    <span class="font-bold text-slate-900 text-sm font-heading">${perfil.full_name}</span>
+                    <span class="text-xs text-slate-400">${new Date(item.created_at).toLocaleDateString()}</span>
+                  </div>
+                  <span class="text-[11px] text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full inline-block mt-1 mb-1.5 font-semibold">${perfil.club || 'Club de Judo'}</span>
+                  <p class="text-sm text-slate-700">${textoActividad}</p>
+                </div>
+              </div>
+            `;
+          }).join('');
+
+        } catch (err) {
+          console.error('Error al conectar con Supabase:', err);
+          container.innerHTML = `<p class="text-sm text-red-500 text-center py-6">Error al cargar los datos dinámicos. Verifica tus credenciales de Supabase.</p>`;
+        }
+      }
+
+      // Ejecutar al cargar la página
+      cargarActividad();
+    </script>
   </body>
 </html>
