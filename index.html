@@ -474,19 +474,12 @@
             : ""
         }
 
-        ${
-          resource.url
-            ? `
-              <a
-                href="${escapeAttribute(resource.url)}"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Ver recurso →
-              </a>
-            `
-            : ""
-        }
+<a
+  class="resource-link"
+  href="recurso.html?id=${encodeURIComponent(resource.id)}"
+>
+  Ver ficha →
+</a>
 
       </article>
     `).join("");
