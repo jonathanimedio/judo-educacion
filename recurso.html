@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Recurso | Judo Educación</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f4ee;
+      color: #171717;
+    }
+
+    header {
+      padding: 24px 6%;
+      border-bottom: 1px solid #ddd8cf;
+      background: #fcfcfa;
+    }
+
+    .logo {
+      color: #a31217;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-decoration: none;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 0 24px;
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 30px;
+      color: #a31217;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .card {
+      background: #fcfcfa;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+    }
+
+    .type {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 20px;
+      background: #f0e7dc;
+      color: #a31217;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: 42px;
+      line-height: 1.1;
+      margin: 0 0 20px;
+    }
+
+    .description {
+      font-size: 18px;
+      line-height: 1.7;
+      color: #555;
+      margin-bottom: 35px;
+    }
+
+    .section {
+      border-top: 1px solid #e5e0d8;
+      padding: 25px 0;
+    }
+
+    .section h2 {
+      font-size: 18px;
+      margin: 0 0 15px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tag {
+      background: #f1eee8;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+
+    .source {
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .source a,
+    .resource-link {
+      color: #a31217;
+      font-weight: 700;
+    }
+
+    .rating {
+      font-size: 20px;
+      letter-spacing: 2px;
+    }
+
+    .loading,
+    .error {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 32px;
+      }
+
+      .card {
+        padding: 25px;
+      }
+
+      main {
+        margin: 30px auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <a href="index.html" class="logo">
+    JUDO EDUCACIÓN
+  </a>
+</header>
+
+<main>
+
+  <a href="index.html" class="back">
+    ← Volver a los resultados
+  </a>
+
+  <div id="content">
+    <div class="loading">
+      🔎 Cargando recurso...
+    </div>
+  </div>
+
+</main>
+
+<script>
+
+const SUPABASE_URL = "https://gncpzdpqqnqvlskuxmvh.supabase.co";
+const SUPABASE_KEY = "sb_publishable_u5-svo35nbWAcBlZVNxSeg_m64tS-vW";
+
+const params = new URLSearchParams(window.location.search);
+const resourceId = params.get("id");
+
+const content = document.getElementById("content");
+
+
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = text ?? "";
+  return div.innerHTML;
+}
+
+
+function getResourceTypeLabel(type) {
+
+  const labels = {
+    juego: "🎮 Juego",
+    libro: "📚 Libro",
+    video: "🎥 Vídeo",
+    cuenta: "👤 Cuenta",
+    articulo: "📄 Artículo",
+    herramienta: "🛠️ Herramienta",
+    formacion: "🎓 Formación"
+  };
+
+  return labels[type] || "📁 Recurso";
+}
+
+
+function stars(rating) {
+
+  if (!rating) return "";
+
+  return "★".repeat(rating) + "☆".repeat(5 - rating);
+}
+
+
+async function loadResource() {
+
+  if (!resourceId) {
+    content.innerHTML = `
+      <div class="error">
+        <h2>Recurso no encontrado</h2>
+        <p>No se ha especificado ningún recurso.</p>
+      </div>
+    `;
+    return;
+  }
+
+  try {
+
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/resources?id=eq.${encodeURIComponent(resourceId)}&status=eq.publicado&select=*`,
+      {
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Authorization": `Bearer ${SUPABASE_KEY}`
+        }
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Error al cargar el recurso");
+    }
+
+    const data = await response.json();
+
+    if (!data.length) {
+
+      content.innerHTML = `
+        <div class="error">
+          <h2>Recurso no encontrado</h2>
+          <p>Este recurso no está disponible.</p>
+        </div>
+      `;
+
+      return;
+    }
+
+    const resource = data[0];
+
+    document.title =
+      `${resource.title} | Judo Educación`;
+
+    content.innerHTML = `
+
+      <article class="card">
+
+        <div class="type">
+          ${getResourceTypeLabel(resource.resource_type)}
+        </div>
+
+        <h1>
+          ${escapeHtml(resource.title)}
+        </h1>
+
+        <div class="description">
+          ${escapeHtml(resource.description || "")}
+        </div>
+
+        ${
+          resource.age_min !== null &&
+          resource.age_max !== null
+          ? `
+            <div class="section">
+
+              <h2>👦 Edad recomendada</h2>
+
+              <div class="meta">
+                <span class="tag">
+                  ${resource.age_min}–${resource.age_max} años
+                </span>
+              </div>
+
+            </div>
+          `
+          : ""
+        }
+
+        ${
+          resource.topics && resource.topics.length
+          ? `
+            <div class="section">
+
+              <h2>🎯 ¿Qué trabajamos?</h2>
+
+              <div class="meta">
+
+                ${resource.topics.map(topic => `
+                  <span class="tag">
+                    ${escapeHtml(topic)}
+                  </span>
+                `).join("")}
+
+              </div>
+
+            </div>
+          `
+          : ""
+        }
+
+        ${
+          resource.tags && resource.tags.length
+          ? `
+            <div class="section">
+
+              <h2>🏷️ Etiquetas</h2>
+
+              <div class="meta">
+
+                ${resource.tags.map(tag => `
+                  <span class="tag">
+                    ${escapeHtml(tag)}
+                  </span>
+                `).join("")}
+
+              </div>
+
+            </div>
+          `
+          : ""
+        }
+
+        ${
+          resource.editorial_note
+          ? `
+            <div class="section">
+
+              <h2>💡 ¿Por qué lo incluimos?</h2>
+
+              <p class="source">
+                ${escapeHtml(resource.editorial_note)}
+              </p>
+
+            </div>
+          `
+          : ""
+        }
+
+        ${
+          resource.source || resource.author
+          ? `
+            <div class="section">
+
+              <h2>📚 Fuente</h2>
+
+              <p class="source">
+
+                ${resource.source
+                  ? `<strong>${escapeHtml(resource.source)}</strong>`
+                  : ""
+                }
+
+                ${resource.author
+                  ? `<br>Autor: ${escapeHtml(resource.author)}`
+                  : ""
+                }
+
+              </p>
+
+            </div>
+          `
+          : ""
+        }
+
+        ${
+          resource.je_rating
+          ? `
+            <div class="section">
+
+              <h2>⭐ Valoración Judo Educación</h2>
+
+              <div class="rating">
+                ${stars(resource.je_rating)}
+              </div>
+
+            </div>
+          `
+          : ""
+        }
+
+        ${
+          resource.url
+          ? `
+            <div class="section">
+
+              <a
+                class="resource-link"
+                href="${escapeHtml(resource.url)}"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Abrir recurso →
+              </a>
+
+            </div>
+          `
+          : ""
+        }
+
+      </article>
+
+    `;
+
+  } catch (error) {
+
+    console.error(error);
+
+    content.innerHTML = `
+      <div class="error">
+        <h2>No se ha podido cargar el recurso</h2>
+        <p>Inténtalo de nuevo.</p>
+      </div>
+    `;
+
+  }
+}
+
+
+loadResource();
+
+</script>
+
+</body>
+</html>
