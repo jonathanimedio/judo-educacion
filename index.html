@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Judo Educación — Comunidad y Biblioteca de Maestros de Judo</title>
+    <title>Judo Educación — Comunidad y Biblioteca de Maestros</title>
     
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐼</text></svg>">
     
-    <!-- Fuentes (Inter y Outfit para identidad editorial cálida y profesional) -->
+    <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -25,21 +25,16 @@
   </head>
   <body class="min-h-screen flex flex-col selection:bg-amber-200 selection:text-amber-900">
 
-    <!-- HEADER INSTITUCIONAL: JUDO EDUCACIÓN -->
+    <!-- HEADER INSTITUCIONAL -->
     <header class="bg-white/90 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-50 shadow-xs">
       <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
         
-        <!-- Logo Oficial y Nombre -->
+        <!-- Logo y Navegación -->
         <div class="flex items-center gap-8">
           <a href="#" onclick="cambiarSeccion('inicio')" class="flex items-center gap-3 focus:outline-none">
-            <img 
-              src="https://i.postimg.cc/0NcKbQ12/Firma.png" 
-              alt="Judo Educación Logo" 
-              class="h-10 md:h-12 w-auto object-contain transition-transform hover:scale-105"
-            />
+            <img src="https://i.postimg.cc/0NcKbQ12/Firma.png" alt="Judo Educación Logo" class="h-10 md:h-12 w-auto object-contain transition-transform hover:scale-105" />
           </a>
 
-          <!-- Menú de Navegación Superior -->
           <nav class="hidden md:flex items-center gap-1">
             <button onclick="cambiarSeccion('inicio')" id="nav-inicio" class="nav-btn px-3 py-2 rounded-xl text-xs font-semibold text-slate-900 bg-slate-100 transition cursor-pointer">Inicio</button>
             <button onclick="cambiarSeccion('biblioteca')" id="nav-biblioteca" class="nav-btn px-3 py-2 rounded-xl text-xs font-medium text-slate-600 hover:text-slate-900 transition cursor-pointer">Biblioteca</button>
@@ -49,22 +44,17 @@
           </nav>
         </div>
 
-        <!-- Panel Gamificado & Perfil de Maestro -->
+        <!-- Panel Gamificado & Botón Perfil -->
         <div class="flex items-center gap-4">
-          <div class="bg-[#FAF5EE] border border-[#EED7C1] px-4 py-2 rounded-2xl hidden sm:flex items-center gap-3 shadow-2xs">
+          <div onclick="cambiarSeccion('perfil')" class="bg-[#FAF5EE] border border-[#EED7C1] px-4 py-2 rounded-2xl flex items-center gap-3 shadow-2xs cursor-pointer hover:bg-[#F3E8DC] transition">
             <span class="text-xl">🐼</span>
-            <div class="text-left">
-              <span class="text-[10px] uppercase tracking-wider font-bold text-amber-800 block">Nivel</span>
-              <span id="header-nivel-val" class="text-xs font-bold text-slate-800">⚪ Principiante</span>
-            </div>
-            <div class="h-6 w-[1px] bg-amber-200"></div>
-            <div class="text-right">
-              <span class="text-[10px] uppercase tracking-wider font-bold text-blue-700 block">Experiencia</span>
-              <span id="header-xp-val" class="text-xs font-bold text-blue-900">0 XP</span>
+            <div class="text-left hidden sm:block">
+              <span id="header-cinto-val" class="text-[10px] uppercase tracking-wider font-bold text-amber-800 block">⚪ Cinturón Blanco</span>
+              <span id="header-xp-val" class="text-xs font-bold text-slate-800">0 XP</span>
             </div>
           </div>
 
-          <div id="auth-action-container" class="flex items-center gap-3">
+          <div id="auth-action-container">
             <button onclick="abrirModalAuth()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition shadow-sm cursor-pointer">
               Acceder Maestro
             </button>
@@ -76,10 +66,8 @@
     <!-- CONTENEDOR DE SECCIONES -->
     <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-8">
       
-      <!-- ================= SECCIÓN: INICIO (ESTÉTICA PANDOKA & JUDO EDUCACIÓN) ================= -->
+      <!-- SECCIÓN: INICIO -->
       <div id="seccion-inicio" class="seccion-vista space-y-16">
-        
-        <!-- Hero Banner Estilo Pandoka -->
         <div class="bg-[#1E293B] text-white p-8 md:p-12 rounded-3xl shadow-xl relative overflow-hidden flex flex-col justify-between gap-8 border border-slate-800">
           <div class="absolute -right-6 -bottom-6 opacity-10 text-9xl pointer-events-none">🐼</div>
           <div class="relative z-10 space-y-4 max-w-2xl">
@@ -90,7 +78,7 @@
               Una comunidad de maestros que comparten, aprenden y crecen juntos.
             </h1>
             <p class="text-slate-300 text-sm md:text-base leading-relaxed">
-              No es solo una biblioteca de recursos. Es el espacio donde tus ideas, juegos de tatami y experiencias transforman la enseñanza del judo colectivamente.
+              Explora fichas técnicas, juegos de tatami, métodos de ukemi y recursos subidos por profesores de todo el territorio.
             </p>
           </div>
           <div class="relative z-10 flex flex-wrap items-center gap-4 pt-2">
@@ -103,149 +91,139 @@
           </div>
         </div>
 
-        <!-- Métricas Principales (Stats Bar) -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 bg-white border border-slate-200/80 p-6 rounded-3xl text-center shadow-xs">
-          <div>
-            <span class="text-3xl md:text-4xl font-extrabold text-blue-900 font-heading">3,173</span>
-            <span class="block text-xs uppercase tracking-wider text-slate-500 mt-1 font-semibold">Recursos Didácticos</span>
-          </div>
-          <div>
-            <span class="text-3xl md:text-4xl font-extrabold text-blue-900 font-heading">30</span>
-            <span class="block text-xs uppercase tracking-wider text-slate-500 mt-1 font-semibold">Maestros Activos</span>
-          </div>
-          <div>
-            <span class="text-3xl md:text-4xl font-extrabold text-blue-900 font-heading">12</span>
-            <span class="block text-xs uppercase tracking-wider text-slate-500 mt-1 font-semibold">Categorías Tatami</span>
-          </div>
-          <div>
-            <span class="text-3xl md:text-4xl font-extrabold text-blue-900 font-heading">319</span>
-            <span class="block text-xs uppercase tracking-wider text-slate-500 mt-1 font-semibold">Clases Creadas</span>
-          </div>
-        </div>
-
-        <!-- SECCIÓN: PILARES DE LA COMUNIDAD (3 Tarjetas Estilo Pandoka / BaseTube) -->
-        <div class="space-y-8 pt-4">
-          <div class="text-center space-y-2">
-            <span class="text-xs font-bold text-amber-800 bg-amber-100 px-3 py-1 rounded-full uppercase tracking-wider">Ecosistema Colaborativo</span>
-            <h2 class="text-3xl md:text-4xl font-extrabold font-heading text-slate-900">CREA, COMPARTE Y PROGRESA</h2>
-            <p class="text-slate-600 text-sm max-w-xl mx-auto">La biblioteca es el conocimiento, la comunidad es el producto y la gamificación es el motor.</p>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
-            <!-- Tarjeta 1: Pizarra / Creador de Clases -->
-            <div class="bg-white border border-slate-200/80 rounded-3xl p-6 md:p-8 flex flex-col justify-between gap-6 shadow-xs relative">
-              <span class="absolute top-6 right-6 bg-[#FAF5EE] text-amber-900 text-[10px] font-bold px-2.5 py-1 rounded-full border border-[#EED7C1]">HERRAMIENTA</span>
-              <div class="space-y-4">
-                <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-900 flex items-center justify-center text-2xl font-bold">📋</div>
-                <h3 class="text-xl font-bold font-heading text-slate-900">Constructor de Clases</h3>
-                <p class="text-xs text-slate-600 leading-relaxed">Ensambla sesiones completas combinando calentamiento, técnica, suelo y vuelta a la calma calculando el tiempo automáticamente.</p>
-                <ul class="space-y-2 text-xs text-slate-700 font-medium pt-2">
-                  <li class="flex items-center gap-2">✅ Bloques temporales ajustables</li>
-                  <li class="flex items-center gap-2">✅ Duplica y comparte tus sesiones</li>
-                  <li class="flex items-center gap-2">✅ Organiza por edades y niveles</li>
-                </ul>
-              </div>
-              <button onclick="cambiarSeccion('sesiones')" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl text-xs transition cursor-pointer shadow-sm">
-                Ir a Mis Clases
-              </button>
-            </div>
-
-            <!-- Tarjeta 2: Aportar Recurso -->
-            <div class="bg-white border border-slate-200/80 rounded-3xl p-6 md:p-8 flex flex-col justify-between gap-6 shadow-xs">
-              <div class="space-y-4">
-                <div class="w-12 h-12 rounded-2xl bg-blue-100 text-blue-900 flex items-center justify-center text-2xl font-bold">🐼</div>
-                <h3 class="text-xl font-bold font-heading text-slate-900">Comparte tu Experiencia</h3>
-                <p class="text-xs text-slate-600 leading-relaxed">¿Un juego o ejercicio ha funcionado perfectamente con tus alumnos? Súbelo y ayuda a otros maestros de la comunidad.</p>
-                <ul class="space-y-2 text-xs text-slate-700 font-medium pt-2">
-                  <li class="flex items-center gap-2">⭐ Gana +100 XP por aportación</li>
-                  <li class="flex items-center gap-2">🤝 Valoraciones de utilidad real</li>
-                  <li class="flex items-center gap-2">🏅 Desbloquea insignias de Sensei</li>
-                </ul>
-              </div>
-              <button onclick="verificarYAbrirCrear()" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-xl text-xs transition cursor-pointer shadow-md">
-                Publicar Recurso
-              </button>
-            </div>
-
-            <!-- Tarjeta 3: Rankings y Reputación -->
-            <div class="bg-white border border-slate-200/80 rounded-3xl p-6 md:p-8 flex flex-col justify-between gap-6 shadow-xs">
-              <div class="space-y-4">
-                <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-900 flex items-center justify-center text-2xl font-bold">🏆</div>
-                <h3 class="text-xl font-bold font-heading text-slate-900">Gamificación & Jita Kyoei</h3>
-                <p class="text-xs text-slate-600 leading-relaxed">Progresa a través de los cinturones de actividad comunitaria basados en cuánto ayudas a los demás profesores a enseñar mejor.</p>
-                <ul class="space-y-2 text-xs text-slate-700 font-medium pt-2">
-                  <li class="flex items-center gap-2">🥋 Niveles: Blanco → Negro</li>
-                  <li class="flex items-center gap-2">🔥 Rachas de aportación activa</li>
-                  <li class="flex items-center gap-2">🌟 Maestros destacados semanales</li>
-                </ul>
-              </div>
-              <button onclick="cambiarSeccion('creadores')" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold py-3 rounded-xl text-xs transition cursor-pointer">
-                Ver Maestros Destacados
-              </button>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- SECCIÓN: ACTIVIDAD RECIENTE Y RANKING DE MAESTROS -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-4">
-          
-          <!-- Ranking Comunidad -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div class="bg-white border border-slate-200/80 rounded-3xl p-6 md:p-8 space-y-6 shadow-xs">
             <div class="flex items-center justify-between pb-4 border-b border-slate-100">
-              <h3 class="font-bold text-slate-900 text-lg font-heading flex items-center gap-2">
-                <span>🏆</span> Maestros Referentes (XP)
-              </h3>
+              <h3 class="font-bold text-slate-900 text-lg font-heading flex items-center gap-2"><span>🏆</span> Ranking de Maestros (Cinturones)</h3>
               <button onclick="cambiarSeccion('creadores')" class="text-xs font-bold text-blue-700 hover:underline">Ver todos →</button>
             </div>
-
-            <div id="lista-ranking-inicio" class="space-y-3">
-              <!-- Inyectado dinámicamente -->
-            </div>
+            <div id="lista-ranking-inicio" class="space-y-3"></div>
           </div>
 
-          <!-- Recurso Destacado de la Semana -->
           <div class="bg-white border border-slate-200/80 rounded-3xl p-6 md:p-8 space-y-6 shadow-xs flex flex-col justify-between">
             <div class="flex items-center justify-between pb-4 border-b border-slate-100">
-              <h3 class="font-bold text-slate-900 text-lg font-heading flex items-center gap-2">
-                <span>🥋</span> Recurso de la Semana
-              </h3>
-              <span class="text-xs font-bold text-amber-800 bg-amber-100 px-3 py-1 rounded-full">Votado por la comunidad</span>
+              <h3 class="font-bold text-slate-900 text-lg font-heading flex items-center gap-2"><span>🥋</span> Recurso de la Semana</h3>
+              <span class="text-xs font-bold text-amber-800 bg-amber-100 px-3 py-1 rounded-full">Destacado</span>
             </div>
+            <div id="tarjeta-ejercicio-semana" class="bg-[#FAF5EE] p-6 rounded-2xl border border-[#EED7C1] space-y-4"></div>
+          </div>
+        </div>
+      </div>
 
-            <div id="tarjeta-ejercicio-semana" class="bg-[#FAF5EE] p-6 rounded-2xl border border-[#EED7C1] space-y-4">
-              <!-- Inyectado dinámicamente -->
+      <!-- SECCIÓN: PERFIL PERSONAL (Basado en la referencia visual aportada) -->
+      <div id="seccion-perfil" class="seccion-vista hidden space-y-8">
+        
+        <!-- Tarjeta Superior de Identidad del Perfil -->
+        <div class="bg-slate-900 text-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
+          <div class="flex items-center gap-6">
+            <div id="perfil-avatar-box" class="w-20 h-20 rounded-2xl bg-emerald-600 text-white font-extrabold text-3xl flex items-center justify-center shadow-inner">
+              J
+            </div>
+            <div class="space-y-1.5 text-center md:text-left">
+              <div class="flex flex-wrap items-center justify-center md:justify-start gap-3">
+                <h2 id="perfil-nombre-view" class="text-2xl font-extrabold font-heading">JONATHANIMEDIO</h2>
+                <span id="perfil-liga-tag" class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs font-bold px-3 py-0.5 rounded-full flex items-center gap-1">🏆 Bronce</span>
+              </div>
+              <p id="perfil-nivel-view" class="text-xs text-slate-300 font-semibold">Cinturón Blanco (Nivel 1)</p>
             </div>
           </div>
 
+          <!-- Contadores de Ejercicios, Likes y Badges -->
+          <div class="flex items-center gap-6 bg-slate-950/60 border border-slate-800 px-6 py-4 rounded-2xl text-center">
+            <div>
+              <span id="perfil-stat-ejercicios" class="text-xl font-bold text-emerald-400 block font-heading">0</span>
+              <span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Ejercicios</span>
+            </div>
+            <div class="h-8 w-[1px] bg-slate-800"></div>
+            <div>
+              <span id="perfil-stat-likes" class="text-xl font-bold text-rose-500 block font-heading">0</span>
+              <span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Likes</span>
+            </div>
+            <div class="h-8 w-[1px] bg-slate-800"></div>
+            <div>
+              <span id="perfil-stat-badges" class="text-xl font-bold text-amber-400 block font-heading">0</span>
+              <span class="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Badges</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Barra de Progreso de Experiencia (XP) -->
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 space-y-4">
+          <div class="flex justify-between items-center text-xs font-bold">
+            <span id="perfil-proximo-nivel" class="text-slate-300">Cinturón Blanco ➔ Cinturón Amarillo</span>
+            <span id="perfil-xp-faltante" class="text-amber-400">200 XP para siguiente nivel</span>
+          </div>
+          <div class="w-full bg-slate-950 rounded-full h-3 overflow-hidden border border-slate-800">
+            <div id="perfil-barra-xp" class="bg-emerald-500 h-3 rounded-full w-0 transition-all"></div>
+          </div>
+        </div>
+
+        <!-- Historial de Actividad Mensual -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 text-center space-y-2">
+            <span class="text-xs uppercase tracking-wider text-slate-400 font-bold">Septiembre</span>
+            <span id="mes-sep" class="text-3xl font-extrabold text-emerald-400 font-heading">0</span>
+          </div>
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 text-center space-y-2">
+            <span class="text-xs uppercase tracking-wider text-slate-400 font-bold">Agosto</span>
+            <span id="mes-ago" class="text-3xl font-extrabold text-slate-400 font-heading">0</span>
+          </div>
+          <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 text-center space-y-2">
+            <span class="text-xs uppercase tracking-wider text-slate-400 font-bold">Julio</span>
+            <span id="mes-jul" class="text-3xl font-extrabold text-slate-400 font-heading">0</span>
+          </div>
+        </div>
+
+        <!-- Galería de Badges / Insignias -->
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 space-y-6">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+            <h3 class="font-bold text-white text-lg font-heading">🛡️ BADGES Y LOGROS [ <span id="contador-badges-desbloqueados">0</span> / 28 ]</h3>
+            <span class="text-xs text-slate-400 font-medium">Desbloquea insignias aportando al tatami</span>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-4">
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-center space-y-2 opacity-90">
+              <span class="text-2xl">🚀</span>
+              <span class="block text-[11px] font-bold text-slate-300">Early Adopter</span>
+            </div>
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-center space-y-2 opacity-50">
+              <span class="text-2xl">📝</span>
+              <span class="block text-[11px] font-bold text-slate-400">Contribuidor</span>
+            </div>
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-center space-y-2 opacity-50">
+              <span class="text-2xl">📖</span>
+              <span class="block text-[11px] font-bold text-slate-400">Enciclopedia</span>
+            </div>
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-center space-y-2 opacity-50">
+              <span class="text-2xl">🔥</span>
+              <span class="block text-[11px] font-bold text-slate-400">En Racha</span>
+            </div>
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-center space-y-2 opacity-50">
+              <span class="text-2xl">⚡</span>
+              <span class="block text-[11px] font-bold text-slate-400">Imparable</span>
+            </div>
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-center space-y-2 opacity-50">
+              <span class="text-2xl">❤️</span>
+              <span class="block text-[11px] font-bold text-slate-400">Popular</span>
+            </div>
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-center space-y-2 opacity-50">
+              <span class="text-2xl">🏆</span>
+              <span class="block text-[11px] font-bold text-slate-400">Leyenda</span>
+            </div>
+          </div>
         </div>
 
       </div>
 
-      <!-- ================= SECCIÓN: BIBLIOTECA DE RECURSOS (Filtros Avanzados) ================= -->
+      <!-- SECCIÓN: BIBLIOTECA -->
       <div id="seccion-biblioteca" class="seccion-vista hidden space-y-6">
-        
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          
-          <!-- Filtros Izquierda -->
           <div class="bg-white border border-slate-200/80 rounded-3xl p-6 space-y-6 h-fit shadow-xs">
             <div class="flex items-center justify-between pb-4 border-b border-slate-100">
-              <h3 class="font-bold text-slate-900 text-sm font-heading flex items-center gap-2">
-                <span>🎛️</span> Filtrar Recursos
-              </h3>
+              <h3 class="font-bold text-slate-900 text-sm font-heading">🎛️ Filtrar Recursos</h3>
               <button onclick="limpiarFiltros()" class="text-[11px] text-amber-800 hover:underline font-bold">Limpiar</button>
             </div>
-
             <div class="space-y-4 text-xs">
-              <div>
-                <label class="block font-bold text-slate-700 uppercase tracking-wider mb-1.5">Ordenar</label>
-                <select id="filtro-orden" onchange="aplicarFiltrosBiblioteca()" class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl p-3 focus:outline-none focus:border-amber-500">
-                  <option value="recientes">Más recientes</option>
-                  <option value="populares">Más útiles (Likes)</option>
-                </select>
-              </div>
-
               <div>
                 <label class="block font-bold text-slate-700 uppercase tracking-wider mb-1.5">Categoría</label>
                 <select id="filtro-categoria" onchange="aplicarFiltrosBiblioteca()" class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl p-3 focus:outline-none focus:border-amber-500">
@@ -258,94 +236,73 @@
               </div>
             </div>
           </div>
-
-          <!-- Listado Principal -->
           <div class="lg:col-span-3 space-y-6">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white border border-slate-200/80 p-6 rounded-3xl shadow-xs">
               <div>
                 <h3 class="font-bold text-slate-900 text-xl font-heading">BIBLIOTECA DE CONOCIMIENTO</h3>
-                <p id="contador-resultados-biblio" class="text-xs text-slate-500 mt-0.5">Mostrando recursos compartidos por maestros</p>
+                <p id="contador-resultados-biblio" class="text-xs text-slate-500 mt-0.5">Mostrando recursos</p>
               </div>
-              <div class="w-full sm:w-72">
-                <input type="text" id="buscador-biblio-input" oninput="aplicarFiltrosBiblioteca()" placeholder="Buscar ficha, juego, autor..." class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-amber-500">
-              </div>
+              <input type="text" id="buscador-biblio-input" oninput="aplicarFiltrosBiblioteca()" placeholder="Buscar ficha..." class="bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-amber-500 w-full sm:w-64">
             </div>
-
-            <div id="grid-biblioteca-total" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <!-- Inyectado dinámicamente -->
-            </div>
+            <div id="grid-biblioteca-total" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
           </div>
-
         </div>
-
       </div>
 
-      <!-- ================= SECCIÓN: CREADORES / MAESTROS ================= -->
+      <!-- SECCIÓN: CREADORES -->
       <div id="seccion-creadores" class="seccion-vista hidden space-y-8">
         <div class="bg-white border border-slate-200/80 rounded-3xl p-6 md:p-10 space-y-8 shadow-xs">
           <div class="flex items-center justify-between pb-6 border-b border-slate-100">
             <div>
-              <h3 class="font-bold text-slate-900 text-2xl font-heading">Maestros Referentes en Judo Educación</h3>
-              <p class="text-xs text-slate-500 mt-1">Profesores que más contribuyen al crecimiento colectivo de la comunidad.</p>
+              <h3 class="font-bold text-slate-900 text-2xl font-heading">Maestros Referentes</h3>
+              <p class="text-xs text-slate-500 mt-1">Clasificación por cinturones de actividad.</p>
             </div>
-            <button onclick="verificarYAbrirCrear()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs px-4 py-2.5 rounded-xl transition cursor-pointer shadow-sm">
-              Publicar Recurso
-            </button>
+            <button onclick="verificarYAbrirCrear()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs px-4 py-2.5 rounded-xl transition cursor-pointer">Publicar Recurso</button>
           </div>
-
-          <div id="lista-creadores-completa" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Inyectado dinámicamente -->
-          </div>
+          <div id="lista-creadores-completa" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
         </div>
       </div>
 
-      <!-- ================= SECCIÓN: MIS CLASES ================= -->
+      <!-- SECCIÓN: MIS CLASES -->
       <div id="seccion-sesiones" class="seccion-vista hidden space-y-6">
         <div class="bg-white border border-slate-200/80 rounded-3xl p-6 md:p-10 space-y-6 text-center max-w-2xl mx-auto shadow-xs">
           <div class="w-16 h-16 rounded-2xl bg-[#FAF5EE] text-amber-900 flex items-center justify-center text-3xl mx-auto font-bold border border-[#EED7C1]">📋</div>
-          <h3 class="font-bold text-slate-900 text-2xl font-heading">Constructor de Clases de Judo</h3>
-          <p class="text-xs text-slate-600 leading-relaxed">Organiza tus sesiones combinando calentamiento, técnica, ne-waza y vuelta a la calma de forma estructurada.</p>
-          <button onclick="cambiarSeccion('biblioteca')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold px-6 py-3 rounded-xl text-xs transition cursor-pointer shadow-sm">
-            Añadir Recursos a mi Clase
-          </button>
+          <h3 class="font-bold text-slate-900 text-2xl font-heading">Constructor de Clases</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Organiza tus sesiones combinando calentamiento, técnica y suelo.</p>
+          <button onclick="cambiarSeccion('biblioteca')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold px-6 py-3 rounded-xl text-xs transition cursor-pointer">Explorar Biblioteca</button>
         </div>
       </div>
 
-      <!-- ================= SECCIÓN: FAVORITOS ================= -->
+      <!-- SECCIÓN: FAVORITOS -->
       <div id="seccion-favoritos" class="seccion-vista hidden space-y-6">
         <div class="bg-white border border-slate-200/80 rounded-3xl p-6 md:p-10 space-y-6 shadow-xs">
           <div class="pb-4 border-b border-slate-100">
             <h3 class="font-bold text-slate-900 text-2xl font-heading">❤️ Recursos Guardados</h3>
-            <p class="text-xs text-slate-500 mt-1">Tus fichas y juegos marcados para consultar rápidamente.</p>
           </div>
-          <div id="grid-favoritos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Inyectado dinámicamente -->
-          </div>
+          <div id="grid-favoritos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </div>
       </div>
 
     </main>
 
-    <!-- MODAL ACCESO MAESTRO -->
+    <!-- MODAL ACCESO -->
     <div id="modal-auth" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
       <div class="bg-white border border-slate-100 rounded-3xl max-w-md w-full p-6 md:p-8 shadow-2xl space-y-6 relative">
         <button onclick="cerrarModalAuth()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-900 font-bold text-lg cursor-pointer">✕</button>
         <div>
           <h3 class="text-xl font-bold font-heading text-slate-900">Acceso a Judo Educación</h3>
-          <p class="text-xs text-slate-500 mt-1">Identifícate con tu nombre y dojo para participar en la comunidad.</p>
+          <p class="text-xs text-slate-500 mt-1">Identifícate con tu nombre y dojo.</p>
         </div>
         <form onsubmit="procesarLogin(event)" class="space-y-4">
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Nombre o Sensei</label>
-            <input type="text" id="auth-nombre" required class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500" placeholder="Ej: Sensei Carlos">
+            <input type="text" id="auth-nombre" required class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500" placeholder="Ej: JONATHANIMEDIO">
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Dojo / Club de Judo</label>
             <input type="text" id="auth-club" required class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500" placeholder="Ej: Judo Club Brunete">
           </div>
-          <button type="submit" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-xl text-sm transition shadow-md cursor-pointer">
-            Entrar a la Comunidad
-          </button>
+          <button type="submit" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-xl text-sm transition shadow-md cursor-pointer">Entrar</button>
         </form>
       </div>
     </div>
@@ -356,34 +313,31 @@
         <button onclick="cerrarModalRecurso()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-900 font-bold text-lg cursor-pointer">✕</button>
         <div>
           <h3 class="text-xl font-bold font-heading text-slate-900">Compartir Recurso en el Tatami</h3>
-          <p class="text-xs text-slate-500 mt-1">Aporta una ficha, juego o ejercicio para los demás maestros.</p>
         </div>
         <form onsubmit="procesarSubidaRecurso(event)" class="space-y-4">
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Título del Recurso</label>
-            <input type="text" id="rec-titulo" required class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500" placeholder="Ej: Progresión de O-goshi infantil">
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Título</label>
+            <input type="text" id="rec-titulo" required class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500" placeholder="Ej: O-goshi infantil">
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Categoría</label>
             <select id="rec-cat" class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500">
               <option value="Iniciación">🧸 Iniciación / Infantil</option>
-              <option value="Técnica Nage-waza">🥋 Técnica Nage-waza (Proyecciones)</option>
-              <option value="Técnica Ne-waza">🛡️ Técnica Ne-waza (Suelo)</option>
+              <option value="Técnica Nage-waza">🥋 Técnica Nage-waza</option>
+              <option value="Técnica Ne-waza">🛡️ Técnica Ne-waza</option>
               <option value="Preparación Física">⚡ Preparación Física</option>
             </select>
           </div>
           <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Descripción y desarrollo</label>
-            <textarea id="rec-desc" rows="3" required class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500" placeholder="Explica cómo aplicarlo en clase..."></textarea>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Descripción</label>
+            <textarea id="rec-desc" rows="3" required class="w-full bg-[#F8F9FA] border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500" placeholder="Explicación..."></textarea>
           </div>
-          <button type="submit" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-xl text-sm transition shadow-md cursor-pointer">
-            Publicar Recurso (+100 XP)
-          </button>
+          <button type="submit" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-xl text-sm transition shadow-md cursor-pointer">Publicar (+100 XP)</button>
         </form>
       </div>
     </div>
 
-    <!-- Footer Institucional -->
+    <!-- Footer -->
     <footer class="bg-white border-t border-slate-200/80 py-8 text-center text-xs text-slate-500 mt-auto">
       <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-2">
@@ -394,16 +348,25 @@
       </div>
     </footer>
 
-    <!-- SCRIPT DE INTERACTIVIDAD TOTAL -->
+    <!-- SCRIPT DE LÓGICA DE PERFIL Y CINTURONES -->
     <script>
       const recursosIniciales = [
-        { id: 1, titulo: "Juegos de combate lúdico en suelo (Ne-waza)", categoria: "Técnica Ne-waza", autor: "Sensei Javier Ruiz", club: "Judo Club Brunete", descripcion: "Metodología progresiva mediante juegos de volteo y retención para niños de 6 a 9 años.", likes: 24, fav: false },
-        { id: 2, titulo: "Progresión segura de Ukemi hacia atrás", categoria: "Iniciación", autor: "Sensei Elena Martínez", club: "Club Esportiu Judo", descripcion: "Circuito de ejercicios en colchoneta blanda para vencer el miedo a la caída dorsal en principiantes.", likes: 42, fav: false },
-        { id: 3, titulo: "Coordinación y agilidad con gomas elásticas", categoria: "Preparación Física", autor: "Carlos Gómez", club: "Dojo Bushido", descripcion: "Rutina específica de 15 minutos previa al randori para mejorar la explosividad de entrada.", likes: 19, fav: false }
+        { id: 1, titulo: "Juegos de combate lúdico en suelo (Ne-waza)", categoria: "Técnica Ne-waza", autor: "JONATHANIMEDIO", club: "Judo Club Brunete", descripcion: "Metodología progresiva mediante juegos de volteo y retención para niños de 6 a 9 años.", likes: 12, fav: false }
       ];
 
-      let usuario = JSON.parse(localStorage.getItem('judo_educacion_usuario')) || { nombre: '', club: '', xp: 0, nivel: '⚪ Principiante' };
+      let usuario = JSON.parse(localStorage.getItem('judo_educacion_usuario')) || { nombre: 'JONATHANIMEDIO', club: 'Dojo Central', xp: 50, ejerciciosCount: 1, likesCount: 12, badgesCount: 2 };
       let recursos = JSON.parse(localStorage.getItem('judo_educacion_recursos')) || recursosIniciales;
+
+      // Calcular Cinturón de Judo según XP
+      function obtenerCinturonJudo(xp) {
+        if (xp < 200) return { nivel: 'Cinturón Blanco (Nivel 1)', proximo: 'Cinturón Amarillo', falta: 200 - xp, pct: (xp / 200) * 100 };
+        if (xp < 500) return { nivel: 'Cinturón Amarillo (Nivel 2)', proximo: 'Cinturón Naranja', falta: 500 - xp, pct: (xp / 500) * 100 };
+        if (xp < 1000) return { nivel: 'Cinturón Naranja (Nivel 3)', proximo: 'Cinturón Verde', falta: 1000 - xp, pct: (xp / 1000) * 100 };
+        if (xp < 2000) return { nivel: 'Cinturón Verde (Nivel 4)', proximo: 'Cinturón Azul', falta: 2000 - xp, pct: (xp / 2000) * 100 };
+        if (xp < 3500) return { nivel: 'Cinturón Azul (Nivel 5)', proximo: 'Cinturón Marrón', falta: 3500 - xp, pct: (xp / 3500) * 100 };
+        if (xp < 5000) return { nivel: 'Cinturón Marrón (Nivel 6)', proximo: 'Cinturón Negro Élite', falta: 5000 - xp, pct: (xp / 5000) * 100 };
+        return { nivel: 'Cinturón Negro Élite (Sensei)', proximo: 'Máximo rango', falta: 0, pct: 100 };
+      }
 
       window.addEventListener('DOMContentLoaded', () => {
         actualizarUIHeader();
@@ -411,6 +374,7 @@
         renderizarEjercicioSemana();
         renderizarBibliotecaCompleta();
         renderizarCreadores();
+        actualizarVistaPerfil();
       });
 
       function cambiarSeccion(sec) {
@@ -428,28 +392,32 @@
           btnActivo.classList.add('bg-slate-100', 'text-slate-900', 'font-semibold');
         }
 
+        if(sec === 'perfil') actualizarVistaPerfil();
         if(sec === 'favoritos') renderizarFavoritos();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
       function actualizarUIHeader() {
-        const container = document.getElementById('auth-action-container');
-        if(usuario.nombre) {
-          container.innerHTML = `
-            <div class="flex items-center gap-3 bg-[#FAF5EE] border border-[#EED7C1] px-4 py-2 rounded-2xl">
-              <span class="text-xs font-bold text-amber-900">🐼 ${usuario.nombre}</span>
-              <button onclick="cerrarSesion()" class="text-[11px] text-slate-500 hover:text-slate-900 font-bold cursor-pointer">Salir</button>
-            </div>
-          `;
-          document.getElementById('header-xp-val').innerText = `${usuario.xp} XP`;
-          document.getElementById('header-nivel-val').innerText = usuario.nivel;
-        } else {
-          container.innerHTML = `
-            <button onclick="abrirModalAuth()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition shadow-sm cursor-pointer">
-              Acceder Maestro
-            </button>
-          `;
-        }
+        const infoCinto = obtenerCinturonJudo(usuario.xp);
+        document.getElementById('header-xp-val').innerText = `${usuario.xp} XP`;
+        document.getElementById('header-cinto-val').innerText = `⚪ ${infoCinto.nivel.split(' ')[0]} ${infoCinto.nivel.split(' ')[1]}`;
+      }
+
+      function actualizarVistaPerfil() {
+        const infoCinto = obtenerCinturonJudo(usuario.xp);
+        document.getElementById('perfil-nombre-view').innerText = usuario.nombre || 'JONATHANIMEDIO';
+        document.getElementById('perfil-nivel-view').innerText = infoCinto.nivel;
+        document.getElementById('perfil-proximo-nivel').innerText = `${infoCinto.nivel} ➔ ${infoCinto.proximo}`;
+        document.getElementById('perfil-xp-faltante').innerText = infoCinto.falta > 0 ? `${infoCinto.falta} XP para ${infoCinto.proximo}` : '¡Rango Máximo Alcanzado!';
+        document.getElementById('perfil-barra-xp').style.width = `${infoCinto.pct}%`;
+
+        document.getElementById('perfil-stat-ejercicios').innerText = usuario.ejerciciosCount || recursos.filter(r => r.autor === usuario.nombre).length;
+        document.getElementById('perfil-stat-likes').innerText = usuario.likesCount || 12;
+        document.getElementById('perfil-stat-badges').innerText = usuario.badgesCount || 2;
+        document.getElementById('contador-badges-desbloqueados').innerText = usuario.badgesCount || 2;
+
+        document.getElementById('mes-sep').innerText = usuario.ejerciciosCount || 1;
+        document.getElementById('perfil-avatar-box').innerText = (usuario.nombre || 'J')[0].toUpperCase();
       }
 
       function abrirModalAuth() { document.getElementById('modal-auth').classList.remove('hidden'); }
@@ -459,7 +427,7 @@
 
       function verificarYAbrirCrear() {
         if(!usuario.nombre) {
-          alert('Por favor, identifícate con tu nombre y dojo para compartir recursos.');
+          alert('Por favor, identifícate con tu nombre y dojo.');
           abrirModalAuth();
         } else {
           abrirModalRecurso();
@@ -470,19 +438,12 @@
         e.preventDefault();
         usuario.nombre = document.getElementById('auth-nombre').value;
         usuario.club = document.getElementById('auth-club').value;
-        if(usuario.xp === 0) usuario.xp = 50;
-        usuario.nivel = '🟡 Aprendiz';
+        if(usuario.xp === 0) usuario.xp = 100;
         localStorage.setItem('judo_educacion_usuario', JSON.stringify(usuario));
         cerrarModalAuth();
         actualizarUIHeader();
-        alert(`¡Bienvenido a Judo Educación, Sensei ${usuario.nombre}!`);
-      }
-
-      function cerrarSesion() {
-        usuario = { nombre: '', club: '', xp: 0, nivel: '⚪ Principiante' };
-        localStorage.removeItem('judo_educacion_usuario');
-        actualizarUIHeader();
-        cambiarSeccion('inicio');
+        actualizarVistaPerfil();
+        alert(`¡Bienvenido, Sensei ${usuario.nombre}!`);
       }
 
       function procesarSubidaRecurso(e) {
@@ -491,34 +452,37 @@
           id: Date.now(),
           titulo: document.getElementById('rec-titulo').value,
           categoria: document.getElementById('rec-cat').value,
-          autor: usuario.nombre,
-          club: usuario.club,
+          autor: usuario.nombre || 'JONATHANIMEDIO',
+          club: usuario.club || 'Dojo Central',
           descripcion: document.getElementById('rec-desc').value,
           likes: 1,
           fav: false
         };
 
         recursos.unshift(nuevo);
-        usuario.xp += 100;
-        if(usuario.xp >= 200) usuario.nivel = '🟢 Educador';
+        usuario.xp += 150;
+        usuario.ejerciciosCount = (usuario.ejerciciosCount || 0) + 1;
+        usuario.badgesCount = 3; // Desbloquea badge al subir ejercicio
+
         localStorage.setItem('judo_educacion_recursos', JSON.stringify(recursos));
         localStorage.setItem('judo_educacion_usuario', JSON.stringify(usuario));
 
         cerrarModalRecurso();
         document.getElementById('form-recurso')?.reset();
         actualizarUIHeader();
+        actualizarVistaPerfil();
         renderizarBibliotecaCompleta();
-        alert('¡Recurso publicado con éxito! Has ganado +100 XP y ayudado a la comunidad.');
+        alert('¡Recurso publicado con éxito! Has ganado +150 XP y desbloqueado un nuevo Badge.');
         cambiarSeccion('biblioteca');
       }
 
       function renderizarRankingInicio() {
         const box = document.getElementById('lista-ranking-inicio');
         const ranking = [
-          { pos: 1, nombre: usuario.nombre || 'Carlos Gómez', xp: usuario.xp || 1450, belt: '🟤 Sensei' },
-          { pos: 2, nombre: 'Ana Martínez', xp: 920, belt: '🟢 Educador' },
-          { pos: 3, nombre: 'Javier Ruiz', xp: 640, belt: '🟠 Practicante' },
-          { pos: 4, nombre: 'Elena Moral', xp: 410, belt: '🟡 Aprendiz' }
+          { pos: 1, nombre: usuario.nombre || 'JONATHANIMEDIO', xp: usuario.xp, belt: '🟤 Cinturón Marrón' },
+          { pos: 2, nombre: 'Ana Martínez', xp: 920, belt: '🟢 Cinturón Verde' },
+          { pos: 3, nombre: 'Javier Ruiz', xp: 640, belt: '🟠 Cinturón Naranja' },
+          { pos: 4, nombre: 'Elena Moral', xp: 410, belt: '🟡 Cinturón Amarillo' }
         ];
 
         box.innerHTML = ranking.map(r => `
@@ -545,7 +509,7 @@
             <p class="text-xs text-slate-600">${r.descripcion}</p>
           </div>
           <div class="flex items-center justify-between pt-3 border-t border-[#EED7C1] text-xs text-slate-600">
-            <span>Maestro: <strong class="text-slate-900">${r.autor}</strong> (${r.club})</span>
+            <span>Maestro: <strong class="text-slate-900">${r.autor}</strong></span>
             <button onclick="darLike(${r.id})" class="text-rose-600 font-bold hover:scale-110 transition cursor-pointer">❤️ ${r.likes}</button>
           </div>
         `;
@@ -554,20 +518,13 @@
       function renderizarBibliotecaCompleta() {
         const grid = document.getElementById('grid-biblioteca-total');
         const cat = document.getElementById('filtro-categoria').value;
-        const texto = document.getElementById('buscador-biblio-input').value.toLowerCase();
-
-        let filtrados = recursos.filter(r => {
-          let matchCat = cat === 'todas' || r.categoria === cat;
-          let matchText = r.titulo.toLowerCase().includes(texto) || r.autor.toLowerCase().includes(texto);
-          return matchCat && matchText;
-        });
-
+        let filtrados = recursos.filter(r => cat === 'todas' || r.categoria === cat);
         document.getElementById('contador-resultados-biblio').innerText = `Mostrando ${filtrados.length} recursos`;
 
         grid.innerHTML = filtrados.map(r => `
-          <div class="bg-[#F8F9FA] border border-slate-200/80 rounded-2xl p-5 flex flex-col justify-between gap-4 shadow-2xs hover:shadow-md transition">
+          <div class="bg-[#F8F9FA] border border-slate-200/80 rounded-2xl p-5 flex flex-col justify-between gap-4 shadow-2xs">
             <div class="space-y-2">
-              <span class="text-[11px] font-bold text-blue-900 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100 inline-block">${r.categoria}</span>
+              <span class="text-[11px] font-bold text-blue-900 bg-blue-50 px-2.5 py-1 rounded-full inline-block">${r.categoria}</span>
               <h4 class="font-bold text-slate-900 text-sm font-heading">${r.titulo}</h4>
               <p class="text-xs text-slate-600 line-clamp-2">${r.descripcion}</p>
             </div>
@@ -575,7 +532,7 @@
               <span class="font-medium text-slate-900">${r.autor}</span>
               <div class="flex items-center gap-3">
                 <button onclick="toggleFavorito(${r.id})" class="cursor-pointer transition hover:scale-110">${r.fav ? '❤️' : '🤍'}</button>
-                <button onclick="darLike(${r.id})" class="text-rose-600 font-bold cursor-pointer flex items-center gap-1">❤️ <span>${r.likes}</span></button>
+                <button onclick="darLike(${r.id})" class="text-rose-600 font-bold cursor-pointer">❤️ <span>${r.likes}</span></button>
               </div>
             </div>
           </div>
@@ -584,9 +541,7 @@
 
       function aplicarFiltrosBiblioteca() { renderizarBibliotecaCompleta(); }
       function limpiarFiltros() {
-        document.getElementById('filtro-orden').value = 'recientes';
         document.getElementById('filtro-categoria').value = 'todas';
-        document.getElementById('buscador-biblio-input').value = '';
         renderizarBibliotecaCompleta();
       }
 
@@ -612,43 +567,31 @@
       function renderizarFavoritos() {
         const grid = document.getElementById('grid-favoritos');
         const favs = recursos.filter(r => r.fav);
-        if(favs.length === 0) {
-          grid.innerHTML = `<p class="text-xs text-slate-400 col-span-full text-center py-8">No tienes recursos guardados en favoritos todavía.</p>`;
-          return;
-        }
-        grid.innerHTML = favs.map(r => `
-          <div class="bg-[#F8F9FA] border border-slate-200/80 rounded-2xl p-5 flex flex-col justify-between gap-4">
-            <div class="space-y-2">
-              <span class="text-[11px] font-bold text-amber-900 bg-amber-100 px-2.5 py-1 rounded-full">${r.categoria}</span>
+        grid.innerHTML = favs.length === 0 ? `<p class="text-xs text-slate-400 col-span-full text-center py-8">No tienes favoritos guardados.</p>` :
+          favs.map(r => `
+            <div class="bg-[#F8F9FA] border border-slate-200/80 rounded-2xl p-5 flex flex-col justify-between gap-4">
               <h4 class="font-bold text-slate-900 text-sm font-heading">${r.titulo}</h4>
-              <p class="text-xs text-slate-600">${r.descripcion}</p>
+              <button onclick="toggleFavorito(${r.id}); renderizarFavoritos();" class="text-rose-600 font-bold text-xs">Quitar ❤️</button>
             </div>
-            <div class="flex items-center justify-between pt-3 border-t border-slate-200 text-xs text-slate-500">
-              <span>${r.autor}</span>
-              <button onclick="toggleFavorito(${r.id}); renderizarFavoritos();" class="text-rose-600 font-bold cursor-pointer">Quitar ❤️</button>
-            </div>
-          </div>
-        `).join('');
+          `).join('');
       }
 
       function renderizarCreadores() {
         const box = document.getElementById('lista-creadores-completa');
         const maestros = [
-          { nombre: 'Carlos Gómez', club: 'Judo Club Brunete', aportes: 24, nivel: '🟤 Sensei' },
-          { nombre: 'Ana Martínez', club: 'Club Esportiu Judo', aportes: 19, nivel: '🟢 Educador' },
-          { nombre: 'Javier Ruiz', club: 'Dojo Bushido', aportes: 15, nivel: '🟢 Educador' },
-          { nombre: 'Elena Moral', club: 'Judo Kids', aportes: 11, nivel: '🟠 Practicante' }
+          { nombre: usuario.nombre || 'JONATHANIMEDIO', club: 'Dojo Central', aportes: usuario.ejerciciosCount || 1, belt: '🟤 Cinturón Marrón' },
+          { nombre: 'Ana Martínez', club: 'Club Esportiu', aportes: 19, belt: '🟢 Cinturón Verde' }
         ];
         box.innerHTML = maestros.map((m, i) => `
-          <div class="p-4 rounded-2xl bg-[#F8F9FA] border border-slate-100 flex items-center justify-between">
+          <div class="p-4 rounded-2xl bg-[#F8F9FA] border border-slate-100 flex items-center justify-between text-xs">
             <div class="flex items-center gap-3">
-              <span class="w-8 h-8 rounded-xl bg-amber-100 text-amber-900 font-bold flex items-center justify-center text-xs">#${i+1}</span>
+              <span class="w-8 h-8 rounded-xl bg-amber-100 text-amber-900 font-bold flex items-center justify-center">#${i+1}</span>
               <div>
-                <h4 class="font-bold text-slate-900 text-sm font-heading">${m.nombre}</h4>
-                <span class="text-[11px] text-slate-500">${m.club} · <strong class="text-amber-800">${m.nivel}</strong></span>
+                <span class="font-bold text-slate-900 text-sm">${m.nombre}</span>
+                <span class="text-[11px] text-slate-500 block">${m.belt}</span>
               </div>
             </div>
-            <span class="text-xs bg-white border border-slate-200 text-slate-700 px-3 py-1.5 rounded-xl font-bold shadow-2xs">${m.aportes} recursos</span>
+            <span class="font-bold bg-white border border-slate-200 px-3 py-1.5 rounded-xl">${m.aportes} recursos</span>
           </div>
         `).join('');
       }
