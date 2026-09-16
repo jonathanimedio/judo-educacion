@@ -362,6 +362,112 @@
     // ============================================================
 
     async function searchResources() {
+  const query = searchInput.value.trim();
+
+  if (!query) {
+    results.innerHTML = "";
+    resultsSection.classList.remove("visible");
+    return;
+  }
+
+  resultsSection.classList.add("visible");
+  results.innerHTML = `
+    <div class="loading">
+      🔎 Buscando recursos para tu clase...
+    </div>
+  `;
+
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/rpc/search_resources`,
+      {
+        method: "POST",
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Authorization": `Bearer ${SUPABASE_KEY}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          search_query: query
+        })
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Error al realizar la búsqueda");
+    }
+
+    const data = await response.json();
+
+    if (!data || data.length === 0) {
+      results.innerHTML = `
+        <div class="no-results">
+          <h3>No hemos encontrado recursos exactos</h3>
+          <p>
+            Prueba con otros términos como
+            <strong>cooperación</strong>,
+            <strong>ukemi</strong>,
+            <strong>agarre</strong> o
+            <strong>desplazamientos</strong>.
+          </p>
+        </div>
+      `;
+      return;
+    }
+
+    results.innerHTML = data.map(resource => `
+      <article class="resource-card">
+
+        <div class="resource-type">
+          ${getResourceTypeLabel(resource.resource_type)}
+        </div>
+
+        <h3>${escapeHtml(resource.title)}</h3>
+
+        <p>${escapeHtml(resource.description || "")}</p>
+
+        ${
+          resource.age_min && resource.age_max
+            ? `<div class="resource-meta">
+                👦 ${resource.age_min}–${resource.age_max} años
+              </div>`
+            : ""
+        }
+
+        ${
+          resource.topics && resource.topics.length
+            ? `<div class="resource-tags">
+                ${resource.topics
+                  .map(topic => `<span>${escapeHtml(topic)}</span>`)
+                  .join("")}
+              </div>`
+            : ""
+        }
+
+        ${
+          resource.url
+            ? `<a href="${escapeAttribute(resource.url)}"
+                 target="_blank"
+                 rel="noopener noreferrer">
+                 Ver recurso →
+               </a>`
+            : ""
+        }
+
+      </article>
+    `).join("");
+
+  } catch (error) {
+    console.error(error);
+
+    results.innerHTML = `
+      <div class="no-results">
+        <h3>Ha ocurrido un error</h3>
+        <p>Prueba de nuevo en unos segundos.</p>
+      </div>
+    `;
+  }
+}
 
         const input =
             document.getElementById("searchInput");
